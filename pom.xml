@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>at.tugraz.ist.ase</groupId>
+    <artifactId>ce-core</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+
+    <modules>
+        <module>mf-package</module>
+        <module>heuristics-package</module>
+        <module>ce-package</module>
+        <module>ce-core-package</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+
+<!--    <profiles>-->
+<!--        <profile>-->
+<!--            <id>apps</id>-->
+<!--            <modules>-->
+<!--                <module>app-KBStatistics</module>-->
+<!--                <module>app-FMGenerator</module>-->
+<!--            </modules>-->
+<!--        </profile>-->
+<!--    </profiles>-->
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>at.tugraz.ist.ase</groupId>
+                <artifactId>choco-kb-v2</artifactId>
+                <version>1.3.9-alpha-18</version>
+            </dependency>
+            <dependency>
+                <groupId>at.tugraz.ist.ase</groupId>
+                <artifactId>ca-cdr-v2</artifactId>
+                <version>1.3.9-alpha-18</version>
+            </dependency>
+            <dependency>
+                <groupId>at.tugraz.ist.ase</groupId>
+                <artifactId>test-v2</artifactId>
+                <version>1.3.9-alpha-18</version>
+            </dependency>
+            <dependency>
+                <groupId>at.tugraz.ist.ase</groupId>
+                <artifactId>eval-v2</artifactId>
+                <version>1.3.9-alpha-18</version>
+            </dependency>
+            <dependency>
+                <groupId>at.tugraz.ist.ase</groupId>
+                <artifactId>common-v2</artifactId>
+                <version>1.3.9-alpha-18</version>
+            </dependency>
+
+            <dependency>
+                <groupId>at.tugraz.ist.ase.heuristics</groupId>
+                <artifactId>heuristics-package</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>at.tugraz.ist.ase.ce</groupId>
+                <artifactId>ce-core-package</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>at.tugraz.ist.ase.mf</groupId>
+                <artifactId>mf-package</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>1.2.11</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.mahout</groupId>
+                <artifactId>mahout-core</artifactId>
+                <version>0.9</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.mahout</groupId>
+                <artifactId>mahout-math</artifactId>
+                <version>0.13.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.0</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <developers>
+        <developer>
+            <id>manleviet</id>
+            <name>Viet-Man Le</name>
+            <email>vietman.le@ist.tugraz.at</email>
+            <url>https://github.com/manleviet</url>
+        </developer>
+    </developers>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>CECore</name>
+            <url>https://maven.pkg.github.com/manleviet/CECore</url>
+        </repository>
+    </distributionManagement>
+
+</project>

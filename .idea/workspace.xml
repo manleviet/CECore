@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="437f3de2-4322-4297-9644-3543d6625028" name="Changes" comment="Migrated from MF4ChocoSolver, ChocoWS, and MF-based-CD">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copyright/ce_core.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ce-core-package/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Requirement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Solution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/io/SolutionWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/translator/ISolutionTranslatable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ce-package/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/ConfigurationModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/Configurator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ce-package/src/test/java/at/tugraz/ist/ase/ce/RequirementTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics-package/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/MFVVOHeuristic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/MFVVOModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/ValueOrdering.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/ValueVariableOrdering.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/selector/MFVVOValueSelector.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/selector/MFVVOVariableSelector.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mf-package/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mf-package/src/main/java/at/tugraz/ist/ase/mf/MFException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mf-package/src/main/java/at/tugraz/ist/ase/mf/MatrixFactorization.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="JUnit5 Test Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectId" id="2Bg6YlYTmBREMvjthtV3n7EZg8C" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "jdk.selected.JAVA_MODULE": "temurin-17",
+    "last_opened_file_path": "/Users/manleviet/Development/GitHub/CECore/configurator-package/src/main/java/at/tugraz/ist/ase/configurator",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "copyright"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/configurator-package/src/main/java/at/tugraz/ist/ase/configurator" />
+      <recent name="$PROJECT_DIR$/heuristics/src/main/java/at/tugraz/ist/ase/heuristics/selector" />
+      <recent name="$PROJECT_DIR$/heuristics/src/main/java/at/tugraz/ist/ase/heuristics" />
+      <recent name="$PROJECT_DIR$/mf-package/src/main/java" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="at.tugraz.ist.ase.ce" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="at.tugraz.ist.ase.configurator" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="at.tugraz.ist.ase.ce" />
+      <recent name="at.tugraz.ist.ase.ce.translator" />
+      <recent name="at.tugraz.ist.ase.heuristics" />
+      <recent name="at.tugraz.ist.ase.configurator.io" />
+      <recent name="at.tugraz.ist.ase.mf" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="RequirementTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ce-package" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="at.tugraz.ist.ase.ce.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="at.tugraz.ist.ase.configurator" />
+      <option name="MAIN_CLASS_NAME" value="at.tugraz.ist.ase.ce.RequirementTest" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.RequirementTest.test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="437f3de2-4322-4297-9644-3543d6625028" name="Changes" comment="" />
+      <created>1657315430418</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1657315430418</updated>
+      <workItem from="1657315432082" duration="15164000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Migrated from MF4ChocoSolver, ChocoWS, and MF-based-CD" />
+    <option name="LAST_COMMIT_MESSAGE" value="Migrated from MF4ChocoSolver, ChocoWS, and MF-based-CD" />
+  </component>
+</project>

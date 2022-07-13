@@ -1,0 +1,7 @@
+<component name="CopyrightManager">
+  <settings default="ce-core">
+    <module2copyright>
+      <element module="All" copyright="ce-core" />
+    </module2copyright>
+  </settings>
+</component>
