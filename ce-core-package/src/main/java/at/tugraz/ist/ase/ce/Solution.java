@@ -1,7 +1,7 @@
 /*
- * MF4ChocoSolver
+ * Core components of a configuration environment
  *
- * Copyright (c) 2021.
+ * Copyright (c) 2021-2022
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */

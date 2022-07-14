@@ -5,37 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="437f3de2-4322-4297-9644-3543d6625028" name="Changes" comment="Migrated from MF4ChocoSolver, ChocoWS, and MF-based-CD">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copyright/ce_core.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ce-core-package/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Requirement.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Solution.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/io/SolutionWriter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/translator/ISolutionTranslatable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ce-package/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/ConfigurationModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/Configurator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ce-package/src/test/java/at/tugraz/ist/ase/ce/RequirementTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics-package/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/MFVVOHeuristic.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/MFVVOModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/ValueOrdering.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/ValueVariableOrdering.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/selector/MFVVOValueSelector.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/selector/MFVVOVariableSelector.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mf-package/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mf-package/src/main/java/at/tugraz/ist/ase/mf/MFException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mf-package/src/main/java/at/tugraz/ist/ase/mf/MatrixFactorization.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Requirement.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Requirement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/translator/ISolutionTranslatable.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/translator/ISolutionTranslatable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/ConfigurationModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/ConfigurationModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/Configurator.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/Configurator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/MFVVOHeuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/MFVVOHeuristic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/MFVVOModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/MFVVOModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/ValueOrdering.java" beforeDir="false" afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/ValueOrdering.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/ValueVariableOrdering.java" beforeDir="false" afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/ValueVariableOrdering.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/selector/MFVVOValueSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/selector/MFVVOValueSelector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/selector/MFVVOVariableSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/selector/MFVVOVariableSelector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mf-package/src/main/java/at/tugraz/ist/ase/mf/MatrixFactorization.java" beforeDir="false" afterPath="$PROJECT_DIR$/mf-package/src/main/java/at/tugraz/ist/ase/mf/MatrixFactorization.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +74,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "copyright"
+    "settings.editor.selected.configurable": "copyright.profiles"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -150,12 +132,23 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1657315430418</updated>
-      <workItem from="1657315432082" duration="15164000" />
+      <workItem from="1657315432082" duration="17006000" />
     </task>
+    <task id="LOCAL-00001" summary="Migrated from MF4ChocoSolver, ChocoWS, and MF-based-CD">
+      <created>1657754894286</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1657754894286</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UpdateCopyrightCheckinHandler">
+    <option name="UPDATE_COPYRIGHT" value="true" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

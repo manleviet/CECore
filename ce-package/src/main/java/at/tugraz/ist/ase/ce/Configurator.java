@@ -1,7 +1,7 @@
 /*
- * MF4ChocoSolver
+ * Core components of a configuration environment
  *
- * Copyright (c) 2021.
+ * Copyright (c) 2021-2022
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
@@ -66,17 +66,6 @@ public class Configurator {
         return solutions.get(getNumberSolutions() - 1);
     }
 
-//    public void recommend(@NonNull Requirement requirement) {
-//        checkArgument(heuristic != null, "Have to set Heuristic before calling this method.");
-//
-//        solutions.clear();
-//
-//        // get heuristics for the requirement
-//        ValueVariableOrdering vvo = heuristic.getHeuristic(requirement);
-//
-//        // TODO: recommendation
-//    }
-
     private SolutionWriter writer = null;
     protected void find(int maxNumConf, Set<Constraint> C, ValueVariableOrdering vvo) {
         // re-add Constraint to the model
@@ -93,7 +82,7 @@ public class Configurator {
             configurationCounter.getAndIncrement();
 
             Solution solution = getCurrentSolution();
-            log.debug("{}Found conf {}", LoggerUtils.tab(), configurationCounter.get());
+            log.trace("{}Found conf {}", LoggerUtils.tab(), configurationCounter.get());
             solutions.add(solution);
 
             if (writer != null) {
@@ -106,7 +95,7 @@ public class Configurator {
         });
 
         if (vvo != null) {
-            log.debug("{}Add value variable heuristic", LoggerUtils.tab());
+            log.trace("{}Add value variable heuristic", LoggerUtils.tab());
             solver.setSearch(intVarSearch(
                     new MFVVOVariableSelector(vvo.getIntVarOrdering()),
                     new MFVVOValueSelector(vvo.getValueOrdering()),
@@ -191,88 +180,6 @@ public class Configurator {
         return checker.isConsistent(C);
     }
 
-    //    public boolean isConsistent(String[] headers, String[] items) {
-//
-//        assert headers.length == items.length;
-//
-////        modelKB.getEnvironment().worldPush();
-//        int oldNbCstrs = modelKB.getNbCstrs();
-//
-//        // add constraints
-//        for (int i = 0; i < (headers.length); i++) {
-//            String header = headers[i];
-//            String item = items[i];
-//
-//            IntVar var = getIntVar(header);
-//            int value = getChocoValue(header, item);
-//
-////            System.out.println(i + ":" + var.getName() + "-" + value);
-////            assert var != null;
-////            assert value != -1 ||
-////                    var.getName().equals("gis_OperatingTempIndoorMax") || var.getName().equals("gis_OperatingTempOutdoorMax") || var.getName().equals("gis_RatedCurrentBusbar")
-////                    : var.getName() ;
-//
-//
-//            if (var != null && (value != -1 ||
-//                    var.getName().equals("gis_OperatingTempIndoorMax") ||
-//                    var.getName().equals("gis_OperatingTempOutdoorMax") ||
-//                    var.getName().equals("gis_RatedCurrentBusbar"))) {
-////                System.out.println("Add constraints: " + var.getName() + " = " + value);
-//                modelKB.arithm(var, "=", value).post();
-//            }
-////            } else {
-////                if (var != null) {
-////                    System.out.println(var.getName() + " = " + value);
-////                } else {
-////                    System.out.println("var is empty");
-////                }
-////            }
-//        }
-//
-//        int newNbCstrs = modelKB.getNbCstrs();
-//
-//        modelKB.getSolver().setSearch(new DomOverWDeg(
-//                kb.getChocoVars(),
-//                2,
-//                new IntDomainRandom(2)
-//        ));
-//
-////                Search.intVarSearch(
-////                // selects the variable of the smallest domain size
-////                new FirstFail(siemensKB.getModelKB()),
-////                // selects the smallest domain value (lower bound)
-////                new IntDomainRandom(12)
-////                // apply equality (var = val)
-//////                DecisionOperator
-////                // variables to branch on
-//////                x, y
-////        ));
-//
-//        boolean isConsistent = modelKB.getSolver().solve();
-//
-//        modelKB.getSolver().reset();
-////        if (!isConsistent) {
-////            SiemensDiagnosisModel diagnosisModel = new SiemensDiagnosisModel(this);
-////            diagnosisModel.initialize();
-////
-////            ChocoConsistencyChecker checker = new ChocoConsistencyChecker(diagnosisModel);
-////
-////            FastDiagV3 fastDiag = new FastDiagV3(checker);
-////
-////            Set<String> diag = fastDiag.findDiagnosis(diagnosisModel.getPossiblyFaultyConstraints(),
-////                    diagnosisModel.getCorrectConstraints());
-////
-////            if (!diag.isEmpty()) {
-////                System.out.println("\t\tDiag: " + diag);
-////            } else {
-////                System.out.println("\t\tNO DIAGNOSIS----------------");
-////            }
-////        }
-//
-//        removeRequirement(oldNbCstrs, newNbCstrs);
-//
-//        return isConsistent;
-//    }
     protected Solution getCurrentSolution() {
         List<Assignment> assignments = kb.getVariableList().stream()
                 .map(var -> Assignment.builder()
@@ -303,6 +210,6 @@ public class Configurator {
         model.getSolver().reset();
         model.unpost(model.getCstrs()); // unpost all constraints
 
-        log.trace("{}Reset model", LoggerUtils.tab());
+        log.trace("{}Reset model and unpost all constraints", LoggerUtils.tab());
     }
 }
