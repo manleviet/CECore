@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ CECore - Core components of a Configuration Environment
+  ~
+  ~ Copyright (c) 2022
+  ~
+  ~ @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+  -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>ce-core</artifactId>
         <groupId>at.tugraz.ist.ase</groupId>
-        <version>1.0</version>
+        <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>at.tugraz.ist.ase.mf</groupId>
-    <artifactId>mf-package</artifactId>
+    <artifactId>mf</artifactId>
 
     <dependencies>
         <dependency>

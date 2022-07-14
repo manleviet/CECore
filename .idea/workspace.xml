@@ -4,20 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="437f3de2-4322-4297-9644-3543d6625028" name="Changes" comment="Migrated from MF4ChocoSolver, ChocoWS, and MF-based-CD">
+    <list default="true" id="437f3de2-4322-4297-9644-3543d6625028" name="Changes" comment="Updated the copyright">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Requirement.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Requirement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/translator/ISolutionTranslatable.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/translator/ISolutionTranslatable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/ConfigurationModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/ConfigurationModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/Configurator.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/Configurator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/MFVVOHeuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/MFVVOHeuristic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/MFVVOModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/MFVVOModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/ValueOrdering.java" beforeDir="false" afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/ValueOrdering.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/ValueVariableOrdering.java" beforeDir="false" afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/ValueVariableOrdering.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/selector/MFVVOValueSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/selector/MFVVOValueSelector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/selector/MFVVOVariableSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/heuristics-package/src/main/java/at/tugraz/ist/ase/heuristics/selector/MFVVOVariableSelector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mf-package/src/main/java/at/tugraz/ist/ase/mf/MatrixFactorization.java" beforeDir="false" afterPath="$PROJECT_DIR$/mf-package/src/main/java/at/tugraz/ist/ase/mf/MatrixFactorization.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ce-core-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ce-core-package/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/io/SolutionWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/io/SolutionWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ce-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ce-package/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/heuristics-package/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mf-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mf-package/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,24 +53,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "jdk.selected.JAVA_MODULE": "temurin-17",
-    "last_opened_file_path": "/Users/manleviet/Development/GitHub/CECore/configurator-package/src/main/java/at/tugraz/ist/ase/configurator",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "copyright.profiles"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;temurin-17&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/manleviet/Development/GitHub/CECore/configurator-package/src/main/java/at/tugraz/ist/ase/configurator&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;copyright.profiles&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/configurator-package/src/main/java/at/tugraz/ist/ase/configurator" />
@@ -133,6 +127,8 @@
       <option name="presentableId" value="Default" />
       <updated>1657315430418</updated>
       <workItem from="1657315432082" duration="17006000" />
+      <workItem from="1657757517666" duration="80000" />
+      <workItem from="1657790518265" duration="939000" />
     </task>
     <task id="LOCAL-00001" summary="Migrated from MF4ChocoSolver, ChocoWS, and MF-based-CD">
       <created>1657754894286</created>
@@ -141,7 +137,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657754894286</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Updated the copyright">
+      <created>1657757548175</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1657757548175</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -176,6 +179,7 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Migrated from MF4ChocoSolver, ChocoWS, and MF-based-CD" />
-    <option name="LAST_COMMIT_MESSAGE" value="Migrated from MF4ChocoSolver, ChocoWS, and MF-based-CD" />
+    <MESSAGE value="Updated the copyright" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated the copyright" />
   </component>
 </project>

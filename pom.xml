@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ CECore - Core components of a Configuration Environment
+  ~
+  ~ Copyright (c) 2022
+  ~
+  ~ @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+  -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -7,7 +15,7 @@
     <groupId>at.tugraz.ist.ase</groupId>
     <artifactId>ce-core</artifactId>
     <packaging>pom</packaging>
-    <version>1.0</version>
+    <version>1.0.1</version>
 
     <modules>
         <module>mf-package</module>
@@ -62,19 +70,19 @@
             </dependency>
 
             <dependency>
-                <groupId>at.tugraz.ist.ase.heuristics</groupId>
-                <artifactId>heuristics-package</artifactId>
-                <version>1.0</version>
+                <groupId>at.tugraz.ist.ase</groupId>
+                <artifactId>heuristics</artifactId>
+                <version>1.0.1</version>
             </dependency>
             <dependency>
-                <groupId>at.tugraz.ist.ase.ce</groupId>
-                <artifactId>ce-core-package</artifactId>
-                <version>1.0</version>
+                <groupId>at.tugraz.ist.ase</groupId>
+                <artifactId>cecore</artifactId>
+                <version>1.0.1</version>
             </dependency>
             <dependency>
-                <groupId>at.tugraz.ist.ase.mf</groupId>
-                <artifactId>mf-package</artifactId>
-                <version>1.0</version>
+                <groupId>at.tugraz.ist.ase</groupId>
+                <artifactId>mf</artifactId>
+                <version>1.0.1</version>
             </dependency>
 
             <dependency>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Core components of a configuration environment
+  ~ CECore - Core components of a Configuration Environment
   ~
   ~ Copyright (c) 2022
   ~
@@ -13,12 +13,11 @@
     <parent>
         <artifactId>ce-core</artifactId>
         <groupId>at.tugraz.ist.ase</groupId>
-        <version>1.0</version>
+        <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>at.tugraz.ist.ase.ce</groupId>
-    <artifactId>ce-core-package</artifactId>
+    <artifactId>cecore</artifactId>
 
     <dependencies>
         <dependency>
