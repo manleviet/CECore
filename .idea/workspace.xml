@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="437f3de2-4322-4297-9644-3543d6625028" name="Changes" comment="Updated the copyright">
+    <list default="true" id="437f3de2-4322-4297-9644-3543d6625028" name="Changes" comment="Corrected groupID and artifactID &amp; New package 1.0.1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ce-core-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ce-core-package/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/io/SolutionWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/io/SolutionWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Requirement.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Requirement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Solution.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ce-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ce-package/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/heuristics-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/heuristics-package/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mf-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mf-package/pom.xml" afterDir="false" />
@@ -128,7 +129,9 @@
       <updated>1657315430418</updated>
       <workItem from="1657315432082" duration="17006000" />
       <workItem from="1657757517666" duration="80000" />
-      <workItem from="1657790518265" duration="939000" />
+      <workItem from="1657790518265" duration="975000" />
+      <workItem from="1658091808460" duration="19000" />
+      <workItem from="1658092906828" duration="400000" />
     </task>
     <task id="LOCAL-00001" summary="Migrated from MF4ChocoSolver, ChocoWS, and MF-based-CD">
       <created>1657754894286</created>
@@ -144,7 +147,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657757548175</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Corrected groupID and artifactID &amp; New package 1.0.1">
+      <created>1657791486228</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1657791486228</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,6 +190,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Migrated from MF4ChocoSolver, ChocoWS, and MF-based-CD" />
     <MESSAGE value="Updated the copyright" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated the copyright" />
+    <MESSAGE value="Corrected groupID and artifactID &amp; New package 1.0.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrected groupID and artifactID &amp; New package 1.0.1" />
   </component>
 </project>

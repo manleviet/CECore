@@ -1,5 +1,5 @@
 /*
- * Core components of a configuration environment
+ * CECore - Core components of a Configuration Environment
  *
  * Copyright (c) 2021-2022
  *
@@ -18,5 +18,12 @@ public class Requirement extends Solution {
     @Builder(builderMethodName = "requirementBuilder")
     public Requirement(@NonNull List<Assignment> assignments) {
         super(assignments);
+    }
+
+    @Override
+    public String toString() {
+        return "Requirement{" +
+                "assignments=" + assignments +
+                '}';
     }
 }

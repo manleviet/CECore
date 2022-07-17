@@ -1,5 +1,5 @@
 /*
- * Core components of a configuration environment
+ * CECore - Core components of a Configuration Environment
  *
  * Copyright (c) 2021-2022
  *
@@ -22,7 +22,7 @@ import static com.google.common.base.Preconditions.checkElementIndex;
 @Builder
 public class Solution implements Cloneable {
     @Getter
-    private List<Assignment> assignments;
+    protected List<Assignment> assignments;
 
     public Solution(@NonNull List<Assignment> assignments) {
         this.assignments = assignments;
