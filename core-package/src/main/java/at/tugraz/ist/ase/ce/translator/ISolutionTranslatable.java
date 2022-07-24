@@ -1,5 +1,5 @@
 /*
- * Core components of a configuration environment
+ * CECore - Core components of a Configuration Environment
  *
  * Copyright (c) 2022
  *
