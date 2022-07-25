@@ -1,5 +1,5 @@
 /*
- * Core components of a configuration environment
+ * CECore - Core components of a Configuration Environment
  *
  * Copyright (c) 2022
  *
@@ -26,6 +26,8 @@ import static at.tugraz.ist.ase.common.ChocoSolverUtils.getVariable;
 
 /**
  * rootConstraint - support the root constraint of feature models
+ * C = empty
+ * B = all constraints
  */
 @Slf4j
 public class ConfigurationModel extends CDRModel implements IChocoModel {
