@@ -4,43 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="437f3de2-4322-4297-9644-3543d6625028" name="Changes" comment="Changed ce-core package to core-package">
-      <change afterPath="$PROJECT_DIR$/core-package/src/main/java/at/tugraz/ist/ase/ce/translator/fm/FMSolutionTranslator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/logs.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/AnalysisOperator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/AnomalyType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/FMAnalyzer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/AbstractFMAnalysis.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/DeadFeatureAnalysis.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/IFMAnalysisAssumptionCreatable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/VoidFMAnalysis.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/AbstractAnomalyExplanator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/ExplanationColors.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/ExplanationUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/VoidFMExplanator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/monitor/IMonitor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/monitor/ProgressMonitor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/main/resources/logback.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/test/java/at/tugraz/ist/ase/fma/FMAnalyzerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_deadfeature1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_deadfeature2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_deadfeature3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_falseoptional1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_falseoptional2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_falseoptional3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_redundancies1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_redundancies2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_redundancies3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_redundancies4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_void.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/logback-test.xml" afterDir="false" />
+    <list default="true" id="437f3de2-4322-4297-9644-3543d6625028" name="Changes" comment="Added first FM Analysis - VoidFMAnalysis">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/ConfigurationModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/ConfigurationModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/Configurator.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/Configurator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,7 +165,7 @@
       <workItem from="1658091808460" duration="19000" />
       <workItem from="1658092906828" duration="716000" />
       <workItem from="1658221597753" duration="860000" />
-      <workItem from="1658477781757" duration="39063000" />
+      <workItem from="1658477781757" duration="39406000" />
     </task>
     <task id="LOCAL-00001" summary="Migrated from MF4ChocoSolver, ChocoWS, and MF-based-CD">
       <created>1657754894286</created>
@@ -236,7 +202,35 @@
       <option name="project" value="LOCAL" />
       <updated>1658701288896</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added test models">
+      <created>1658753068761</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1658753068761</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Updated gitignore">
+      <created>1658753082501</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1658753082501</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Updated Configurator with timeout">
+      <created>1658753240904</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1658753240904</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added first FM Analysis - VoidFMAnalysis">
+      <created>1658753348747</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1658753348747</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -275,6 +269,10 @@
     <MESSAGE value="Corrected groupID and artifactID &amp; New package 1.0.1" />
     <MESSAGE value="Corrected toString of Requirement &amp; New package 1.0.5" />
     <MESSAGE value="Changed ce-core package to core-package" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed ce-core package to core-package" />
+    <MESSAGE value="Added test models" />
+    <MESSAGE value="Updated gitignore" />
+    <MESSAGE value="Updated Configurator with timeout" />
+    <MESSAGE value="Added first FM Analysis - VoidFMAnalysis" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added first FM Analysis - VoidFMAnalysis" />
   </component>
 </project>
