@@ -4,14 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="437f3de2-4322-4297-9644-3543d6625028" name="Changes" comment="Corrected groupID and artifactID &amp; New package 1.0.1">
+    <list default="true" id="437f3de2-4322-4297-9644-3543d6625028" name="Changes" comment="Changed ce-core package to core-package">
+      <change afterPath="$PROJECT_DIR$/core-package/src/main/java/at/tugraz/ist/ase/ce/translator/fm/FMSolutionTranslator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/logs.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/AnalysisOperator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/AnomalyType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/FMAnalyzer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/AbstractFMAnalysis.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/DeadFeatureAnalysis.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/IFMAnalysisAssumptionCreatable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/VoidFMAnalysis.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/AbstractAnomalyExplanator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/ExplanationColors.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/ExplanationUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/VoidFMExplanator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/monitor/IMonitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/monitor/ProgressMonitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/resources/logback.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/test/java/at/tugraz/ist/ase/fma/FMAnalyzerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_deadfeature1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_deadfeature2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_deadfeature3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_falseoptional1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_falseoptional2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_falseoptional3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_redundancies1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_redundancies2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_redundancies3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_redundancies4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/bamboobike_featureide_void.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/logback-test.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ce-core-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ce-core-package/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Requirement.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Requirement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ce-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ce-package/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/heuristics-package/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mf-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mf-package/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/ConfigurationModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/ConfigurationModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/Configurator.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/Configurator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +53,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
+        <option value="Enum" />
         <option value="JUnit5 Test Class" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -54,30 +84,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;temurin-17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/manleviet/Development/GitHub/CECore/configurator-package/src/main/java/at/tugraz/ist/ase/configurator&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;copyright.profiles&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "jdk.selected.JAVA_MODULE": "temurin-17",
+    "last_directory_selection": "/Users/manleviet/Development/GitHub/CECore/fma-package/src/main/java",
+    "last_opened_file_path": "/Users/manleviet/Development/GitHub/CECore/fma-package/src/main/resources",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "copyright.profiles"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/fma-package/src/main/resources" />
+      <recent name="$PROJECT_DIR$/fma-package/src/test/resources" />
+      <recent name="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis" />
       <recent name="$PROJECT_DIR$/configurator-package/src/main/java/at/tugraz/ist/ase/configurator" />
       <recent name="$PROJECT_DIR$/heuristics/src/main/java/at/tugraz/ist/ase/heuristics/selector" />
-      <recent name="$PROJECT_DIR$/heuristics/src/main/java/at/tugraz/ist/ase/heuristics" />
-      <recent name="$PROJECT_DIR$/mf-package/src/main/java" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -86,17 +118,49 @@
       <recent name="at.tugraz.ist.ase.ce" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="at.tugraz.ist.ase.fma" />
       <recent name="at.tugraz.ist.ase.configurator" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="at.tugraz.ist.ase.ce.translator.fm" />
+      <recent name="" />
       <recent name="at.tugraz.ist.ase.ce" />
       <recent name="at.tugraz.ist.ase.ce.translator" />
       <recent name="at.tugraz.ist.ase.heuristics" />
-      <recent name="at.tugraz.ist.ase.configurator.io" />
-      <recent name="at.tugraz.ist.ase.mf" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.FMAnalyzerTest.test">
+    <configuration name="FMAnalyzerTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="fma-package" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="at.tugraz.ist.ase.fma.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="at.tugraz.ist.ase.fma" />
+      <option name="MAIN_CLASS_NAME" value="at.tugraz.ist.ase.fma.FMAnalyzerTest" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RequirementTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ce-package" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="at.tugraz.ist.ase.ce.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="at.tugraz.ist.ase.ce" />
+      <option name="MAIN_CLASS_NAME" value="at.tugraz.ist.ase.ce.RequirementTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RequirementTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ce-package" />
       <extension name="coverage">
@@ -115,6 +179,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.FMAnalyzerTest.test" />
+        <item itemvalue="JUnit.RequirementTest" />
         <item itemvalue="JUnit.RequirementTest.test" />
       </list>
     </recent_temporary>
@@ -131,7 +197,9 @@
       <workItem from="1657757517666" duration="80000" />
       <workItem from="1657790518265" duration="975000" />
       <workItem from="1658091808460" duration="19000" />
-      <workItem from="1658092906828" duration="400000" />
+      <workItem from="1658092906828" duration="716000" />
+      <workItem from="1658221597753" duration="860000" />
+      <workItem from="1658477781757" duration="39063000" />
     </task>
     <task id="LOCAL-00001" summary="Migrated from MF4ChocoSolver, ChocoWS, and MF-based-CD">
       <created>1657754894286</created>
@@ -154,7 +222,21 @@
       <option name="project" value="LOCAL" />
       <updated>1657791486228</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Corrected toString of Requirement &amp; New package 1.0.5">
+      <created>1658093604154</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1658093604154</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Changed ce-core package to core-package">
+      <created>1658701288896</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1658701288896</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -191,6 +273,8 @@
     <MESSAGE value="Migrated from MF4ChocoSolver, ChocoWS, and MF-based-CD" />
     <MESSAGE value="Updated the copyright" />
     <MESSAGE value="Corrected groupID and artifactID &amp; New package 1.0.1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corrected groupID and artifactID &amp; New package 1.0.1" />
+    <MESSAGE value="Corrected toString of Requirement &amp; New package 1.0.5" />
+    <MESSAGE value="Changed ce-core package to core-package" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed ce-core package to core-package" />
   </component>
 </project>
