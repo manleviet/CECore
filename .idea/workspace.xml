@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="437f3de2-4322-4297-9644-3543d6625028" name="Changes" comment="Updated gitignore">
-      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/DeadFeatureExplanator.java" afterDir="false" />
+    <list default="true" id="437f3de2-4322-4297-9644-3543d6625028" name="Changes" comment="Fix explanator to identify all diagnoses">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/AbstractFMAnalysis.java" beforeDir="false" afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/AbstractFMAnalysis.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/DeadFeatureAnalysis.java" beforeDir="false" afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/DeadFeatureAnalysis.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/IFMAnalysisAssumptionCreatable.java" beforeDir="false" afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/IFMAnalysisAssumptionCreatable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/VoidFMAnalysis.java" beforeDir="false" afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/VoidFMAnalysis.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/AbstractAnomalyExplanator.java" beforeDir="false" afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/AbstractAnomalyExplanator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/IFMAnalysisAssumptionCreatable.java" beforeDir="false" afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/assumption/IFMAnalysisAssumptionCreatable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/DeadFeatureExplanator.java" beforeDir="false" afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/DeadFeatureExplanator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/VoidFMExplanator.java" beforeDir="false" afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/VoidFMExplanator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fma-package/src/test/java/at/tugraz/ist/ase/fma/FMAnalyzerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/fma-package/src/test/java/at/tugraz/ist/ase/fma/FMAnalyzerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +99,23 @@
       <recent name="at.tugraz.ist.ase.ce.translator" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.FMAnalyzerTest.testDeadFeature">
+  <component name="RunManager" selected="JUnit.FMAnalyzerTest.test (1)">
+    <configuration name="FMAnalyzerTest.test (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="fma" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="at.tugraz.ist.ase.fma.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="at.tugraz.ist.ase.fma" />
+      <option name="MAIN_CLASS_NAME" value="at.tugraz.ist.ase.fma.FMAnalyzerTest" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="FMAnalyzerTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="fma-package" />
       <extension name="coverage">
@@ -168,6 +181,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.FMAnalyzerTest.test (1)" />
         <item itemvalue="JUnit.FMAnalyzerTest.testDeadFeature" />
         <item itemvalue="JUnit.FMAnalyzerTest.test" />
         <item itemvalue="JUnit.RequirementTest" />
@@ -196,6 +210,8 @@
       <workItem from="1658873360635" duration="133000" />
       <workItem from="1658873504340" duration="15000" />
       <workItem from="1658873598865" duration="1813000" />
+      <workItem from="1658909222266" duration="662000" />
+      <workItem from="1658916072348" duration="3263000" />
     </task>
     <task id="LOCAL-00001" summary="Migrated from MF4ChocoSolver, ChocoWS, and MF-based-CD">
       <created>1657754894286</created>
@@ -267,7 +283,21 @@
       <option name="project" value="LOCAL" />
       <updated>1658753395998</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Added DeadFeatureAnalysis and DeadFeatureExplanator">
+      <created>1658909279405</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1658909279405</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Move createAssumptions to new classes">
+      <created>1658920242553</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1658920242553</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -310,6 +340,10 @@
     <MESSAGE value="Updated Configurator with timeout" />
     <MESSAGE value="Added first FM Analysis - VoidFMAnalysis" />
     <MESSAGE value="Updated gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated gitignore" />
+    <MESSAGE value="Added DeadFeatureAnalysis and DeadFeatureExplanator" />
+    <MESSAGE value="Move createAssumptions to new classes" />
+    <MESSAGE value="Fix explanator to identify all diagnoses" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix explanator to identify all diagnoses" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
