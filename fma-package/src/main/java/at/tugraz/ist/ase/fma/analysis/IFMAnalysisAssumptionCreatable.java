@@ -9,11 +9,13 @@
 package at.tugraz.ist.ase.fma.analysis;
 
 import at.tugraz.ist.ase.fm.core.FeatureModel;
-import at.tugraz.ist.ase.test.TestCase;
+import at.tugraz.ist.ase.test.ITestCase;
 import lombok.NonNull;
 
+import java.util.List;
+
 public interface IFMAnalysisAssumptionCreatable {
-    static TestCase createAssumptions(@NonNull FeatureModel fm) {
+    static List<ITestCase> createAssumptions(@NonNull FeatureModel fm) {
         return null;
     }
 }

@@ -20,9 +20,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-public class VoidFMExplanator extends AbstractAnomalyExplanator<List<Set<Constraint>>> {
+public class DeadFeatureExplanator extends AbstractAnomalyExplanator<List<Set<Constraint>>> {
 
-    public VoidFMExplanator(@NonNull FMDebuggingModel debuggingModel, ITestCase assumption) {
+    public DeadFeatureExplanator(@NonNull FMDebuggingModel debuggingModel, ITestCase assumption) {
         super(debuggingModel, assumption);
     }
 

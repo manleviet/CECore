@@ -9,7 +9,7 @@
 package at.tugraz.ist.ase.fma.explanator;
 
 import at.tugraz.ist.ase.cdrmodel.fm.FMDebuggingModel;
-import at.tugraz.ist.ase.test.TestCase;
+import at.tugraz.ist.ase.test.ITestCase;
 import lombok.NonNull;
 
 import java.util.concurrent.RecursiveTask;
@@ -17,9 +17,9 @@ import java.util.concurrent.RecursiveTask;
 public abstract class AbstractAnomalyExplanator<T> extends RecursiveTask<T> {
     protected FMDebuggingModel debuggingModel;
 
-    protected TestCase assumption;
+    protected ITestCase assumption;
 
-    public AbstractAnomalyExplanator(@NonNull FMDebuggingModel debuggingModel, TestCase assumption) {
+    public AbstractAnomalyExplanator(@NonNull FMDebuggingModel debuggingModel, ITestCase assumption) {
         this.debuggingModel = debuggingModel;
         this.assumption = assumption;
     }

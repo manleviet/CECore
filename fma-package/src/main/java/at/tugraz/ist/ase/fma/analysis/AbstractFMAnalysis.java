@@ -10,6 +10,7 @@ package at.tugraz.ist.ase.fma.analysis;
 import java.util.concurrent.RecursiveTask;
 
 import at.tugraz.ist.ase.cdrmodel.fm.FMDebuggingModel;
+import at.tugraz.ist.ase.test.ITestCase;
 import at.tugraz.ist.ase.test.TestCase;
 import lombok.Getter;
 import lombok.NonNull;
@@ -25,12 +26,12 @@ import lombok.extern.slf4j.Slf4j;
  * @author Viet-Man Le
  */
 @Slf4j
-public abstract class AbstractFMAnalysis<T> extends RecursiveTask<T> implements IFMAnalysisAssumptionCreatable {
+public abstract class AbstractFMAnalysis<T> extends RecursiveTask<T> {
 
 	protected FMDebuggingModel debuggingModel;
 
 	@Getter
-	protected TestCase assumption;
+	protected ITestCase assumption;
 
 	@Getter
 	private boolean timeoutOccurred = false;
@@ -40,7 +41,7 @@ public abstract class AbstractFMAnalysis<T> extends RecursiveTask<T> implements 
 //	@Setter
 //	protected IMonitor monitor;
 
-	public AbstractFMAnalysis(@NonNull FMDebuggingModel debuggingModel, @NonNull TestCase assumption) {
+	public AbstractFMAnalysis(@NonNull FMDebuggingModel debuggingModel, @NonNull ITestCase assumption) {
 		this.debuggingModel = debuggingModel;
 		this.assumption = assumption;
 	}
@@ -60,12 +61,4 @@ public abstract class AbstractFMAnalysis<T> extends RecursiveTask<T> implements 
 	}
 
 	protected abstract T analyze();
-
-//	protected final void reportTimeout() throws RuntimeTimeoutException {
-//		timeoutOccurred = true;
-//		if (throwTimeoutException) {
-//			throw new RuntimeTimeoutException();
-//		}
-//	}
-
 }
