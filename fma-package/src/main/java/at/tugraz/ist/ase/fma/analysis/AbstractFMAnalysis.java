@@ -7,15 +7,14 @@
  */
 package at.tugraz.ist.ase.fma.analysis;
 
-import java.util.concurrent.RecursiveTask;
-
 import at.tugraz.ist.ase.cdrmodel.fm.FMDebuggingModel;
 import at.tugraz.ist.ase.test.ITestCase;
-import at.tugraz.ist.ase.test.TestCase;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.RecursiveTask;
 
 /**
  * Base class for an analysis using a ChocoSolver.
