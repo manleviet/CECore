@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="437f3de2-4322-4297-9644-3543d6625028" name="Changes" comment="Corrected RequirementTest">
+    <list default="true" id="437f3de2-4322-4297-9644-3543d6625028" name="Changes" comment="Use FMAssignmentsTranslator">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/ConfigurationModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/ConfigurationModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/Configurator.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-package/src/main/java/at/tugraz/ist/ase/ce/Configurator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-package/src/main/java/at/tugraz/ist/ase/ce/translator/fm/FMSolutionTranslator.java" beforeDir="false" afterPath="$PROJECT_DIR$/core-package/src/main/java/at/tugraz/ist/ase/ce/translator/fm/FMSolutionTranslator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -359,7 +362,8 @@
     <MESSAGE value="Move createAssumptions to new classes" />
     <MESSAGE value="Fix explanator to identify all diagnoses" />
     <MESSAGE value="Corrected RequirementTest" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corrected RequirementTest" />
+    <MESSAGE value="Use FMAssignmentsTranslator" />
+    <option name="LAST_COMMIT_MESSAGE" value="Use FMAssignmentsTranslator" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
