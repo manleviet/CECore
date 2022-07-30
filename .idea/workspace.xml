@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="437f3de2-4322-4297-9644-3543d6625028" name="Changes" comment="Corrected groupID and artifactID &amp; New package 1.0.1">
+    <list default="true" id="437f3de2-4322-4297-9644-3543d6625028" name="Changes" comment="Corrected RequirementTest">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ce-core-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ce-core-package/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Requirement.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Requirement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/ce-core-package/src/main/java/at/tugraz/ist/ase/ce/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ce-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ce-package/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/heuristics-package/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mf-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mf-package/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,7 +19,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Interface" />
+        <option value="Class" />
         <option value="JUnit5 Test Class" />
       </list>
     </option>
@@ -64,7 +60,8 @@
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;temurin-17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/manleviet/Development/GitHub/CECore/configurator-package/src/main/java/at/tugraz/ist/ase/configurator&quot;,
+    &quot;last_directory_selection&quot;: &quot;/Users/manleviet/Development/GitHub/CECore/fma-package/src/main/java&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/manleviet/Development/GitHub/CECore/fma-package/src/main/resources&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -74,48 +71,118 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/fma-package/src/main/resources" />
+      <recent name="$PROJECT_DIR$/fma-package/src/test/resources" />
+      <recent name="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis" />
       <recent name="$PROJECT_DIR$/configurator-package/src/main/java/at/tugraz/ist/ase/configurator" />
       <recent name="$PROJECT_DIR$/heuristics/src/main/java/at/tugraz/ist/ase/heuristics/selector" />
-      <recent name="$PROJECT_DIR$/heuristics/src/main/java/at/tugraz/ist/ase/heuristics" />
-      <recent name="$PROJECT_DIR$/mf-package/src/main/java" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="at.tugraz.ist.ase.ce" />
+      <recent name="at.tugraz.ist.ase" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="at.tugraz.ist.ase.ce" />
+      <recent name="at.tugraz.ist.ase.fma" />
       <recent name="at.tugraz.ist.ase.configurator" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="at.tugraz.ist.ase.fma.explanator" />
+      <recent name="at.tugraz.ist.ase.ce.translator.fm" />
+      <recent name="" />
       <recent name="at.tugraz.ist.ase.ce" />
       <recent name="at.tugraz.ist.ase.ce.translator" />
-      <recent name="at.tugraz.ist.ase.heuristics" />
-      <recent name="at.tugraz.ist.ase.configurator.io" />
-      <recent name="at.tugraz.ist.ase.mf" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="RequirementTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ce-package" />
+  <component name="RunManager" selected="JUnit.RequirementTest (1)">
+    <configuration name="FMAnalyzerTest.test (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="fma" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="at.tugraz.ist.ase.ce.*" />
+          <option name="PATTERN" value="at.tugraz.ist.ase.fma.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="at.tugraz.ist.ase.configurator" />
-      <option name="MAIN_CLASS_NAME" value="at.tugraz.ist.ase.ce.RequirementTest" />
+      <option name="PACKAGE_NAME" value="at.tugraz.ist.ase.fma" />
+      <option name="MAIN_CLASS_NAME" value="at.tugraz.ist.ase.fma.FMAnalyzerTest" />
       <option name="METHOD_NAME" value="test" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="FMAnalyzerTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="fma-package" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="at.tugraz.ist.ase.fma.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="at.tugraz.ist.ase.fma" />
+      <option name="MAIN_CLASS_NAME" value="at.tugraz.ist.ase.fma.FMAnalyzerTest" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FMAnalyzerTest.testDeadFeature" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="fma" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="at.tugraz.ist.ase.fma.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="at.tugraz.ist.ase.fma" />
+      <option name="MAIN_CLASS_NAME" value="at.tugraz.ist.ase.fma.FMAnalyzerTest" />
+      <option name="METHOD_NAME" value="testDeadFeature" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RequirementTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="at.tugraz.ist.ase.ce.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="at.tugraz.ist.ase.ce" />
+      <option name="MAIN_CLASS_NAME" value="at.tugraz.ist.ase.ce.RequirementTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RequirementTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ce" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="at.tugraz.ist.ase.ce.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="at.tugraz.ist.ase.ce" />
+      <option name="MAIN_CLASS_NAME" value="at.tugraz.ist.ase.ce.RequirementTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.RequirementTest.test" />
+        <item itemvalue="JUnit.RequirementTest (1)" />
+        <item itemvalue="JUnit.FMAnalyzerTest.testDeadFeature" />
+        <item itemvalue="JUnit.FMAnalyzerTest.test (1)" />
+        <item itemvalue="JUnit.FMAnalyzerTest.test" />
+        <item itemvalue="JUnit.RequirementTest" />
       </list>
     </recent_temporary>
   </component>
@@ -131,7 +198,21 @@
       <workItem from="1657757517666" duration="80000" />
       <workItem from="1657790518265" duration="975000" />
       <workItem from="1658091808460" duration="19000" />
-      <workItem from="1658092906828" duration="400000" />
+      <workItem from="1658092906828" duration="716000" />
+      <workItem from="1658221597753" duration="860000" />
+      <workItem from="1658477781757" duration="39427000" />
+      <workItem from="1658872138463" duration="25000" />
+      <workItem from="1658872180349" duration="1069000" />
+      <workItem from="1658873263847" duration="89000" />
+      <workItem from="1658873360635" duration="133000" />
+      <workItem from="1658873504340" duration="15000" />
+      <workItem from="1658873598865" duration="1813000" />
+      <workItem from="1658909222266" duration="662000" />
+      <workItem from="1658916072348" duration="3893000" />
+      <workItem from="1659012377475" duration="1645000" />
+      <workItem from="1659023561967" duration="2825000" />
+      <workItem from="1659083310304" duration="631000" />
+      <workItem from="1659083957686" duration="1053000" />
     </task>
     <task id="LOCAL-00001" summary="Migrated from MF4ChocoSolver, ChocoWS, and MF-based-CD">
       <created>1657754894286</created>
@@ -154,7 +235,84 @@
       <option name="project" value="LOCAL" />
       <updated>1657791486228</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Corrected toString of Requirement &amp; New package 1.0.5">
+      <created>1658093604154</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1658093604154</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Changed ce-core package to core-package">
+      <created>1658701288896</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1658701288896</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added test models">
+      <created>1658753068761</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1658753068761</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Updated gitignore">
+      <created>1658753082501</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1658753082501</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Updated Configurator with timeout">
+      <created>1658753240904</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1658753240904</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added first FM Analysis - VoidFMAnalysis">
+      <created>1658753348747</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1658753348747</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Updated gitignore">
+      <created>1658753395998</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1658753395998</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Added DeadFeatureAnalysis and DeadFeatureExplanator">
+      <created>1658909279405</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1658909279405</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Move createAssumptions to new classes">
+      <created>1658920242553</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1658920242553</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Fix explanator to identify all diagnoses">
+      <created>1658920327845</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1658920327845</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Corrected RequirementTest">
+      <created>1659028051723</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1659028051723</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -191,6 +349,17 @@
     <MESSAGE value="Migrated from MF4ChocoSolver, ChocoWS, and MF-based-CD" />
     <MESSAGE value="Updated the copyright" />
     <MESSAGE value="Corrected groupID and artifactID &amp; New package 1.0.1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corrected groupID and artifactID &amp; New package 1.0.1" />
+    <MESSAGE value="Corrected toString of Requirement &amp; New package 1.0.5" />
+    <MESSAGE value="Changed ce-core package to core-package" />
+    <MESSAGE value="Added test models" />
+    <MESSAGE value="Updated Configurator with timeout" />
+    <MESSAGE value="Added first FM Analysis - VoidFMAnalysis" />
+    <MESSAGE value="Updated gitignore" />
+    <MESSAGE value="Added DeadFeatureAnalysis and DeadFeatureExplanator" />
+    <MESSAGE value="Move createAssumptions to new classes" />
+    <MESSAGE value="Fix explanator to identify all diagnoses" />
+    <MESSAGE value="Corrected RequirementTest" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrected RequirementTest" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>

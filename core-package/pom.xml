@@ -17,18 +17,18 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>heuristics</artifactId>
+    <artifactId>core</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>at.tugraz.ist.ase</groupId>
-            <artifactId>mf</artifactId>
+            <artifactId>choco-kb-v2</artifactId>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>at.tugraz.ist.ase</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>test-v2</artifactId>
             <scope>compile</scope>
         </dependency>
     </dependencies>

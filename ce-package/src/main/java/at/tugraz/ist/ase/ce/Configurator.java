@@ -1,5 +1,5 @@
 /*
- * Core components of a configuration environment
+ * CECore - Core components of a Configuration Environment
  *
  * Copyright (c) 2021-2022
  *
@@ -22,6 +22,7 @@ import at.tugraz.ist.ase.test.Assignment;
 import com.google.common.collect.Sets;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
@@ -32,6 +33,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static org.chocosolver.solver.search.strategy.Search.intVarSearch;
 
 @Slf4j
@@ -45,7 +47,7 @@ public class Configurator {
     @Getter
     protected final List<Solution> solutions;
 
-    public Configurator(@NonNull KB kb, @NonNull ISolutionTranslatable translator) {
+    public Configurator(@NonNull KB kb, ISolutionTranslatable translator) {
         this.kb = kb;
         this.translator = translator;
 
@@ -67,17 +69,22 @@ public class Configurator {
     }
 
     private SolutionWriter writer = null;
-    protected void find(int maxNumConf, Set<Constraint> C, ValueVariableOrdering vvo) {
+    protected void find(int maxNumConf, long timeout, Set<Constraint> C, ValueVariableOrdering vvo) {
         // re-add Constraint to the model
         prepareSolver(C);
 
         // get the solver
         Solver solver = kb.getModelKB().getSolver();
-        solver.limitSolution(maxNumConf);
+        if (maxNumConf > 0) {
+            solver.limitSolution(maxNumConf);
+        }
+        if (timeout > 0) {
+            solver.limitTime(timeout);
+        }
 
         //Add a plugin to print solutions
         AtomicInteger configurationCounter = new AtomicInteger();
-        solver.unplugAllSearchMonitors();
+//        solver.unplugAllSearchMonitors();
         solver.plugMonitor((IMonitorSolution) () -> {
             configurationCounter.getAndIncrement();
 
@@ -112,11 +119,18 @@ public class Configurator {
         resetSolver();
     }
 
+    public void findAllSolutions(long timeout) {
+        // get the set of constraints
+        Set<Constraint> C = configurationModel.getCorrectConstraints();
+
+        find(0, timeout, C, null);
+    }
+
     public void findSolutions(int maxNumConf) {
         // get the set of constraints
         Set<Constraint> C = configurationModel.getCorrectConstraints();
 
-        find(maxNumConf, C, null);
+        find(maxNumConf, 0, C, null);
     }
 
     public void findSolutions(int maxNumConf, @NonNull SolutionWriter writer) {
@@ -126,13 +140,15 @@ public class Configurator {
     }
 
     public void findSolutions(int maxNumConf, @NonNull Requirement requirement) {
+        checkArgument(translator != null, "Translator for the requirement is not set.");
+
         // translate requirement to Constraint
         Constraint constraint = translator.translate(requirement, kb);
         // get the set of constraints
         Set<Constraint> C = Sets.union(configurationModel.getCorrectConstraints(), Collections.singleton(constraint));
 
         // re-add Constraint to the model
-        find(maxNumConf, C, null);
+        find(maxNumConf, 0, C, null);
     }
 
     public void findSolutions(int maxNumConf, @NonNull Requirement requirement, @NonNull SolutionWriter writer) {
@@ -142,13 +158,15 @@ public class Configurator {
     }
 
     public void findSolutions(int maxNumConf, @NonNull Requirement requirement, @NonNull ValueVariableOrdering vvo) {
+        checkArgument(translator != null, "Translator for the requirement is not set.");
+
         // translate requirement to Constraint
         Constraint constraint = translator.translate(requirement, kb);
         // get the set of constraints
         Set<Constraint> C = Sets.union(configurationModel.getCorrectConstraints(), Collections.singleton(constraint));
 
         // re-add Constraint to the model
-        find(maxNumConf, C, vvo);
+        find(maxNumConf, 0, C, vvo);
     }
 
     public void findSolutions(int maxNumConf, @NonNull Requirement requirement, @NonNull ValueVariableOrdering vvo, @NonNull SolutionWriter writer) {
@@ -162,7 +180,7 @@ public class Configurator {
         Set<Constraint> C = configurationModel.getCorrectConstraints();
 
         // re-add Constraint to the model
-        find(maxNumConf, C, vvo);
+        find(maxNumConf, 0, C, vvo);
     }
 
     public void findSolutions(int maxNumConf, @NonNull ValueVariableOrdering vvo, @NonNull SolutionWriter writer) {
@@ -172,6 +190,8 @@ public class Configurator {
     }
 
     public boolean isConsistent(@NonNull Solution solution) {
+        checkArgument(translator != null, "Translator for the solution is not set.");
+
         // translate solution to Constraint
         Constraint constraint = translator.translate(solution, kb);
         Set<Constraint> C = Sets.union(configurationModel.getCorrectConstraints(), Collections.singleton(constraint));
