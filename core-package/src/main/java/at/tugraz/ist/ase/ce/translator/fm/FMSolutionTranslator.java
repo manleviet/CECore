@@ -14,43 +14,28 @@ import at.tugraz.ist.ase.common.LoggerUtils;
 import at.tugraz.ist.ase.kb.core.Constraint;
 import at.tugraz.ist.ase.kb.core.KB;
 import at.tugraz.ist.ase.test.Assignment;
+import at.tugraz.ist.ase.test.translator.fm.FMAssignmentsTranslator;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.chocosolver.solver.variables.IntVar;
 
 import java.util.LinkedList;
 import java.util.List;
 
 @Slf4j
 public class FMSolutionTranslator implements ISolutionTranslatable {
+
+    protected FMAssignmentsTranslator translator = new FMAssignmentsTranslator();
+
     /**
      * Translates an FM solution to Constraint
      */
     @Override
     public Constraint translate(@NonNull Solution solution, @NonNull KB kb) {
         log.trace("{}Translating solution [solution={}] >>>", LoggerUtils.tab(), solution);
-        int startIdx = kb.getNumChocoConstraints();
-
-        int counter = 0;
-        for (Assignment assign: solution.getAssignments()) {
-            String varName = assign.getVariable();
-            IntVar var = kb.getIntVar(varName);
-            String value = assign.getValue();
-            int chocoValue = kb.getIntValue(varName, value);
-
-            if (isCorrectAssignment(varName, var, value, chocoValue)) {
-                counter++;
-                kb.getModelKB().arithm(var, "=", chocoValue).post();
-            }
-        }
-
-        assert  (solution.size() - solution.getNumNULL()) == counter : "not equal";
-
-        // add the translated constraints to a Constraint
         Constraint constraint = new Constraint(solution.toString());
-        if (counter > 0) {
-            constraint.addChocoConstraints(kb.getModelKB(), startIdx, kb.getNumChocoConstraints() - 1, false);
-        }
+
+        translator.translate(solution.getAssignments(), kb.getModelKB(),
+                constraint.getChocoConstraints(), constraint.getNegChocoConstraints());
 
         // remove the translated constraints from the Choco model
         kb.getModelKB().unpost(kb.getModelKB().getCstrs());
@@ -67,29 +52,13 @@ public class FMSolutionTranslator implements ISolutionTranslatable {
         log.trace("{}Translating solution [solution={}] >>>", LoggerUtils.tab(), solution);
         List<Constraint> constraints = new LinkedList<>();
 
-        int counter = 0;
+//        int counter = 0;
         for (Assignment assign: solution.getAssignments()) {
-            String varName = assign.getVariable();
-            IntVar var = kb.getIntVar(varName);
-            String value = assign.getValue();
-            int chocoValue = kb.getIntValue(varName, value);
+            Constraint constraint = new Constraint(assign.toString());
 
-            if (isCorrectAssignment(varName, var, value, chocoValue)) {
-                counter++;
-
-                int startIdx = kb.getNumChocoConstraints();
-                kb.getModelKB().arithm(var, "=", chocoValue).post();
-
-                // add the translated constraints to a Constraint
-                Constraint constraint = new Constraint(assign.toString());
-                constraint.addChocoConstraints(kb.getModelKB(), startIdx, kb.getNumChocoConstraints() - 1, false);
-
-                // add to the list of constraints
-                constraints.add(constraint);
-            }
+            translator.translate(assign, kb.getModelKB(),
+                    constraint.getChocoConstraints(), constraint.getNegChocoConstraints());
         }
-
-        assert  (solution.size() - solution.getNumNULL()) == counter : "not equal";
 
         // remove the translated constraints from the Choco model
         kb.getModelKB().unpost(kb.getModelKB().getCstrs());
@@ -98,8 +67,8 @@ public class FMSolutionTranslator implements ISolutionTranslatable {
         return constraints;
     }
 
-    private boolean isCorrectAssignment(String varName, IntVar var, String value, int chocoValue) {
-        return var != null && (!value.equals("NULL"))
-                && (chocoValue != -1);
-    }
+//    private boolean isCorrectAssignment(String varName, IntVar var, String value, int chocoValue) {
+//        return var != null && (!value.equals("NULL"))
+//                && (chocoValue != -1);
+//    }
 }

@@ -17,12 +17,12 @@ import at.tugraz.ist.ase.heuristics.ValueVariableOrdering;
 import at.tugraz.ist.ase.heuristics.selector.MFVVOValueSelector;
 import at.tugraz.ist.ase.heuristics.selector.MFVVOVariableSelector;
 import at.tugraz.ist.ase.kb.core.Constraint;
+import at.tugraz.ist.ase.kb.core.IIntVarKB;
 import at.tugraz.ist.ase.kb.core.KB;
 import at.tugraz.ist.ase.test.Assignment;
 import com.google.common.collect.Sets;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
@@ -107,7 +107,7 @@ public class Configurator {
                     new MFVVOVariableSelector(vvo.getIntVarOrdering()),
                     new MFVVOValueSelector(vvo.getValueOrdering()),
                     // variables to branch on
-                    kb.getIntVars()
+                    ((IIntVarKB)kb).getIntVars()
             ));
         }
 
