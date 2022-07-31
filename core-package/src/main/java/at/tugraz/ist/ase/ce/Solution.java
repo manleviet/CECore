@@ -8,24 +8,38 @@
 
 package at.tugraz.ist.ase.ce;
 
-import at.tugraz.ist.ase.test.Assignment;
-import lombok.*;
+import at.tugraz.ist.ase.common.LoggerUtils;
+import at.tugraz.ist.ase.kb.core.Assignment;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
+import org.chocosolver.solver.constraints.Constraint;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkElementIndex;
 
-@EqualsAndHashCode
-@ToString
-@Builder
+@Slf4j
+@Getter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Solution implements Cloneable {
-    @Getter
+    @EqualsAndHashCode.Include
     protected List<Assignment> assignments;
+    private List<org.chocosolver.solver.constraints.Constraint> chocoConstraints;
+    private List<org.chocosolver.solver.constraints.Constraint> negChocoConstraints;
 
+    @Builder
     public Solution(@NonNull List<Assignment> assignments) {
         this.assignments = assignments;
+        this.chocoConstraints = new LinkedList<>();
+        this.negChocoConstraints = new LinkedList<>();
+
+        log.trace("{}Created Solution [assignments={}]", LoggerUtils.tab(), assignments);
     }
 
     public Assignment getAssignment(int index) {
@@ -43,6 +57,26 @@ public class Solution implements Cloneable {
             }
         }
         throw new IllegalArgumentException("Variable '" + varName + "' doesn't exist!");
+    }
+
+    /**
+     * Adds a Choco constraint translated from this solution.
+     * @param constraint a Choco constraint
+     */
+    public void addChocoConstraint(@NonNull Constraint constraint) {
+        chocoConstraints.add(constraint);
+
+        log.trace("{}Added a Choco constraint to Solution [choco_cstr={}, solution={}]", LoggerUtils.tab(), constraint, this);
+    }
+
+    /**
+     * Adds a negative Choco constraint
+     * @param neg_constraint a Choco constraint
+     */
+    public void addNegChocoConstraint(@NonNull Constraint neg_constraint) {
+        negChocoConstraints.add(neg_constraint);
+
+        log.trace("{}Added a negative Choco constraint to Solution [choco_cstr={}, solution={}]", LoggerUtils.tab(), neg_constraint, this);
     }
 
     public int size() {
@@ -86,6 +120,11 @@ public class Solution implements Cloneable {
         return (int) getAssignments().parallelStream().filter(assignment -> assignment.getValue().equals("NULL")).count();
     }
 
+    @Override
+    public String toString() {
+        return assignments.stream().map(Assignment::toString).collect(Collectors.joining(", "));
+    }
+
     public Object clone() throws CloneNotSupportedException {
         Solution clone = (Solution) super.clone();
         // copy assignments
@@ -100,6 +139,14 @@ public class Solution implements Cloneable {
     }
 
     public void dispose() {
+        if (chocoConstraints != null) {
+            chocoConstraints.clear();
+            chocoConstraints = null;
+        }
+        if (negChocoConstraints != null) {
+            negChocoConstraints.clear();
+            negChocoConstraints = null;
+        }
         assignments = null;
     }
 }
