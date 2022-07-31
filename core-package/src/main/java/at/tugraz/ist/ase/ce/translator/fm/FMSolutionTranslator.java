@@ -37,7 +37,12 @@ public class FMSolutionTranslator implements ISolutionTranslatable {
         translator.translate(solution.getAssignments(), kb,
                 constraint.getChocoConstraints(), constraint.getNegChocoConstraints());
 
+        // copy the generated constraints to Solution
+        constraint.getChocoConstraints().forEach(solution::addChocoConstraint);
+        constraint.getNegChocoConstraints().forEach(solution::addNegChocoConstraint);
+
         // remove the translated constraints from the Choco model
+        // TODO - should move out to the configurator class
         kb.getModelKB().unpost(kb.getModelKB().getCstrs());
 
         log.debug("{}Translated solution [solution={}] >>>", LoggerUtils.tab(), solution);
@@ -52,15 +57,19 @@ public class FMSolutionTranslator implements ISolutionTranslatable {
         log.trace("{}Translating solution [solution={}] >>>", LoggerUtils.tab(), solution);
         List<Constraint> constraints = new LinkedList<>();
 
-//        int counter = 0;
         for (Assignment assign: solution.getAssignments()) {
             Constraint constraint = new Constraint(assign.toString());
 
             translator.translate(assign, kb,
                     constraint.getChocoConstraints(), constraint.getNegChocoConstraints());
+
+            // copy the generated constraints to Solution
+            constraint.getChocoConstraints().forEach(solution::addChocoConstraint);
+            constraint.getNegChocoConstraints().forEach(solution::addNegChocoConstraint);
         }
 
         // remove the translated constraints from the Choco model
+        // TODO - should move out to the configurator class
         kb.getModelKB().unpost(kb.getModelKB().getCstrs());
 
         log.debug("{}Translated solution [solution={}] >>>", LoggerUtils.tab(), solution);
