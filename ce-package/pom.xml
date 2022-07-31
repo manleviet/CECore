@@ -23,7 +23,7 @@
         <dependency>
             <groupId>at.tugraz.ist.ase</groupId>
             <artifactId>ca-cdr-v2</artifactId>
-            <version>1.3.9-alpha-36</version>
+            <version>1.3.9-alpha-38</version>
         </dependency>
 
         <dependency>

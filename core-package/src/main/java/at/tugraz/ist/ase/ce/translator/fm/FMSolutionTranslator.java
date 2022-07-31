@@ -11,10 +11,10 @@ package at.tugraz.ist.ase.ce.translator.fm;
 import at.tugraz.ist.ase.ce.Solution;
 import at.tugraz.ist.ase.ce.translator.ISolutionTranslatable;
 import at.tugraz.ist.ase.common.LoggerUtils;
+import at.tugraz.ist.ase.kb.core.Assignment;
 import at.tugraz.ist.ase.kb.core.Constraint;
 import at.tugraz.ist.ase.kb.core.KB;
-import at.tugraz.ist.ase.test.Assignment;
-import at.tugraz.ist.ase.test.translator.fm.FMAssignmentsTranslator;
+import at.tugraz.ist.ase.kb.core.translator.fm.FMAssignmentsTranslator;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,7 +34,7 @@ public class FMSolutionTranslator implements ISolutionTranslatable {
         log.trace("{}Translating solution [solution={}] >>>", LoggerUtils.tab(), solution);
         Constraint constraint = new Constraint(solution.toString());
 
-        translator.translate(solution.getAssignments(), kb.getModelKB(),
+        translator.translate(solution.getAssignments(), kb,
                 constraint.getChocoConstraints(), constraint.getNegChocoConstraints());
 
         // remove the translated constraints from the Choco model
@@ -56,7 +56,7 @@ public class FMSolutionTranslator implements ISolutionTranslatable {
         for (Assignment assign: solution.getAssignments()) {
             Constraint constraint = new Constraint(assign.toString());
 
-            translator.translate(assign, kb.getModelKB(),
+            translator.translate(assign, kb,
                     constraint.getChocoConstraints(), constraint.getNegChocoConstraints());
         }
 
