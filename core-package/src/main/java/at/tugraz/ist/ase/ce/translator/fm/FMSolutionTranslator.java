@@ -66,6 +66,8 @@ public class FMSolutionTranslator implements ISolutionTranslatable {
             // copy the generated constraints to Solution
             constraint.getChocoConstraints().forEach(solution::addChocoConstraint);
             constraint.getNegChocoConstraints().forEach(solution::addNegChocoConstraint);
+
+            constraints.add(constraint);
         }
 
         // remove the translated constraints from the Choco model
