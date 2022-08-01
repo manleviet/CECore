@@ -11,9 +11,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>ce-core</artifactId>
+        <artifactId>ce-core-root</artifactId>
         <groupId>at.tugraz.ist.ase</groupId>
-        <version>1.0.5</version>
+        <version>1.0.6-alpha-4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -22,9 +22,8 @@
     <dependencies>
         <dependency>
             <groupId>at.tugraz.ist.ase</groupId>
-            <artifactId>ce</artifactId>
-            <version>1.0.5</version>
-            <scope>compile</scope>
+            <artifactId>ca-cdr-v2</artifactId>
+            <version>1.3.9-alpha-36</version>
         </dependency>
     </dependencies>
 

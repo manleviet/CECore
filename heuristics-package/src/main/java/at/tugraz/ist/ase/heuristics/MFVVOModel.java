@@ -1,5 +1,5 @@
 /*
- * Core components of a configuration environment
+ * CECore - Core components of a Configuration Environment
  *
  * Copyright (c) 2022
  *
@@ -9,9 +9,9 @@
 package at.tugraz.ist.ase.heuristics;
 
 import at.tugraz.ist.ase.ce.Solution;
+import at.tugraz.ist.ase.kb.core.Assignment;
 import at.tugraz.ist.ase.kb.core.Domain;
 import at.tugraz.ist.ase.kb.core.Variable;
-import at.tugraz.ist.ase.test.Assignment;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;

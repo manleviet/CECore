@@ -15,14 +15,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class RequirementTest {
+class SolutionTest {
     @Test
-    void test() {
-        Requirement requirement = Requirement.requirementBuilder()
-                .assignments(List.of(Assignment.builder().variable("a").value("1").build(),
-                        Assignment.builder().variable("b").value("2").build()))
-                .build();
+    void testToString() {
+        Assignment a1 = Assignment.builder().variable("a1").value("a1").build();
+        Assignment a2 = Assignment.builder().variable("a2").value("a2").build();
 
-        assertEquals(2, requirement.size());
+        Solution s = Solution.builder().assignments(List.of(a1, a2)).build();
+
+        assertEquals("a1=a1, a2=a2", s.toString());
     }
 }
