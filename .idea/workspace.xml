@@ -4,12 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="437f3de2-4322-4297-9644-3543d6625028" name="Changes" comment="Fix explanator to identify all diagnoses">
+    <list default="true" id="437f3de2-4322-4297-9644-3543d6625028" name="Changes" comment="Corrected groupID and artifactID &amp; New package 1.0.1">
+      <change afterPath="$PROJECT_DIR$/fma-package/logs-2022-07-28.0.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/logs-2022-08-01.0.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/ConditionallyDeadAnalysis.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/FalseOptionalAnalysis.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/FullMandatoryAnalysis.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/assumption/ConditionallyDeadAssumptions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/assumption/FalseOptionalAssumptions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/assumption/FullMandatoryAssumptions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/ConditionallyDeadExplanator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/FalseOptionalExplanator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/FullMandatoryExplanator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/basic_featureide_conditionallydead1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/basic_featureide_falseoptional1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/basic_featureide_fullmandatory1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fma-package/src/test/resources/basic_featureide_multiple1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/analysis/IFMAnalysisAssumptionCreatable.java" beforeDir="false" afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/assumption/IFMAnalysisAssumptionCreatable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/DeadFeatureExplanator.java" beforeDir="false" afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/DeadFeatureExplanator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/VoidFMExplanator.java" beforeDir="false" afterPath="$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/explanator/VoidFMExplanator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ce-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ce-package/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/core-package/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fma-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/fma-package/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fma-package/src/test/java/at/tugraz/ist/ase/fma/FMAnalyzerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/fma-package/src/test/java/at/tugraz/ist/ase/fma/FMAnalyzerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/heuristics-package/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mf-package/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mf-package/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,6 +49,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -40,6 +63,7 @@
     <option name="generalSettings">
       <MavenGeneralSettings>
         <option name="useMavenConfig" value="true" />
+        <option name="userSettingsFile" value="$USER_HOME$/.m2/settings.xml" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -70,7 +94,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;copyright.profiles&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -99,8 +123,8 @@
       <recent name="at.tugraz.ist.ase.ce.translator" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.FMAnalyzerTest.test (1)">
-    <configuration name="FMAnalyzerTest.test (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.FMAnalyzerTest.testMultiple_1">
+    <configuration name="FMAnalyzerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="fma" />
       <extension name="coverage">
         <pattern>
@@ -110,70 +134,70 @@
       </extension>
       <option name="PACKAGE_NAME" value="at.tugraz.ist.ase.fma" />
       <option name="MAIN_CLASS_NAME" value="at.tugraz.ist.ase.fma.FMAnalyzerTest" />
-      <option name="METHOD_NAME" value="test" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FMAnalyzerTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="fma-package" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="at.tugraz.ist.ase.fma.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="at.tugraz.ist.ase.fma" />
-      <option name="MAIN_CLASS_NAME" value="at.tugraz.ist.ase.fma.FMAnalyzerTest" />
-      <option name="METHOD_NAME" value="test" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FMAnalyzerTest.testDeadFeature" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="fma" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="at.tugraz.ist.ase.fma.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="at.tugraz.ist.ase.fma" />
-      <option name="MAIN_CLASS_NAME" value="at.tugraz.ist.ase.fma.FMAnalyzerTest" />
-      <option name="METHOD_NAME" value="testDeadFeature" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RequirementTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ce-package" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="at.tugraz.ist.ase.ce.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="at.tugraz.ist.ase.ce" />
-      <option name="MAIN_CLASS_NAME" value="at.tugraz.ist.ase.ce.RequirementTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RequirementTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ce-package" />
+    <configuration name="FMAnalyzerTest.testConditionallyDead" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="fma" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="at.tugraz.ist.ase.ce.*" />
+          <option name="PATTERN" value="at.tugraz.ist.ase.fma.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="at.tugraz.ist.ase.configurator" />
-      <option name="MAIN_CLASS_NAME" value="at.tugraz.ist.ase.ce.RequirementTest" />
-      <option name="METHOD_NAME" value="test" />
+      <option name="PACKAGE_NAME" value="at.tugraz.ist.ase.fma" />
+      <option name="MAIN_CLASS_NAME" value="at.tugraz.ist.ase.fma.FMAnalyzerTest" />
+      <option name="METHOD_NAME" value="testConditionallyDead" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FMAnalyzerTest.testDeadFeature_1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="fma" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="at.tugraz.ist.ase.fma.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="at.tugraz.ist.ase.fma" />
+      <option name="MAIN_CLASS_NAME" value="at.tugraz.ist.ase.fma.FMAnalyzerTest" />
+      <option name="METHOD_NAME" value="testDeadFeature_1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FMAnalyzerTest.testDeadFeature_3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="fma" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="at.tugraz.ist.ase.fma.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="at.tugraz.ist.ase.fma" />
+      <option name="MAIN_CLASS_NAME" value="at.tugraz.ist.ase.fma.FMAnalyzerTest" />
+      <option name="METHOD_NAME" value="testDeadFeature_3" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FMAnalyzerTest.testMultiple_1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="fma" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="at.tugraz.ist.ase.fma.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="at.tugraz.ist.ase.fma" />
+      <option name="MAIN_CLASS_NAME" value="at.tugraz.ist.ase.fma.FMAnalyzerTest" />
+      <option name="METHOD_NAME" value="testMultiple_1" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -181,11 +205,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.FMAnalyzerTest.test (1)" />
-        <item itemvalue="JUnit.FMAnalyzerTest.testDeadFeature" />
-        <item itemvalue="JUnit.FMAnalyzerTest.test" />
-        <item itemvalue="JUnit.RequirementTest" />
-        <item itemvalue="JUnit.RequirementTest.test" />
+        <item itemvalue="JUnit.FMAnalyzerTest.testMultiple_1" />
+        <item itemvalue="JUnit.FMAnalyzerTest.testConditionallyDead" />
+        <item itemvalue="JUnit.FMAnalyzerTest" />
+        <item itemvalue="JUnit.FMAnalyzerTest.testDeadFeature_3" />
+        <item itemvalue="JUnit.FMAnalyzerTest.testDeadFeature_1" />
       </list>
     </recent_temporary>
   </component>
@@ -212,6 +236,15 @@
       <workItem from="1658873598865" duration="1813000" />
       <workItem from="1658909222266" duration="662000" />
       <workItem from="1658916072348" duration="3263000" />
+      <workItem from="1658998042489" duration="81000" />
+      <workItem from="1659000219654" duration="26000" />
+      <workItem from="1659000312447" duration="248000" />
+      <workItem from="1659000626626" duration="739000" />
+      <workItem from="1659001451868" duration="3534000" />
+      <workItem from="1659077945539" duration="18708000" />
+      <workItem from="1659342830716" duration="15841000" />
+      <workItem from="1659366881482" duration="3669000" />
+      <workItem from="1659423507706" duration="9325000" />
     </task>
     <task id="LOCAL-00001" summary="Migrated from MF4ChocoSolver, ChocoWS, and MF-based-CD">
       <created>1657754894286</created>
@@ -345,5 +378,16 @@
     <MESSAGE value="Fix explanator to identify all diagnoses" />
     <option name="LAST_COMMIT_MESSAGE" value="Fix explanator to identify all diagnoses" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/fma-package/src/main/java/at/tugraz/ist/ase/fma/assumption/FalseOptionalAssumptions.java</url>
+          <line>67</line>
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
