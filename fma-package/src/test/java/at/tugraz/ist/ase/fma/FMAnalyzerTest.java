@@ -93,7 +93,7 @@ class FMAnalyzerTest {
     }
 
     @Test
-    void testDeadFeature() throws FeatureModelParserException, ExecutionException, InterruptedException {
+    void testDeadFeature() throws FeatureModelParserException, ExecutionException, InterruptedException, CloneNotSupportedException {
         // load the feature model
         File fileFM = new File("src/test/resources/bamboobike_featureide_deadfeature2.xml");
         FMParserFactory factory = FMParserFactory.getInstance();
@@ -123,12 +123,21 @@ class FMAnalyzerTest {
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
-        DeadFeatureAnalysis analysis2 = new DeadFeatureAnalysis(debuggingModel, testCases.get(6)); // check the feature Female
-        DeadFeatureExplanator explanator2 = new DeadFeatureExplanator(debuggingModel, testCases.get(6));
+        // check the feature Female
+        DeadFeatureAnalysis analysis2 = new DeadFeatureAnalysis(debuggingModel, testCases.get(4));
+        DeadFeatureExplanator explanator2 = new DeadFeatureExplanator(debuggingModel, testCases.get(4));
+
+        // check the feature Step-through
+        FMDebuggingModel debuggingModel1 = (FMDebuggingModel) debuggingModel.clone();
+        debuggingModel1.initialize();
+
+        DeadFeatureAnalysis analysis3 = new DeadFeatureAnalysis(debuggingModel1, testCases.get(6));
+        DeadFeatureExplanator explanator3 = new DeadFeatureExplanator(debuggingModel1, testCases.get(6));
 
         FMAnalyzer analyzer = new FMAnalyzer();
         analyzer.addAnalysis(analysis1, explanator1); // add the analysis to the analyzer
         analyzer.addAnalysis(analysis2, explanator2); // add the analysis to the analyzer
+        analyzer.addAnalysis(analysis3, explanator3); // add the analysis to the analyzer
         analyzer.run(); // run the analyzer
 
         // print the result
@@ -140,14 +149,20 @@ class FMAnalyzerTest {
             System.out.println(ExplanationUtils.convertToDescriptiveExplanation(explanator1.get(), "void feature model"));
         }
         if (!analysis2.get()) {
-            System.out.println(ExplanationColors.ANOMALY + "X Dead feature");
+            System.out.println(ExplanationColors.ANOMALY + "X Dead feature - Female");
+            System.out.println(ExplanationUtils.convertToDescriptiveExplanation(explanator2.get(), "dead feature"));
+        }
+        if (!analysis3.get()) {
+            System.out.println(ExplanationColors.ANOMALY + "X Dead feature - Step-through");
             System.out.println(ExplanationUtils.convertToDescriptiveExplanation(explanator2.get(), "dead feature"));
         }
 
         assertTrue(analysis1.get());
         assertFalse(analysis2.get());
+        assertFalse(analysis3.get());
 
         List<Set<Constraint>> allDiagnoses = explanator2.get();
+        List<Set<Constraint>> allDiagnoses1 = explanator3.get();
 
         Set<Constraint> cs1 = new LinkedHashSet<>();
         cs1.add(Iterators.get(debuggingModel.getPossiblyFaultyConstraints().iterator(), 8));
@@ -162,5 +177,10 @@ class FMAnalyzerTest {
         assertEquals(cs1, allDiagnoses.get(0));
         assertEquals(cs2, allDiagnoses.get(1));
         assertEquals(cs3, allDiagnoses.get(2));
+
+        assertEquals(3, allDiagnoses1.size());
+        assertEquals(cs1, allDiagnoses1.get(0));
+        assertEquals(cs2, allDiagnoses1.get(1));
+        assertEquals(cs3, allDiagnoses1.get(2));
     }
 }
