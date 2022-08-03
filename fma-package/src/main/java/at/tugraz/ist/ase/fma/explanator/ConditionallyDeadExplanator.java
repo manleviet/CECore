@@ -41,7 +41,7 @@ public class ConditionallyDeadExplanator extends AbstractAnomalyExplanator<List<
 
         HSDAG hsdag = new HSDAG(directDebug);
 
-        CAEvaluator.reset();
+//        CAEvaluator.reset();
         hsdag.construct();
 
         return hsdag.getDiagnoses();

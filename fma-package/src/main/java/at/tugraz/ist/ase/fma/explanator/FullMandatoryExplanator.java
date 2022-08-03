@@ -44,7 +44,7 @@ public class FullMandatoryExplanator extends AbstractAnomalyExplanator<List<Set<
 
         HSDAG hsdag = new HSDAG(directDebug);
 
-        CAEvaluator.reset();
+//        CAEvaluator.reset();
         hsdag.construct();
 
         return hsdag.getDiagnoses();

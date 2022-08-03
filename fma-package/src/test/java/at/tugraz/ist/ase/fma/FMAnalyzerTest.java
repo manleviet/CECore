@@ -29,9 +29,7 @@ import com.google.common.collect.Iterators;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -160,7 +158,7 @@ class FMAnalyzerTest {
     }
 
     @Test
-    void testDeadFeature() throws FeatureModelParserException, ExecutionException, InterruptedException, CloneNotSupportedException {
+    void testDeadFeature_2() throws FeatureModelParserException, ExecutionException, InterruptedException, CloneNotSupportedException {
         // load the feature model
         File fileFM = new File("src/test/resources/bamboobike_featureide_deadfeature2.xml");
         FMParserFactory factory = FMParserFactory.getInstance();
@@ -192,9 +190,6 @@ class FMAnalyzerTest {
         // create the specified analysis and the corresponding explanator
         DeadFeatureAnalysis analysis2 = new DeadFeatureAnalysis(debuggingModel, testCases.get(6)); // check the feature Step-through
         DeadFeatureExplanator explanator2 = new DeadFeatureExplanator(debuggingModel, testCases.get(6));
-        // check the feature Female
-        DeadFeatureAnalysis analysis2 = new DeadFeatureAnalysis(debuggingModel, testCases.get(4));
-        DeadFeatureExplanator explanator2 = new DeadFeatureExplanator(debuggingModel, testCases.get(4));
 
         // check the feature Step-through
         FMDebuggingModel debuggingModel1 = (FMDebuggingModel) debuggingModel.clone();
@@ -365,10 +360,14 @@ class FMAnalyzerTest {
         List<Set<Constraint>> allDiagnoses = explanator.get();
 
         Set<Constraint> cs1 = new LinkedHashSet<>();
-        cs1.add(Iterators.get(debuggingModel.getPossiblyFaultyConstraints().iterator(), 0));
+        cs1.add(Iterators.get(debuggingModel.getPossiblyFaultyConstraints().iterator(), 1));
 
-        assertEquals(1, allDiagnoses.size());
+        Set<Constraint> cs2 = new LinkedHashSet<>();
+        cs2.add(Iterators.get(debuggingModel.getPossiblyFaultyConstraints().iterator(), 0));
+
+        assertEquals(2, allDiagnoses.size());
         assertEquals(cs1, allDiagnoses.get(0));
+        assertEquals(cs2, allDiagnoses.get(1));
     }
 
     @Test
@@ -456,7 +455,7 @@ class FMAnalyzerTest {
     }
 
     @Test
-    public void testMultiple_1() throws FeatureModelParserException, ExecutionException, InterruptedException, FeatureModelException {
+    public void testMultiple_1() throws FeatureModelParserException, ExecutionException, InterruptedException, FeatureModelException, CloneNotSupportedException {
         File fileFM = new File("src/test/resources/basic_featureide_multiple1.xml");
         FMParserFactory factory = FMParserFactory.getInstance();
         FeatureModelParser parser = factory.getParser(FMFormat.FEATUREIDE);
@@ -531,86 +530,103 @@ class FMAnalyzerTest {
         FMDebuggingModel conditionallyDeadDebuggingModel = new FMDebuggingModel(featureModel, conditionallyDeadTestSuite, new FMTestCaseTranslator(), false, false);
         conditionallyDeadDebuggingModel.initialize();
 
+        // Store all analyses in here to access them later
+        List<List<AbstractFMAnalysis<Boolean>>> allAnalyses = new ArrayList<>(Collections.emptyList());
+        List<List<AbstractAnomalyExplanator<List<Set<Constraint>>>>> allExplanators = new ArrayList<>(Collections.emptyList());
+
+        // Create an analyzer
+        analyzer = new FMAnalyzer();
+        FMDebuggingModel debuggingModelClone = null;
+
         int optWithParent = 0;
         int condDead = 0;
         for (int f = 1; f < featureModel.getNumOfFeatures(); f++) {
             Feature feature = featureModel.getFeature(f);
-            boolean anomaly = false;
-            // TODO optimise
-            boolean isOptionalWithParent = false;
-            System.out.println(ConsoleColors.RESET + "[*] Feature: " + feature);
+
+            allAnalyses.add(new ArrayList<>(Collections.emptyList()));
+            allExplanators.add(new ArrayList<>(Collections.emptyList()));
 
             // create the specified analyses and the corresponding explanators
-            DeadFeatureAnalysis deadFeatureAnalysis = new DeadFeatureAnalysis(deadFeatureDebuggingModel, deadFeatureTestCases.get(f - 1));
-            DeadFeatureExplanator deadFeatureExplanator = new DeadFeatureExplanator(deadFeatureDebuggingModel, deadFeatureTestCases.get(f - 1));
-
-            // create the specified analyses and the corresponding explanators
-            FullMandatoryAnalysis fullMandatoryAnalysis = new FullMandatoryAnalysis(fullMandatoryDebuggingModel, fullMandatoryTestCases.get(f - 1));
-            FullMandatoryExplanator fullMandatoryExplanator = new FullMandatoryExplanator(fullMandatoryDebuggingModel, fullMandatoryTestCases.get(f - 1));
-
-            // Check whether feature is optional and has parent
-            if (featureModel.isOptionalFeature(feature) && (!featureModel.getMandatoryParents(feature).isEmpty())) {
-                isOptionalWithParent = true;
-            }
-
-            FalseOptionalAnalysis falseOptionalAnalysis = null;
-            FalseOptionalExplanator falseOptionalExplanator = null;
-            if (isOptionalWithParent) {
-                // create the specified analyses and the corresponding explanators
-                falseOptionalAnalysis = new FalseOptionalAnalysis(falseOptionalDebuggingModel, falseOptionalTestCases.get(optWithParent));
-                falseOptionalExplanator = new FalseOptionalExplanator(falseOptionalDebuggingModel, falseOptionalTestCases.get(optWithParent));
-                optWithParent++;
-            }
-
-            ConditionallyDeadAnalysis conditionallyDeadAnalysis = null;
-            ConditionallyDeadExplanator conditionallyDeadExplanator = null;
-            if (featureModel.isOptionalFeature(feature)) {
-                // create the specified analyses and the corresponding explanators
-                conditionallyDeadAnalysis = new ConditionallyDeadAnalysis(conditionallyDeadDebuggingModel, conditionallyDeadTestCases.get(condDead));
-                conditionallyDeadExplanator = new ConditionallyDeadExplanator(conditionallyDeadDebuggingModel, conditionallyDeadTestCases.get(condDead));
-                condDead++;
-            }
-
-            analyzer = new FMAnalyzer();
+            debuggingModelClone = (FMDebuggingModel) deadFeatureDebuggingModel.clone();
+            debuggingModelClone.initialize();
+            DeadFeatureAnalysis deadFeatureAnalysis = new DeadFeatureAnalysis(debuggingModelClone, deadFeatureTestCases.get(f - 1));
+            DeadFeatureExplanator deadFeatureExplanator = new DeadFeatureExplanator(debuggingModelClone, deadFeatureTestCases.get(f - 1));
             analyzer.addAnalysis(deadFeatureAnalysis, deadFeatureExplanator); // add the analysis to the analyzer
+            allAnalyses.get(f - 1).add(deadFeatureAnalysis);
+            allExplanators.get(f - 1).add(deadFeatureExplanator);
+
+            // create the specified analyses and the corresponding explanators
+            debuggingModelClone = (FMDebuggingModel) fullMandatoryDebuggingModel.clone();
+            debuggingModelClone.initialize();
+            FullMandatoryAnalysis fullMandatoryAnalysis = new FullMandatoryAnalysis(debuggingModelClone, fullMandatoryTestCases.get(f - 1));
+            FullMandatoryExplanator fullMandatoryExplanator = new FullMandatoryExplanator(debuggingModelClone, fullMandatoryTestCases.get(f - 1));
             analyzer.addAnalysis(fullMandatoryAnalysis, fullMandatoryExplanator); // add the analysis to the analyzer
-            if (isOptionalWithParent) {
-                analyzer.addAnalysis(falseOptionalAnalysis, falseOptionalExplanator); // add the analysis to the analyzer
-            }
+            allAnalyses.get(f - 1).add(fullMandatoryAnalysis);
+            allExplanators.get(f - 1).add(fullMandatoryExplanator);
+
             if (featureModel.isOptionalFeature(feature)) {
+                // create the specified analyses and the corresponding explanators
+                debuggingModelClone = (FMDebuggingModel) conditionallyDeadDebuggingModel.clone();
+                debuggingModelClone.initialize();
+                ConditionallyDeadAnalysis conditionallyDeadAnalysis = new ConditionallyDeadAnalysis(debuggingModelClone, conditionallyDeadTestCases.get(condDead));
+                ConditionallyDeadExplanator conditionallyDeadExplanator = new ConditionallyDeadExplanator(debuggingModelClone, conditionallyDeadTestCases.get(condDead));
                 analyzer.addAnalysis(conditionallyDeadAnalysis, conditionallyDeadExplanator);
+                allAnalyses.get(f - 1).add(conditionallyDeadAnalysis);
+                allExplanators.get(f - 1).add(conditionallyDeadExplanator);
+                condDead++;
+
+                if (!featureModel.getMandatoryParents(feature).isEmpty()) {
+                    // create the specified analyses and the corresponding explanators
+                    debuggingModelClone = (FMDebuggingModel) falseOptionalDebuggingModel.clone();
+                    debuggingModelClone.initialize();
+                    FalseOptionalAnalysis falseOptionalAnalysis = new FalseOptionalAnalysis(debuggingModelClone, falseOptionalTestCases.get(optWithParent));
+                    FalseOptionalExplanator falseOptionalExplanator = new FalseOptionalExplanator(debuggingModelClone, falseOptionalTestCases.get(optWithParent));
+                    analyzer.addAnalysis(falseOptionalAnalysis, falseOptionalExplanator); // add the analysis to the analyzer
+                    allAnalyses.get(f - 1).add(falseOptionalAnalysis);
+                    allExplanators.get(f - 1).add(falseOptionalExplanator);
+                    optWithParent++;
+                }
             }
-            analyzer.run(); // run the analyzer
+        }
+
+        analyzer.run(); // run the analyzer
+
+        for (int f = 1; f < featureModel.getNumOfFeatures(); f++) {
+            System.out.println(ConsoleColors.RESET + "[*] Feature: " + featureModel.getFeature(f));
 
             // print the result
             ExplanationColors.EXPLANATION = ConsoleColors.WHITE;
 
-            if (!deadFeatureAnalysis.get()) {
-                anomaly = true;
-                System.out.println(ExplanationColors.ANOMALY + "X Dead feature");
-                System.out.println(ExplanationUtils.convertToDescriptiveExplanation(deadFeatureExplanator.get(), "dead feature"));
-            }
-            if (!fullMandatoryAnalysis.get()) {
-                anomaly = true;
-                System.out.println(ExplanationColors.ANOMALY + "X Full mandatory feature");
-                System.out.println(ExplanationUtils.convertToDescriptiveExplanation(fullMandatoryExplanator.get(), "full mandatory feature"));
-            }
-            if (isOptionalWithParent && !falseOptionalAnalysis.get()) {
-                anomaly = true;
-                System.out.println(ExplanationColors.ANOMALY + "X False optional feature");
-                System.out.println(ExplanationUtils.convertToDescriptiveExplanation(falseOptionalExplanator.get(), "false optional feature"));
-            }
-            if (featureModel.isOptionalFeature(feature) && !conditionallyDeadAnalysis.get()){
-                anomaly = true;
-                System.out.println(ExplanationColors.ANOMALY + "X Conditionally dead feature");
-                System.out.println(ExplanationUtils.convertToDescriptiveExplanation(conditionallyDeadExplanator.get(), "conditionally dead feature"));
+            boolean anomaly = false;
+            int analysisType = 0;
+            for (int runningAnalysis = 0; runningAnalysis < allAnalyses.get(f - 1).size(); runningAnalysis++) {
+                if (!allAnalyses.get(f - 1).get(runningAnalysis).get()) {
+                    anomaly = true;
+                    switch (analysisType) {
+                        case 0 -> {
+                            System.out.println(ExplanationColors.ANOMALY + "X Dead feature");
+                            System.out.println(ExplanationUtils.convertToDescriptiveExplanation(allExplanators.get(f - 1).get(runningAnalysis).get(), "dead feature"));
+                        }
+                        case 1 -> {
+                            System.out.println(ExplanationColors.ANOMALY + "X Full mandatory feature");
+                            System.out.println(ExplanationUtils.convertToDescriptiveExplanation(allExplanators.get(f - 1).get(runningAnalysis).get(), "full mandatory feature"));
+                        }
+                        case 2 -> {
+                            System.out.println(ExplanationColors.ANOMALY + "X Conditionally dead feature");
+                            System.out.println(ExplanationUtils.convertToDescriptiveExplanation(allExplanators.get(f - 1).get(runningAnalysis).get(), "conditionally dead feature"));
+                        }
+                        case 3 -> {
+                            System.out.println(ExplanationColors.ANOMALY + "X False optional feature");
+                            System.out.println(ExplanationUtils.convertToDescriptiveExplanation(allExplanators.get(f - 1).get(runningAnalysis).get(), "false optional feature"));
+                        }
+                    }
+                }
+                analysisType++;
             }
 
             if (!anomaly) {
                 System.out.println(ConsoleColors.GREEN + "\u2713 No anomaly found" + ConsoleColors.RESET);
             }
         }
-
-
     }
 }
