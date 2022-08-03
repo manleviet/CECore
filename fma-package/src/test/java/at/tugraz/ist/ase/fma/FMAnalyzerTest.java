@@ -390,6 +390,9 @@ class FMAnalyzerTest {
         FalseOptionalAnalysis analysis = new FalseOptionalAnalysis(debuggingModel, testCases.get(0));
         FalseOptionalExplanator explanator = new FalseOptionalExplanator(debuggingModel, testCases.get(0));
 
+        testCases.forEach(System.out::println);
+        featureModel.getConstraints().forEach(System.out::println);
+
         FMAnalyzer analyzer = new FMAnalyzer();
         analyzer.addAnalysis(analysis, explanator); // add the analysis to the analyzer
         analyzer.run(); // run the analyzer
@@ -415,7 +418,7 @@ class FMAnalyzerTest {
     }
 
     @Test
-    void testConditionallyDead() throws FeatureModelParserException, ExecutionException, InterruptedException {
+    void testConditionallyDead() throws FeatureModelParserException, ExecutionException, InterruptedException, CloneNotSupportedException {
         File fileFM = new File("src/test/resources/basic_featureide_conditionallydead1.xml");
         FMParserFactory factory = FMParserFactory.getInstance();
         FeatureModelParser parser = factory.getParser(FMFormat.FEATUREIDE);
@@ -431,11 +434,25 @@ class FMAnalyzerTest {
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
-        ConditionallyDeadAnalysis analysis = new ConditionallyDeadAnalysis(debuggingModel, testCases.get(0));
-        ConditionallyDeadExplanator explanator = new ConditionallyDeadExplanator(debuggingModel, testCases.get(0));
+        ConditionallyDeadAnalysis analysis = new ConditionallyDeadAnalysis(debuggingModel, testCases.get(3)); // Check feature C
+        ConditionallyDeadExplanator explanator = new ConditionallyDeadExplanator(debuggingModel, testCases.get(3));
+
+        FMDebuggingModel debuggingModel2 = (FMDebuggingModel) debuggingModel.clone();
+        debuggingModel2.initialize();
+
+        ConditionallyDeadAnalysis analysis2 = new ConditionallyDeadAnalysis(debuggingModel2, testCases.get(5)); // Check feature D
+        ConditionallyDeadExplanator explanator2 = new ConditionallyDeadExplanator(debuggingModel2, testCases.get(5));
+
+        FMDebuggingModel debuggingModel3 = (FMDebuggingModel) debuggingModel.clone();
+        debuggingModel3.initialize();
+
+        ConditionallyDeadAnalysis analysis3 = new ConditionallyDeadAnalysis(debuggingModel3, testCases.get(1)); // Check feature B
+        ConditionallyDeadExplanator explanator3 = new ConditionallyDeadExplanator(debuggingModel3, testCases.get(1));
 
         FMAnalyzer analyzer = new FMAnalyzer();
         analyzer.addAnalysis(analysis, explanator); // add the analysis to the analyzer
+        analyzer.addAnalysis(analysis2, explanator2); // add the analysis to the analyzer
+        analyzer.addAnalysis(analysis3, explanator3); // add the analysis to the analyzer
         analyzer.run(); // run the analyzer
 
         // print the result
@@ -445,6 +462,18 @@ class FMAnalyzerTest {
         } else {
             System.out.println(ExplanationColors.ANOMALY + "X Conditionally dead feature");
             System.out.println(ExplanationUtils.convertToDescriptiveExplanation(explanator.get(), "conditionally dead feature"));
+        }
+        if (analysis2.get()) {
+            System.out.println(ExplanationColors.OK + "\u2713 Consistency: ok");
+        } else {
+            System.out.println(ExplanationColors.ANOMALY + "X Conditionally dead feature");
+            System.out.println(ExplanationUtils.convertToDescriptiveExplanation(explanator2.get(), "conditionally dead feature"));
+        }
+        if (analysis3.get()) {
+            System.out.println(ExplanationColors.OK + "\u2713 Consistency: ok");
+        } else {
+            System.out.println(ExplanationColors.ANOMALY + "X Conditionally dead feature");
+            System.out.println(ExplanationUtils.convertToDescriptiveExplanation(explanator3.get(), "conditionally dead feature"));
         }
 
         assertFalse(analysis.get());
@@ -530,6 +559,8 @@ class FMAnalyzerTest {
         FMDebuggingModel conditionallyDeadDebuggingModel = new FMDebuggingModel(featureModel, conditionallyDeadTestSuite, new FMTestCaseTranslator(), false, false);
         conditionallyDeadDebuggingModel.initialize();
 
+//        conditionallyDeadTestCases.forEach(System.out::println);
+
         // Store all analyses in here to access them later
         List<List<AbstractFMAnalysis<Boolean>>> allAnalyses = new ArrayList<>(Collections.emptyList());
         List<List<AbstractAnomalyExplanator<List<Set<Constraint>>>>> allExplanators = new ArrayList<>(Collections.emptyList());
@@ -565,15 +596,21 @@ class FMAnalyzerTest {
             allExplanators.get(f - 1).add(fullMandatoryExplanator);
 
             if (featureModel.isOptionalFeature(feature)) {
-                // create the specified analyses and the corresponding explanators
-                debuggingModelClone = (FMDebuggingModel) conditionallyDeadDebuggingModel.clone();
-                debuggingModelClone.initialize();
-                ConditionallyDeadAnalysis conditionallyDeadAnalysis = new ConditionallyDeadAnalysis(debuggingModelClone, conditionallyDeadTestCases.get(condDead));
-                ConditionallyDeadExplanator conditionallyDeadExplanator = new ConditionallyDeadExplanator(debuggingModelClone, conditionallyDeadTestCases.get(condDead));
-                analyzer.addAnalysis(conditionallyDeadAnalysis, conditionallyDeadExplanator);
-                allAnalyses.get(f - 1).add(conditionallyDeadAnalysis);
-                allExplanators.get(f - 1).add(conditionallyDeadExplanator);
-                condDead++;
+                for (int j = 1; j < featureModel.getNumOfFeatures(); j++) {
+                    if (f == j || !featureModel.isOptionalFeature(featureModel.getFeature(j))){
+                        continue;
+                    }
+
+                    // create the specified analyses and the corresponding explanators
+                    debuggingModelClone = (FMDebuggingModel) conditionallyDeadDebuggingModel.clone();
+                    debuggingModelClone.initialize();
+                    ConditionallyDeadAnalysis conditionallyDeadAnalysis = new ConditionallyDeadAnalysis(debuggingModelClone, conditionallyDeadTestCases.get(condDead));
+                    ConditionallyDeadExplanator conditionallyDeadExplanator = new ConditionallyDeadExplanator(debuggingModelClone, conditionallyDeadTestCases.get(condDead));
+                    analyzer.addAnalysis(conditionallyDeadAnalysis, conditionallyDeadExplanator);
+                    allAnalyses.get(f - 1).add(conditionallyDeadAnalysis);
+                    allExplanators.get(f - 1).add(conditionallyDeadExplanator);
+                    condDead++;
+                }
 
                 if (!featureModel.getMandatoryParents(feature).isEmpty()) {
                     // create the specified analyses and the corresponding explanators
@@ -603,6 +640,7 @@ class FMAnalyzerTest {
                 if (!allAnalyses.get(f - 1).get(runningAnalysis).get()) {
                     anomaly = true;
                     switch (analysisType) {
+                        // TODO fix this!
                         case 0 -> {
                             System.out.println(ExplanationColors.ANOMALY + "X Dead feature");
                             System.out.println(ExplanationUtils.convertToDescriptiveExplanation(allExplanators.get(f - 1).get(runningAnalysis).get(), "dead feature"));
