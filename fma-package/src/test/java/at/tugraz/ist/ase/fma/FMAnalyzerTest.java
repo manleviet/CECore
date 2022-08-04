@@ -22,7 +22,6 @@ import at.tugraz.ist.ase.fma.assumption.*;
 import at.tugraz.ist.ase.fma.explanator.*;
 import at.tugraz.ist.ase.kb.core.Constraint;
 import at.tugraz.ist.ase.test.ITestCase;
-import at.tugraz.ist.ase.test.TestCase;
 import at.tugraz.ist.ase.test.TestSuite;
 import at.tugraz.ist.ase.test.translator.fm.FMTestCaseTranslator;
 import com.google.common.collect.Iterators;
@@ -458,7 +457,7 @@ class FMAnalyzerTest {
         // print the result
         ExplanationColors.EXPLANATION = ConsoleColors.WHITE;
         if (analysis.get()) {
-            System.out.println(ExplanationColors.OK + "\u2713 Consistency: ok");
+            System.out.println(ExplanationColors.OK + "\u2713 DConsistency: ok");
         } else {
             System.out.println(ExplanationColors.ANOMALY + "X Conditionally dead feature");
             System.out.println(ExplanationUtils.convertToDescriptiveExplanation(explanator.get(), "conditionally dead feature"));
@@ -651,17 +650,17 @@ class FMAnalyzerTest {
                             System.out.println(ExplanationColors.ANOMALY + "X Dead feature");
                             System.out.println(ExplanationUtils.convertToDescriptiveExplanation(allExplanators.get(f - 1).get(runningAnalysis).get(), "dead feature"));
                         }
-                        case FULLMANDATORY -> {
-                            System.out.println(ExplanationColors.ANOMALY + "X Full mandatory feature");
-                            System.out.println(ExplanationUtils.convertToDescriptiveExplanation(allExplanators.get(f - 1).get(runningAnalysis).get(), "full mandatory feature"));
+                        case FALSEOPTIONAL -> {
+                            System.out.println(ExplanationColors.ANOMALY + "X False optional feature");
+                            System.out.println(ExplanationUtils.convertToDescriptiveExplanation(allExplanators.get(f - 1).get(runningAnalysis).get(), "false optional feature"));
                         }
                         case CONDITIONALLYDEAD -> {
                             System.out.println(ExplanationColors.ANOMALY + "X Conditionally dead feature");
                             System.out.println(ExplanationUtils.convertToDescriptiveExplanation(allExplanators.get(f - 1).get(runningAnalysis).get(), "conditionally dead feature"));
                         }
-                        case FALSEOPTIONAL -> {
-                            System.out.println(ExplanationColors.ANOMALY + "X False optional feature");
-                            System.out.println(ExplanationUtils.convertToDescriptiveExplanation(allExplanators.get(f - 1).get(runningAnalysis).get(), "false optional feature"));
+                        case FULLMANDATORY -> {
+                            System.out.println(ExplanationColors.ANOMALY + "X Full mandatory feature");
+                            System.out.println(ExplanationUtils.convertToDescriptiveExplanation(allExplanators.get(f - 1).get(runningAnalysis).get(), "full mandatory feature"));
                         }
                     }
                 }
