@@ -19,6 +19,7 @@
 			<feature mandatory="true" name="B"/>
 			<feature name="C"/>
 			<feature name="D"/>
+			<feature name="E"/>
 		</and>
 	</struct>
 	<constraints>
