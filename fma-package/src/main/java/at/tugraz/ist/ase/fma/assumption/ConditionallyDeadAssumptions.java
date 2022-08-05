@@ -10,6 +10,9 @@ package at.tugraz.ist.ase.fma.assumption;
 
 import at.tugraz.ist.ase.fm.core.Feature;
 import at.tugraz.ist.ase.fm.core.FeatureModel;
+import at.tugraz.ist.ase.fma.AnomalyType;
+import at.tugraz.ist.ase.fma.featuremodel.AnomalyAwareFeature;
+import at.tugraz.ist.ase.fma.featuremodel.AnomalyAwareFeatureModel;
 import at.tugraz.ist.ase.test.Assignment;
 import at.tugraz.ist.ase.test.ITestCase;
 import at.tugraz.ist.ase.test.TestCase;
@@ -20,17 +23,27 @@ import java.util.List;
 
 public class ConditionallyDeadAssumptions implements IFMAnalysisAssumptionCreatable{
     @Override
-    public List<ITestCase> createAssumptions(@NonNull FeatureModel fm) {
+    public List<ITestCase> createAssumptions(@NonNull FeatureModel featureModel) {
+        AnomalyAwareFeatureModel fm;
+        if (!(featureModel instanceof AnomalyAwareFeatureModel)) {
+            fm = new AnomalyAwareFeatureModel(featureModel);
+        }
+        else {
+            fm = (AnomalyAwareFeatureModel) featureModel;
+        }
+
         List<ITestCase> testCases = new LinkedList<>();
         for (int i = 1; i < fm.getNumOfFeatures(); i++) {
-            Feature feature = fm.getFeature(i);
-            if (!fm.isOptionalFeature(feature)) {
-                continue; // Only optional features can be conditionally dead
+            AnomalyAwareFeature feature = fm.getAnomalyAwareFeature(i);
+            if (!fm.isOptionalFeature(feature) || feature.isAnomalyType(AnomalyType.DEAD)) {
+                continue; // Only optional features can be conditionally dead - dead features are dead anyway
             }
 
             for (int j = 1; j < fm.getNumOfFeatures(); j++) {
-                Feature otherFeature = fm.getFeature(j); // TODO exclude dead features
-                if (i == j || !fm.isOptionalFeature(otherFeature)) continue; // fj mandatory would mean that fi is dead
+                Feature otherFeature = fm.getFeature(j);
+                if (i == j || !fm.isOptionalFeature(otherFeature) || fm.getAnomalyAwareFeature(j).isAnomalyType(AnomalyType.DEAD)) {
+                    continue;
+                }
 
                 String testcase = fm.getFeature(0).getName() + " = true & " + otherFeature.getName() + " = true & " + feature.getName() + " = true";
                 List<Assignment> assignments = new LinkedList<>();

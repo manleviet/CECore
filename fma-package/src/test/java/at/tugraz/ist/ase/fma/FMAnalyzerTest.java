@@ -20,6 +20,7 @@ import at.tugraz.ist.ase.fm.parser.factory.FMParserFactory;
 import at.tugraz.ist.ase.fma.analysis.*;
 import at.tugraz.ist.ase.fma.assumption.*;
 import at.tugraz.ist.ase.fma.explanator.*;
+import at.tugraz.ist.ase.fma.featuremodel.AnomalyAwareFeatureModel;
 import at.tugraz.ist.ase.kb.core.Constraint;
 import at.tugraz.ist.ase.test.ITestCase;
 import at.tugraz.ist.ase.test.TestSuite;
@@ -484,10 +485,12 @@ class FMAnalyzerTest {
 
     @Test
     public void testMultiple_1() throws FeatureModelParserException, ExecutionException, InterruptedException, FeatureModelException, CloneNotSupportedException {
+        // TODO update to support new coditionally dead analysis
         File fileFM = new File("src/test/resources/basic_featureide_multiple1.xml");
         FMParserFactory factory = FMParserFactory.getInstance();
         FeatureModelParser parser = factory.getParser(FMFormat.FEATUREIDE);
-        FeatureModel featureModel = parser.parse(fileFM);
+        FeatureModel fm = parser.parse(fileFM);
+        AnomalyAwareFeatureModel featureModel = new AnomalyAwareFeatureModel(fm);
 
         /// VOID FEATURE MODEL
         // create a test case/assumption
@@ -669,5 +672,16 @@ class FMAnalyzerTest {
                 System.out.println(ConsoleColors.GREEN + "\u2713 No anomaly found" + ConsoleColors.RESET);
             }
         }
+    }
+
+    @Test
+    public void testFullAnalysis() throws FeatureModelParserException, ExecutionException, FeatureModelException, InterruptedException, CloneNotSupportedException {
+        File fileFM = new File("src/test/resources/basic_featureide_multiple1.xml");
+        FMParserFactory factory = FMParserFactory.getInstance();
+        FeatureModelParser parser = factory.getParser(FMFormat.FEATUREIDE);
+        FeatureModel featureModel = parser.parse(fileFM);
+
+        FMAnalyzer analyzer = new FMAnalyzer();
+        analyzer.performFullAnalysis(featureModel);
     }
 }
