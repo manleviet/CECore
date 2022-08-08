@@ -175,8 +175,8 @@ public class FMAnalyzer {
         conditionallyDeadDebuggingModel.initialize();
 
         // counting variables for indexes
-        int optWithParent = 0;
         int condDead = 0;
+        int optWithParent = 0;
         for (int f = 1; f < afm.getNumOfFeatures(); f++) {
             if (afm.getAnomalyAwareFeature(f).isAnomalyType(AnomalyType.DEAD)) {
                 continue;
@@ -212,26 +212,27 @@ public class FMAnalyzer {
                     allExplanators.get(f - 1).add(conditionallyDeadExplanator);
                     anomalyTypes.get(f - 1).add(AnomalyType.CONDITIONALLYDEAD);
                     condDead++;
+                }
 
-//                    if (!afm.getMandatoryParents(feature).isEmpty()) {
-//                        // create the specified analyses and the corresponding explanators
-//                        debuggingModelClone = (FMDebuggingModel) falseOptionalDebuggingModel.clone();
-//                        debuggingModelClone.initialize();
-//                        FalseOptionalAnalysis falseOptionalAnalysis = new FalseOptionalAnalysis(debuggingModelClone, falseOptionalTestCases.get(optWithParent));
-//                        FalseOptionalExplanator falseOptionalExplanator = new FalseOptionalExplanator(debuggingModelClone, falseOptionalTestCases.get(optWithParent));
-//                        analyzer.addAnalysis(falseOptionalAnalysis, falseOptionalExplanator); // add the analysis to the analyzer
-//
-//                        allAnalyses.get(f - 1).add(falseOptionalAnalysis);
-//                        allExplanators.get(f - 1).add(falseOptionalExplanator);
-//                        anomalyTypes.get(f - 1).add(AnomalyType.FALSEOPTIONAL);
-//                        optWithParent++;
-//                    }
+                if (!afm.getMandatoryParents(feature).isEmpty()) { // TODO for parent in mand. parents?
+                    // create the specified analyses and the corresponding explanators
+                    debuggingModelClone = (FMDebuggingModel) falseOptionalDebuggingModel.clone();
+                    debuggingModelClone.initialize();
+                    FalseOptionalAnalysis falseOptionalAnalysis = new FalseOptionalAnalysis(debuggingModelClone, falseOptionalTestCases.get(optWithParent));
+                    FalseOptionalExplanator falseOptionalExplanator = new FalseOptionalExplanator(debuggingModelClone, falseOptionalTestCases.get(optWithParent));
+                    analyzer.addAnalysis(falseOptionalAnalysis, falseOptionalExplanator); // add the analysis to the analyzer
+
+                    allAnalyses.get(f - 1).add(falseOptionalAnalysis);
+                    allExplanators.get(f - 1).add(falseOptionalExplanator);
+                    anomalyTypes.get(f - 1).add(AnomalyType.FALSEOPTIONAL);
+                    optWithParent++;
                 }
             }
         }
 
         analyzer.run(); // run the analyzer
 
+        // Fetch the results
         for (int f = 1; f < afm.getNumOfFeatures(); f++) {
             System.out.println(ConsoleColors.RESET + "[*] Feature: " + afm.getFeature(f));
 

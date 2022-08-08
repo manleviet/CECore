@@ -653,17 +653,17 @@ class FMAnalyzerTest {
                             System.out.println(ExplanationColors.ANOMALY + "X Dead feature");
                             System.out.println(ExplanationUtils.convertToDescriptiveExplanation(allExplanators.get(f - 1).get(runningAnalysis).get(), "dead feature"));
                         }
-                        case FALSEOPTIONAL -> {
-                            System.out.println(ExplanationColors.ANOMALY + "X False optional feature");
-                            System.out.println(ExplanationUtils.convertToDescriptiveExplanation(allExplanators.get(f - 1).get(runningAnalysis).get(), "false optional feature"));
+                        case FULLMANDATORY -> {
+                            System.out.println(ExplanationColors.ANOMALY + "X Full mandatory feature");
+                            System.out.println(ExplanationUtils.convertToDescriptiveExplanation(allExplanators.get(f - 1).get(runningAnalysis).get(), "full mandatory feature"));
                         }
                         case CONDITIONALLYDEAD -> {
                             System.out.println(ExplanationColors.ANOMALY + "X Conditionally dead feature");
                             System.out.println(ExplanationUtils.convertToDescriptiveExplanation(allExplanators.get(f - 1).get(runningAnalysis).get(), "conditionally dead feature"));
                         }
-                        case FULLMANDATORY -> {
-                            System.out.println(ExplanationColors.ANOMALY + "X Full mandatory feature");
-                            System.out.println(ExplanationUtils.convertToDescriptiveExplanation(allExplanators.get(f - 1).get(runningAnalysis).get(), "full mandatory feature"));
+                        case FALSEOPTIONAL -> {
+                            System.out.println(ExplanationColors.ANOMALY + "X False optional feature");
+                            System.out.println(ExplanationUtils.convertToDescriptiveExplanation(allExplanators.get(f - 1).get(runningAnalysis).get(), "false optional feature"));
                         }
                     }
                 }

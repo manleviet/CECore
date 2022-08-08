@@ -47,17 +47,17 @@ public class FalseOptionalAssumptions implements IFMAnalysisAssumptionCreatable 
                         + feature.getName() + " = false";
                 List<Assignment> assignments = new LinkedList<>();
                 assignments.add(Assignment.builder()
-                    .variable(fm.getFeature(0).getName())
-                    .value("true")
-                    .build());
+                        .variable(fm.getFeature(0).getName())
+                        .value("true")
+                        .build());
                 assignments.add(Assignment.builder()
                         .variable(parent.getName())
                         .value("true")
                         .build());
                 assignments.add(Assignment.builder()
-                    .variable(feature.getName())
-                    .value("false")
-                    .build());
+                        .variable(feature.getName())
+                        .value("false")
+                        .build());
 
                 testCases.add(TestCase.builder()
                     .testcase(testcase)
