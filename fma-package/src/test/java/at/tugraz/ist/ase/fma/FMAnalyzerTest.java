@@ -485,7 +485,6 @@ class FMAnalyzerTest {
 
     @Test
     public void testMultiple_1() throws FeatureModelParserException, ExecutionException, InterruptedException, FeatureModelException, CloneNotSupportedException {
-        // TODO update to support new coditionally dead analysis
         File fileFM = new File("src/test/resources/basic_featureide_multiple1.xml");
         FMParserFactory factory = FMParserFactory.getInstance();
         FeatureModelParser parser = factory.getParser(FMFormat.FEATUREIDE);
@@ -521,6 +520,15 @@ class FMAnalyzerTest {
 
         assertTrue(analysis.get());
 
+        // Store all analyses in here to access them later
+        List<List<AbstractFMAnalysis<Boolean>>> allAnalyses = new ArrayList<>(Collections.emptyList());
+        List<List<AbstractAnomalyExplanator<List<Set<Constraint>>>>> allExplanators = new ArrayList<>(Collections.emptyList());
+        List<List<AnomalyType>> anomalyTypes = new ArrayList<>(Collections.emptyList());
+
+        // Create an analyzer
+        analyzer = new FMAnalyzer();
+        FMDebuggingModel debuggingModelClone = null;
+
         /// DEAD FEATURES
         // create a test case/assumption
         // check dead features - inconsistent( CF ∪ { c0 } U { fi = true })
@@ -531,50 +539,7 @@ class FMAnalyzerTest {
         FMDebuggingModel deadFeatureDebuggingModel = new FMDebuggingModel(featureModel, deadFeatureTestSuite, new FMTestCaseTranslator(), false, false);
         deadFeatureDebuggingModel.initialize();
 
-        /// FULL MANDATORY
-        // create a test case/assumption
-        // check full mandatory features
-        FullMandatoryAssumptions fullMandatoryAssumptions = new FullMandatoryAssumptions();
-        List<ITestCase> fullMandatoryTestCases = fullMandatoryAssumptions.createAssumptions(featureModel);
-        TestSuite fullMandatoryTestSuite = TestSuite.builder().testCases(fullMandatoryTestCases).build();
-
-        FMDebuggingModel fullMandatoryDebuggingModel = new FMDebuggingModel(featureModel, fullMandatoryTestSuite, new FMTestCaseTranslator(), false, false);
-        fullMandatoryDebuggingModel.initialize();
-
-        /// FALSE OPTIONAL
-        // create a test case/assumption
-        // check false optional features
-        FalseOptionalAssumptions falseOptionalAssumptions = new FalseOptionalAssumptions();
-        List<ITestCase> falseOptionalTestCases = falseOptionalAssumptions.createAssumptions(featureModel);
-        TestSuite falseOptionalTestSuite = TestSuite.builder().testCases(falseOptionalTestCases).build();
-
-        FMDebuggingModel falseOptionalDebuggingModel = new FMDebuggingModel(featureModel, falseOptionalTestSuite, new FMTestCaseTranslator(), false, false);
-        falseOptionalDebuggingModel.initialize();
-
-        /// CONDITIONALLY DEAD
-        // create a test case/assumption
-        // check conditionally dead features
-        ConditionallyDeadAssumptions conditionallyDeadAssumptions = new ConditionallyDeadAssumptions();
-        List<ITestCase> conditionallyDeadTestCases = conditionallyDeadAssumptions.createAssumptions(featureModel);
-        TestSuite conditionallyDeadTestSuite = TestSuite.builder().testCases(conditionallyDeadTestCases).build();
-
-        FMDebuggingModel conditionallyDeadDebuggingModel = new FMDebuggingModel(featureModel, conditionallyDeadTestSuite, new FMTestCaseTranslator(), false, false);
-        conditionallyDeadDebuggingModel.initialize();
-
-        // Store all analyses in here to access them later
-        List<List<AbstractFMAnalysis<Boolean>>> allAnalyses = new ArrayList<>(Collections.emptyList());
-        List<List<AbstractAnomalyExplanator<List<Set<Constraint>>>>> allExplanators = new ArrayList<>(Collections.emptyList());
-        List<List<AnomalyType>> anomalyTypes = new ArrayList<>(Collections.emptyList());
-
-        // Create an analyzer
-        analyzer = new FMAnalyzer();
-        FMDebuggingModel debuggingModelClone = null;
-
-        int optWithParent = 0;
-        int condDead = 0;
         for (int f = 1; f < featureModel.getNumOfFeatures(); f++) {
-            Feature feature = featureModel.getFeature(f);
-
             allAnalyses.add(new ArrayList<>(Collections.emptyList()));
             allExplanators.add(new ArrayList<>(Collections.emptyList()));
             anomalyTypes.add(new ArrayList<>(Collections.emptyList()));
@@ -589,6 +554,58 @@ class FMAnalyzerTest {
             allAnalyses.get(f - 1).add(deadFeatureAnalysis);
             allExplanators.get(f - 1).add(deadFeatureExplanator);
             anomalyTypes.get(f - 1).add(AnomalyType.DEAD);
+        }
+
+        analyzer.run(); // run the analyzer
+
+        // Check the results and set dead features - printing will happen later
+        for (int f = 1; f < featureModel.getNumOfFeatures(); f++) {
+            for (int runningAnalysis = 0; runningAnalysis < allAnalyses.get(f - 1).size(); runningAnalysis++) {
+                if (!allAnalyses.get(f - 1).get(runningAnalysis).get()) {
+                    featureModel.getAnomalyAwareFeature(f).setAnomalyType(AnomalyType.DEAD);
+                }
+            }
+        }
+
+        /// FULL MANDATORY
+        // create a test case/assumption
+        // check full mandatory features - inconsistent( CF ∪ { c0 } U { fi = false })
+        FullMandatoryAssumptions fullMandatoryAssumptions = new FullMandatoryAssumptions();
+        List<ITestCase> fullMandatoryTestCases = fullMandatoryAssumptions.createAssumptions(featureModel);
+        TestSuite fullMandatoryTestSuite = TestSuite.builder().testCases(fullMandatoryTestCases).build();
+
+        FMDebuggingModel fullMandatoryDebuggingModel = new FMDebuggingModel(featureModel, fullMandatoryTestSuite, new FMTestCaseTranslator(), false, false);
+        fullMandatoryDebuggingModel.initialize();
+
+        /// FALSE OPTIONAL
+        // create a test case/assumption
+        // check false optional features  - inconsistent( CF ∪ { c0 } U { fpar = true ^ fopt = false } )
+        FalseOptionalAssumptions falseOptionalAssumptions = new FalseOptionalAssumptions();
+        List<ITestCase> falseOptionalTestCases = falseOptionalAssumptions.createAssumptions(featureModel);
+        TestSuite falseOptionalTestSuite = TestSuite.builder().testCases(falseOptionalTestCases).build();
+
+        FMDebuggingModel falseOptionalDebuggingModel = new FMDebuggingModel(featureModel, falseOptionalTestSuite, new FMTestCaseTranslator(), false, false);
+        falseOptionalDebuggingModel.initialize();
+
+        // CONDITIONALLY DEAD
+        // create a test case/assumption
+        // check conditionally dead features - inconsistent( CF ∪ { c0 } U { fj = true } U { fi = true } ) for any fj
+        ConditionallyDeadAssumptions conditionallyDeadAssumptions = new ConditionallyDeadAssumptions();
+        List<ITestCase> conditionallyDeadTestCases = conditionallyDeadAssumptions.createAssumptions(featureModel);
+        TestSuite conditionallyDeadTestSuite = TestSuite.builder().testCases(conditionallyDeadTestCases).build();
+
+        FMDebuggingModel conditionallyDeadDebuggingModel = new FMDebuggingModel(featureModel, conditionallyDeadTestSuite, new FMTestCaseTranslator(), false, false);
+        conditionallyDeadDebuggingModel.initialize();
+
+        // counting variables for indexes
+        int condDead = 0;
+        int optWithParent = 0;
+        for (int f = 1; f < featureModel.getNumOfFeatures(); f++) {
+            if (featureModel.getAnomalyAwareFeature(f).isAnomalyType(AnomalyType.DEAD)) {
+                continue;
+            }
+
+            Feature feature = featureModel.getFeature(f);
 
             // create the specified analyses and the corresponding explanators
             debuggingModelClone = (FMDebuggingModel) fullMandatoryDebuggingModel.clone();
@@ -603,7 +620,7 @@ class FMAnalyzerTest {
 
             if (featureModel.isOptionalFeature(feature)) {
                 for (int j = 1; j < featureModel.getNumOfFeatures(); j++) {
-                    if (f == j || !featureModel.isOptionalFeature(featureModel.getFeature(j))){
+                    if (f == j || !featureModel.isOptionalFeature(featureModel.getFeature(j)) || featureModel.getAnomalyAwareFeature(j).isAnomalyType(AnomalyType.DEAD)) {
                         continue;
                     }
 
@@ -620,7 +637,7 @@ class FMAnalyzerTest {
                     condDead++;
                 }
 
-                if (!featureModel.getMandatoryParents(feature).isEmpty()) {
+                for (Feature parent : featureModel.getMandatoryParents(feature)) {
                     // create the specified analyses and the corresponding explanators
                     debuggingModelClone = (FMDebuggingModel) falseOptionalDebuggingModel.clone();
                     debuggingModelClone.initialize();
@@ -638,6 +655,7 @@ class FMAnalyzerTest {
 
         analyzer.run(); // run the analyzer
 
+        // Fetch the results
         for (int f = 1; f < featureModel.getNumOfFeatures(); f++) {
             System.out.println(ConsoleColors.RESET + "[*] Feature: " + featureModel.getFeature(f));
 
