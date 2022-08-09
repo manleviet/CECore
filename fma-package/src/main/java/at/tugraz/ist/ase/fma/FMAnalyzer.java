@@ -214,7 +214,7 @@ public class FMAnalyzer {
                     condDead++;
                 }
 
-                if (!afm.getMandatoryParents(feature).isEmpty()) { // TODO for parent in mand. parents?
+                for (Feature parent : afm.getMandatoryParents(feature)) {
                     // create the specified analyses and the corresponding explanators
                     debuggingModelClone = (FMDebuggingModel) falseOptionalDebuggingModel.clone();
                     debuggingModelClone.initialize();
