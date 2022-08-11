@@ -418,7 +418,7 @@ class FMAnalyzerTest {
     }
 
     @Test
-    void testConditionallyDead() throws FeatureModelParserException, ExecutionException, InterruptedException, CloneNotSupportedException {
+    void testConditionallyDead_1() throws FeatureModelParserException, ExecutionException, InterruptedException, CloneNotSupportedException {
         File fileFM = new File("src/test/resources/basic_featureide_conditionallydead1.xml");
         FMParserFactory factory = FMParserFactory.getInstance();
         FeatureModelParser parser = factory.getParser(FMFormat.FEATUREIDE);
@@ -481,6 +481,17 @@ class FMAnalyzerTest {
         List<Set<Constraint>> allDiagnoses = explanator.get();
 
         assertEquals(1, allDiagnoses.size());
+    }
+
+    @Test
+    void testConditionallyDead_2() throws FeatureModelParserException, ExecutionException, InterruptedException, CloneNotSupportedException, FeatureModelException {
+        File fileFM = new File("src/test/resources/basic_featureide_conditionallydead2.xml");
+        FMParserFactory factory = FMParserFactory.getInstance();
+        FeatureModelParser parser = factory.getParser(FMFormat.FEATUREIDE);
+        FeatureModel featureModel = parser.parse(fileFM);
+
+        FMAnalyzer analyzer = new FMAnalyzer();
+        analyzer.performFullAnalysis(featureModel);
     }
 
     @Test
@@ -695,6 +706,42 @@ class FMAnalyzerTest {
     @Test
     public void testFullAnalysis() throws FeatureModelParserException, ExecutionException, FeatureModelException, InterruptedException, CloneNotSupportedException {
         File fileFM = new File("src/test/resources/basic_featureide_multiple1.xml");
+        FMParserFactory factory = FMParserFactory.getInstance();
+        FeatureModelParser parser = factory.getParser(FMFormat.FEATUREIDE);
+        FeatureModel featureModel = parser.parse(fileFM);
+
+        FMAnalyzer analyzer = new FMAnalyzer();
+        analyzer.performFullAnalysis(featureModel);
+    }
+
+    @Test
+    public void testLargeModel_1() throws FeatureModelParserException, ExecutionException, FeatureModelException, InterruptedException, CloneNotSupportedException {
+        // 42 features in 6 layers - no constraints
+        File fileFM = new File("src/test/resources/basic_featureide_large1.xml");
+        FMParserFactory factory = FMParserFactory.getInstance();
+        FeatureModelParser parser = factory.getParser(FMFormat.FEATUREIDE);
+        FeatureModel featureModel = parser.parse(fileFM);
+
+        FMAnalyzer analyzer = new FMAnalyzer();
+        analyzer.performFullAnalysis(featureModel);
+    }
+
+    @Test
+    public void testLargeModel_2() throws FeatureModelParserException, ExecutionException, FeatureModelException, InterruptedException, CloneNotSupportedException {
+        // 42 features in 6 layers - few, basic constraints
+        File fileFM = new File("src/test/resources/basic_featureide_large2.xml");
+        FMParserFactory factory = FMParserFactory.getInstance();
+        FeatureModelParser parser = factory.getParser(FMFormat.FEATUREIDE);
+        FeatureModel featureModel = parser.parse(fileFM);
+
+        FMAnalyzer analyzer = new FMAnalyzer();
+        analyzer.performFullAnalysis(featureModel);
+    }
+
+    @Test
+    public void testLargeModel_3() throws FeatureModelParserException, ExecutionException, FeatureModelException, InterruptedException, CloneNotSupportedException {
+        // 42 features in 6 layers - more constraints
+        File fileFM = new File("src/test/resources/basic_featureide_large3.xml");
         FMParserFactory factory = FMParserFactory.getInstance();
         FeatureModelParser parser = factory.getParser(FMFormat.FEATUREIDE);
         FeatureModel featureModel = parser.parse(fileFM);
