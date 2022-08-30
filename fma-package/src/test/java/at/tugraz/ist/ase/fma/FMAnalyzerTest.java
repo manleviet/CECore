@@ -50,7 +50,7 @@ class FMAnalyzerTest {
         List<ITestCase> testCases = voidFMAssumption.createAssumptions(featureModel);
         TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
 
-        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -103,7 +103,7 @@ class FMAnalyzerTest {
         List<ITestCase> testCases = voidFMAssumption.createAssumptions(featureModel);
         TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
 
-        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -116,7 +116,7 @@ class FMAnalyzerTest {
         testCases = deadFeatureAssumptions.createAssumptions(featureModel);
         testSuite = TestSuite.builder().testCases(testCases).build();
 
-        debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -171,7 +171,7 @@ class FMAnalyzerTest {
         List<ITestCase> testCases = voidFMAssumption.createAssumptions(featureModel);
         TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
 
-        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -184,7 +184,7 @@ class FMAnalyzerTest {
         testCases = deadFeatureAssumptions.createAssumptions(featureModel);
         testSuite = TestSuite.builder().testCases(testCases).build();
 
-        debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -262,7 +262,7 @@ class FMAnalyzerTest {
         List<ITestCase> testCases = voidFMAssumption.createAssumptions(featureModel);
         TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
 
-        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -275,7 +275,7 @@ class FMAnalyzerTest {
         testCases = deadFeatureAssumptions.createAssumptions(featureModel);
         testSuite = TestSuite.builder().testCases(testCases).build();
 
-        debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -335,7 +335,7 @@ class FMAnalyzerTest {
         List<ITestCase> testCases = fullMandatoryAssumptions.createAssumptions(featureModel);
         TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
 
-        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -383,7 +383,7 @@ class FMAnalyzerTest {
         List<ITestCase> testCases = falseOptionalAssumptions.createAssumptions(featureModel);
         TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
 
-        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -430,7 +430,7 @@ class FMAnalyzerTest {
         List<ITestCase> testCases = conditionallyDeadAssumptions.createAssumptions(featureModel);
         TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
 
-        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -509,7 +509,7 @@ class FMAnalyzerTest {
         List<ITestCase> testCases = voidFMAssumption.createAssumptions(featureModel);
         TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
 
-        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -547,7 +547,7 @@ class FMAnalyzerTest {
         List<ITestCase> deadFeatureTestCases = deadFeatureAssumptions.createAssumptions(featureModel);
         TestSuite deadFeatureTestSuite = TestSuite.builder().testCases(deadFeatureTestCases).build();
 
-        FMDebuggingModel deadFeatureDebuggingModel = new FMDebuggingModel(featureModel, deadFeatureTestSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel deadFeatureDebuggingModel = new FMDebuggingModel(featureModel, deadFeatureTestSuite, new FMTestCaseTranslator(), false, false, false);
         deadFeatureDebuggingModel.initialize();
 
         for (int f = 1; f < featureModel.getNumOfFeatures(); f++) {
@@ -585,7 +585,7 @@ class FMAnalyzerTest {
         List<ITestCase> fullMandatoryTestCases = fullMandatoryAssumptions.createAssumptions(featureModel);
         TestSuite fullMandatoryTestSuite = TestSuite.builder().testCases(fullMandatoryTestCases).build();
 
-        FMDebuggingModel fullMandatoryDebuggingModel = new FMDebuggingModel(featureModel, fullMandatoryTestSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel fullMandatoryDebuggingModel = new FMDebuggingModel(featureModel, fullMandatoryTestSuite, new FMTestCaseTranslator(), false, false, false);
         fullMandatoryDebuggingModel.initialize();
 
         /// FALSE OPTIONAL
@@ -595,7 +595,7 @@ class FMAnalyzerTest {
         List<ITestCase> falseOptionalTestCases = falseOptionalAssumptions.createAssumptions(featureModel);
         TestSuite falseOptionalTestSuite = TestSuite.builder().testCases(falseOptionalTestCases).build();
 
-        FMDebuggingModel falseOptionalDebuggingModel = new FMDebuggingModel(featureModel, falseOptionalTestSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel falseOptionalDebuggingModel = new FMDebuggingModel(featureModel, falseOptionalTestSuite, new FMTestCaseTranslator(), false, false, false);
         falseOptionalDebuggingModel.initialize();
 
         // CONDITIONALLY DEAD
@@ -605,7 +605,7 @@ class FMAnalyzerTest {
         List<ITestCase> conditionallyDeadTestCases = conditionallyDeadAssumptions.createAssumptions(featureModel);
         TestSuite conditionallyDeadTestSuite = TestSuite.builder().testCases(conditionallyDeadTestCases).build();
 
-        FMDebuggingModel conditionallyDeadDebuggingModel = new FMDebuggingModel(featureModel, conditionallyDeadTestSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel conditionallyDeadDebuggingModel = new FMDebuggingModel(featureModel, conditionallyDeadTestSuite, new FMTestCaseTranslator(), false, false, false);
         conditionallyDeadDebuggingModel.initialize();
 
         // counting variables for indexes

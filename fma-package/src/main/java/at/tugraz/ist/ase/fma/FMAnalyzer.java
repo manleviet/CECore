@@ -82,7 +82,7 @@ public class FMAnalyzer {
         List<ITestCase> testCases = voidFMAssumption.createAssumptions(afm);
         TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
 
-        FMDebuggingModel debuggingModel = new FMDebuggingModel(afm, testSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel debuggingModel = new FMDebuggingModel(afm, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -114,7 +114,7 @@ public class FMAnalyzer {
         List<ITestCase> deadFeatureTestCases = deadFeatureAssumptions.createAssumptions(afm);
         TestSuite deadFeatureTestSuite = TestSuite.builder().testCases(deadFeatureTestCases).build();
 
-        FMDebuggingModel deadFeatureDebuggingModel = new FMDebuggingModel(afm, deadFeatureTestSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel deadFeatureDebuggingModel = new FMDebuggingModel(afm, deadFeatureTestSuite, new FMTestCaseTranslator(), false, false, false);
         deadFeatureDebuggingModel.initialize();
 
         for (int f = 1; f < afm.getNumOfFeatures(); f++) {
@@ -144,7 +144,7 @@ public class FMAnalyzer {
         List<ITestCase> fullMandatoryTestCases = fullMandatoryAssumptions.createAssumptions(afm);
         TestSuite fullMandatoryTestSuite = TestSuite.builder().testCases(fullMandatoryTestCases).build();
 
-        FMDebuggingModel fullMandatoryDebuggingModel = new FMDebuggingModel(afm, fullMandatoryTestSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel fullMandatoryDebuggingModel = new FMDebuggingModel(afm, fullMandatoryTestSuite, new FMTestCaseTranslator(), false, false, false);
         fullMandatoryDebuggingModel.initialize();
 
         /// FALSE OPTIONAL
@@ -154,7 +154,7 @@ public class FMAnalyzer {
         List<ITestCase> falseOptionalTestCases = falseOptionalAssumptions.createAssumptions(afm);
         TestSuite falseOptionalTestSuite = TestSuite.builder().testCases(falseOptionalTestCases).build();
 
-        FMDebuggingModel falseOptionalDebuggingModel = new FMDebuggingModel(afm, falseOptionalTestSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel falseOptionalDebuggingModel = new FMDebuggingModel(afm, falseOptionalTestSuite, new FMTestCaseTranslator(), false, false, false);
         falseOptionalDebuggingModel.initialize();
 
         // CONDITIONALLY DEAD
