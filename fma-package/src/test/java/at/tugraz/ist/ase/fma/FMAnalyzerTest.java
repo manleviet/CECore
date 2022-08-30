@@ -9,6 +9,9 @@
 package at.tugraz.ist.ase.fma;
 
 import at.tugraz.ist.ase.cdrmodel.fm.FMDebuggingModel;
+import at.tugraz.ist.ase.cdrmodel.test.ITestCase;
+import at.tugraz.ist.ase.cdrmodel.test.TestSuite;
+import at.tugraz.ist.ase.cdrmodel.test.translator.fm.FMTestCaseTranslator;
 import at.tugraz.ist.ase.common.ConsoleColors;
 import at.tugraz.ist.ase.fm.core.Feature;
 import at.tugraz.ist.ase.fm.core.FeatureModel;
@@ -22,9 +25,6 @@ import at.tugraz.ist.ase.fma.assumption.*;
 import at.tugraz.ist.ase.fma.explanator.*;
 import at.tugraz.ist.ase.fma.featuremodel.AnomalyAwareFeatureModel;
 import at.tugraz.ist.ase.kb.core.Constraint;
-import at.tugraz.ist.ase.test.ITestCase;
-import at.tugraz.ist.ase.test.TestSuite;
-import at.tugraz.ist.ase.test.translator.fm.FMTestCaseTranslator;
 import com.google.common.collect.Iterators;
 import org.junit.jupiter.api.Test;
 

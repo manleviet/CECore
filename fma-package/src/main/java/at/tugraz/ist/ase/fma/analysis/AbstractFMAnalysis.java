@@ -5,10 +5,11 @@
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
+
 package at.tugraz.ist.ase.fma.analysis;
 
 import at.tugraz.ist.ase.cdrmodel.fm.FMDebuggingModel;
-import at.tugraz.ist.ase.test.ITestCase;
+import at.tugraz.ist.ase.cdrmodel.test.ITestCase;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -22,7 +23,8 @@ import java.util.concurrent.RecursiveTask;
  * @param <T> Type of the analysis result.
  *
  * @author Sebastian Krieter
- * @author Viet-Man Le
+ * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+ * @author: Tamim Burgstaller (tamim.burgstaller@student.tugraz.at)
  */
 @Slf4j
 public abstract class AbstractFMAnalysis<T> extends RecursiveTask<T> {

@@ -23,6 +23,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * @author: Tamim Burgstaller (tamim.burgstaller@student.tugraz.at)
+ */
 public class AnalysisDetails {
     private List<List<AbstractFMAnalysis<Boolean>>> analyses;
     private List<List<AbstractAnomalyExplanator<List<Set<Constraint>>>>> explanators;

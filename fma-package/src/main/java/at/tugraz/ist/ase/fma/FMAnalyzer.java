@@ -9,20 +9,21 @@
 package at.tugraz.ist.ase.fma;
 
 import at.tugraz.ist.ase.cdrmodel.fm.FMDebuggingModel;
+import at.tugraz.ist.ase.cdrmodel.test.ITestCase;
+import at.tugraz.ist.ase.cdrmodel.test.TestSuite;
+import at.tugraz.ist.ase.cdrmodel.test.translator.fm.FMTestCaseTranslator;
 import at.tugraz.ist.ase.common.ConsoleColors;
 import at.tugraz.ist.ase.fm.core.Feature;
 import at.tugraz.ist.ase.fm.core.FeatureModel;
 import at.tugraz.ist.ase.fm.core.FeatureModelException;
 import at.tugraz.ist.ase.fma.analysis.*;
-import at.tugraz.ist.ase.fma.assumption.*;
+import at.tugraz.ist.ase.fma.assumption.DeadFeatureAssumptions;
+import at.tugraz.ist.ase.fma.assumption.FalseOptionalAssumptions;
+import at.tugraz.ist.ase.fma.assumption.FullMandatoryAssumptions;
+import at.tugraz.ist.ase.fma.assumption.VoidFMAssumption;
 import at.tugraz.ist.ase.fma.explanator.*;
-import at.tugraz.ist.ase.fma.featuremodel.AnomalyAwareFeature;
 import at.tugraz.ist.ase.fma.featuremodel.AnomalyAwareFeatureModel;
 import at.tugraz.ist.ase.fma.monitor.IMonitor;
-import at.tugraz.ist.ase.kb.core.Constraint;
-import at.tugraz.ist.ase.test.ITestCase;
-import at.tugraz.ist.ase.test.TestSuite;
-import at.tugraz.ist.ase.test.translator.fm.FMTestCaseTranslator;
 import lombok.NonNull;
 import lombok.Setter;
 
@@ -30,8 +31,10 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+/**
+ * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+ * @author: Tamim Burgstaller (tamim.burgstaller@student.tugraz.at)
+ */
 public class FMAnalyzer {
     @Setter
     private IMonitor progressMonitor = null;

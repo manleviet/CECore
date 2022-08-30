@@ -8,8 +8,8 @@
 
 package at.tugraz.ist.ase.fma.assumption;
 
+import at.tugraz.ist.ase.cdrmodel.test.ITestCase;
 import at.tugraz.ist.ase.fm.core.FeatureModel;
-import at.tugraz.ist.ase.test.ITestCase;
 import lombok.NonNull;
 
 import java.util.List;
