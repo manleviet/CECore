@@ -17,7 +17,7 @@ import lombok.NonNull;
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  * @author: Tamim Burgstaller (tamim.burgstaller@student.tugraz.at)
  */
-public class FullMandatoryAnalysis extends AbstractFMAnalysis<Boolean> {
+public class FullMandatoryAnalysis extends AbstractFMAnalysis<ITestCase> {
 
     public FullMandatoryAnalysis(@NonNull FMDebuggingModel debuggingModel, @NonNull ITestCase assumption) {
         super(debuggingModel, assumption);
@@ -25,9 +25,9 @@ public class FullMandatoryAnalysis extends AbstractFMAnalysis<Boolean> {
 
     @Override
     protected Boolean analyze() {
-        ChocoConsistencyChecker checker = new ChocoConsistencyChecker(debuggingModel);
+        ChocoConsistencyChecker checker = new ChocoConsistencyChecker(model);
 
         // inconsistent( CF ∪ { c0 } U { fi = false } )
-        return checker.isConsistent(debuggingModel.getAllConstraints(), assumption);
+        return checker.isConsistent(model.getAllConstraints(), assumption);
     }
 }

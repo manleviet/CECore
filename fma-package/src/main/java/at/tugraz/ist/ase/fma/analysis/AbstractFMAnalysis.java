@@ -8,8 +8,7 @@
 
 package at.tugraz.ist.ase.fma.analysis;
 
-import at.tugraz.ist.ase.cdrmodel.fm.FMDebuggingModel;
-import at.tugraz.ist.ase.cdrmodel.test.ITestCase;
+import at.tugraz.ist.ase.cdrmodel.AbstractCDRModel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -18,21 +17,21 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.RecursiveTask;
 
 /**
- * Base class for an analysis using a ChocoSolver.
+ * Base class for a feature model analysis.
  *
- * @param <T> Type of the analysis result.
+ * @param <T> ITestCase/Constraint
  *
  * @author Sebastian Krieter
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  * @author: Tamim Burgstaller (tamim.burgstaller@student.tugraz.at)
  */
 @Slf4j
-public abstract class AbstractFMAnalysis<T> extends RecursiveTask<T> {
+public abstract class AbstractFMAnalysis<T> extends RecursiveTask<Boolean> {
 
-	protected FMDebuggingModel debuggingModel;
+	protected AbstractCDRModel model;
 
 	@Getter
-	protected ITestCase assumption;
+	protected T assumption; // could be ITestCase or Constraint
 
 	@Getter
 	private boolean timeoutOccurred = false;
@@ -42,13 +41,13 @@ public abstract class AbstractFMAnalysis<T> extends RecursiveTask<T> {
 //	@Setter
 //	protected IMonitor monitor;
 
-	public AbstractFMAnalysis(@NonNull FMDebuggingModel debuggingModel, @NonNull ITestCase assumption) {
-		this.debuggingModel = debuggingModel;
+	public AbstractFMAnalysis(@NonNull AbstractCDRModel model, T assumption) {
+		this.model = model;
 		this.assumption = assumption;
 	}
 
 	@Override
-	protected T compute() {
+	protected Boolean compute() {
 //		solver.setTimeout(timeout); // TODO - support timeout
 //		if (assumption != null) {
 //			solver.assignmentPushAll(assumptions.getLiterals());
@@ -61,5 +60,5 @@ public abstract class AbstractFMAnalysis<T> extends RecursiveTask<T> {
 		return analyze();
 	}
 
-	protected abstract T analyze();
+	protected abstract Boolean analyze();
 }

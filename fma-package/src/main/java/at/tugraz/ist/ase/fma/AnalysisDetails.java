@@ -27,8 +27,8 @@ import java.util.concurrent.ExecutionException;
  * @author: Tamim Burgstaller (tamim.burgstaller@student.tugraz.at)
  */
 public class AnalysisDetails {
-    private List<List<AbstractFMAnalysis<Boolean>>> analyses;
-    private List<List<AbstractAnomalyExplanator<List<Set<Constraint>>>>> explanators;
+    private List<List<AbstractFMAnalysis<?>>> analyses;
+    private List<List<AbstractAnomalyExplanator<?>>> explanators;
     private int anomaliesFound;
     private Feature feature;
     // TODO explanations!
@@ -46,7 +46,7 @@ public class AnalysisDetails {
         this.feature = feature;
     }
 
-    public void addAnalysis(AbstractFMAnalysis<Boolean> analysis, AbstractAnomalyExplanator<List<Set<Constraint>>> explanator,
+    public void addAnalysis(AbstractFMAnalysis<?> analysis, AbstractAnomalyExplanator<?> explanator,
                             AnomalyType checkingAnomaly) {
         analyses.get(checkingAnomaly.ordinal()).add(analysis);
         explanators.get(checkingAnomaly.ordinal()).add(explanator);
@@ -67,7 +67,7 @@ public class AnalysisDetails {
 
         for (AnomalyType anomalyType : AnomalyType.values()) {
             for (int a = 0; a < analyses.get(anomalyType.ordinal()).size(); a++) {
-                AbstractFMAnalysis<Boolean> analysis = analyses.get(anomalyType.ordinal()).get(a);
+                AbstractFMAnalysis<?> analysis = analyses.get(anomalyType.ordinal()).get(a);
                 if (!analysis.get()) {
                     switch (anomalyType) {
                         case DEAD -> {
@@ -76,7 +76,8 @@ public class AnalysisDetails {
 
                             if (print) {
                                 System.out.println(ExplanationColors.ANOMALY + "X Dead feature");
-                                System.out.println(ExplanationUtils.convertToDescriptiveExplanation(explanators.get(anomalyType.ordinal()).get(a).get(), "dead feature"));
+                                List<Set<Constraint>> explanations = (List<Set<Constraint>>) explanators.get(anomalyType.ordinal()).get(a).get();
+                                System.out.println(ExplanationUtils.convertToDescriptiveExplanation(explanations, "dead feature"));
                             }
                         }
                         case FULLMANDATORY -> {
@@ -85,7 +86,8 @@ public class AnalysisDetails {
 
                             if (print) {
                                 System.out.println(ExplanationColors.ANOMALY + "X Full mandatory feature");
-                                System.out.println(ExplanationUtils.convertToDescriptiveExplanation(explanators.get(anomalyType.ordinal()).get(a).get(), "full mandatory feature"));
+                                List<Set<Constraint>> explanations = (List<Set<Constraint>>) explanators.get(anomalyType.ordinal()).get(a).get();
+                                System.out.println(ExplanationUtils.convertToDescriptiveExplanation(explanations, "full mandatory feature"));
                             }
                         }
                         case CONDITIONALLYDEAD -> {
@@ -94,7 +96,8 @@ public class AnalysisDetails {
 
                             if (print) {
                                 System.out.println(ExplanationColors.ANOMALY + "X Conditionally dead feature");
-                                System.out.println(ExplanationUtils.convertToDescriptiveExplanation(explanators.get(anomalyType.ordinal()).get(a).get(), "conditionally dead feature"));
+                                List<Set<Constraint>> explanations = (List<Set<Constraint>>) explanators.get(anomalyType.ordinal()).get(a).get();
+                                System.out.println(ExplanationUtils.convertToDescriptiveExplanation(explanations, "conditionally dead feature"));
                             }
                         }
                         case FALSEOPTIONAL -> {
@@ -103,7 +106,8 @@ public class AnalysisDetails {
 
                             if (print) {
                                 System.out.println(ExplanationColors.ANOMALY + "X False optional feature");
-                                System.out.println(ExplanationUtils.convertToDescriptiveExplanation(explanators.get(anomalyType.ordinal()).get(a).get(), "false optional feature"));
+                                List<Set<Constraint>> explanations = (List<Set<Constraint>>) explanators.get(anomalyType.ordinal()).get(a).get();
+                                System.out.println(ExplanationUtils.convertToDescriptiveExplanation(explanations, "false optional feature"));
                             }
                         }
                     }

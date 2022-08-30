@@ -19,7 +19,7 @@ import lombok.NonNull;
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  * @author: Tamim Burgstaller (tamim.burgstaller@student.tugraz.at)
  */
-public class DeadFeatureAnalysis extends AbstractFMAnalysis<Boolean> {
+public class DeadFeatureAnalysis extends AbstractFMAnalysis<ITestCase> {
 
     public DeadFeatureAnalysis(@NonNull FMDebuggingModel debuggingModel, ITestCase assumption) {
         super(debuggingModel, assumption);
@@ -27,9 +27,9 @@ public class DeadFeatureAnalysis extends AbstractFMAnalysis<Boolean> {
 
     @Override
     protected Boolean analyze() {
-        ChocoConsistencyChecker checker = new ChocoConsistencyChecker(debuggingModel);
+        ChocoConsistencyChecker checker = new ChocoConsistencyChecker(model);
 
         // inconsistent( CF ∪ { c0 } U {fi = true})
-        return checker.isConsistent(debuggingModel.getAllConstraints(), assumption);
+        return checker.isConsistent(model.getAllConstraints(), assumption);
     }
 }

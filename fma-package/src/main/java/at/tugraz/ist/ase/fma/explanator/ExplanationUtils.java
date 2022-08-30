@@ -21,4 +21,9 @@ public class ExplanationUtils {
         return ExplanationColors.EXPLANATION + "\tExplanation(s) for " + anomaly + ":\n"
                 + ConstraintUtils.convertToStringWithMessage(explanations, "Diagnosis", "\t\t", ",", true);
     }
+
+//    public String convertToDescriptiveExplanation(List<Set<Constraint>> explanations, String anomaly) {
+//        return ExplanationColors.EXPLANATION + "\tExplanation(s) for " + anomaly + ":\n"
+//                + ConstraintUtils.convertToStringWithMessage(explanations, "Diagnosis", "\t\t", ",", true);
+//    }
 }

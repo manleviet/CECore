@@ -22,6 +22,7 @@ import java.util.List;
  * @author: Tamim Burgstaller (tamim.burgstaller@student.tugraz.at)
  */
 public class VoidFMAssumption implements IFMAnalysisAssumptionCreatable {
+
     public List<ITestCase> createAssumptions(@NonNull FeatureModel fm) {
         // void feature model - inconsistent(CF ∪ { c0 })
         String testcase = fm.getFeature(0).getName() + " = true";

@@ -39,38 +39,46 @@ public class FMAnalyzer {
     @Setter
     private IMonitor progressMonitor = null;
 
-    private final Map<AbstractFMAnalysis<Boolean>, AbstractAnomalyExplanator> analyses = new LinkedHashMap<>();
+    private final Map<AbstractFMAnalysis<?>, AbstractAnomalyExplanator<?>> analyses = new LinkedHashMap<>();
 
     public FMAnalyzer() {
     }
 
-    public void addAnalysis(AbstractFMAnalysis<Boolean> analysis, AbstractAnomalyExplanator explanator) {
+    public void addAnalysis(AbstractFMAnalysis<?> analysis, AbstractAnomalyExplanator<?> explanator) {
         analyses.put(analysis, explanator);
     }
 
     public void run() throws ExecutionException, InterruptedException {
         ForkJoinPool pool = ForkJoinPool.commonPool();
-        for (AbstractFMAnalysis<Boolean> analysis : analyses.keySet()) {
+        for (AbstractFMAnalysis<?> analysis : analyses.keySet()) {
             pool.execute(analysis);
         }
 
-        List<AbstractAnomalyExplanator> runningTasks = new LinkedList<>();
-        for (AbstractFMAnalysis<Boolean> analysis : analyses.keySet()) {
+        List<AbstractAnomalyExplanator<?>> runningTasks = new LinkedList<>();
+        for (AbstractFMAnalysis<?> analysis : analyses.keySet()) {
             if (!analysis.get()) {
-                AbstractAnomalyExplanator explanator = analyses.get(analysis);
-                pool.execute(explanator);
+                AbstractAnomalyExplanator<?> explanator = analyses.get(analysis);
 
-                runningTasks.add(explanator);
+                if (explanator != null) {
+                    pool.execute(explanator);
+
+                    runningTasks.add(explanator);
+                }
             }
         }
 
-        for (AbstractAnomalyExplanator tasks : runningTasks) {
+        for (AbstractAnomalyExplanator<?> tasks : runningTasks) {
             tasks.join();
         }
 
         pool.shutdown();
     }
 
+    /**
+     * TODO - migrate this function to a new class called ...Builder (e.g. AnalysesBuilder)
+     * FMAnalyzer should be simple - focus on the execution of the analyses and explanators
+     * The generation of the analyses and explanators should be done in a separate class
+     */
     public void performFullAnalysis(@NonNull FeatureModel fm) throws ExecutionException, InterruptedException, CloneNotSupportedException, FeatureModelException {
         FMAnalyzer analyzer = this;
         AnomalyAwareFeatureModel afm = new AnomalyAwareFeatureModel(fm);
