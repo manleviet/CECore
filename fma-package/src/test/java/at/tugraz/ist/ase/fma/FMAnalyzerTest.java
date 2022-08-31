@@ -838,4 +838,56 @@ class FMAnalyzerTest {
         assertEquals(3, analysis.getRedundantConstraints().size());
         assertEquals(constraints, analysis.getRedundantConstraints());
     }
+
+    @Test
+    public void testRedundancy_3() throws FeatureModelParserException, ExecutionException, FeatureModelException, InterruptedException, CloneNotSupportedException {
+        File fileFM = new File("src/test/resources/bamboobike_featureide_redundancies1.xml");
+        FMParserFactory factory = FMParserFactory.getInstance();
+        FeatureModelParser parser = factory.getParser(FMFormat.FEATUREIDE);
+        FeatureModel featureModel = parser.parse(fileFM);
+
+        FMAnalyzer analyzer = new FMAnalyzer();
+        analyzer.performFullAnalysis(featureModel);
+
+        // TODO add assertions
+    }
+
+    @Test
+    public void testRedundancy_4() throws FeatureModelParserException, ExecutionException, FeatureModelException, InterruptedException, CloneNotSupportedException {
+        File fileFM = new File("src/test/resources/bamboobike_featureide_redundancies2.xml");
+        FMParserFactory factory = FMParserFactory.getInstance();
+        FeatureModelParser parser = factory.getParser(FMFormat.FEATUREIDE);
+        FeatureModel featureModel = parser.parse(fileFM);
+
+        FMAnalyzer analyzer = new FMAnalyzer();
+        analyzer.performFullAnalysis(featureModel);
+
+        // TODO add assertions
+    }
+
+    @Test
+    public void testRedundancy_5() throws FeatureModelParserException, ExecutionException, FeatureModelException, InterruptedException, CloneNotSupportedException {
+        File fileFM = new File("src/test/resources/bamboobike_featureide_redundancies3.xml");
+        FMParserFactory factory = FMParserFactory.getInstance();
+        FeatureModelParser parser = factory.getParser(FMFormat.FEATUREIDE);
+        FeatureModel featureModel = parser.parse(fileFM);
+
+        FMAnalyzer analyzer = new FMAnalyzer();
+        analyzer.performFullAnalysis(featureModel);
+
+        // TODO add assertions
+    }
+
+    @Test
+    public void testRedundancy_6() throws FeatureModelParserException, ExecutionException, FeatureModelException, InterruptedException, CloneNotSupportedException {
+        File fileFM = new File("src/test/resources/bamboobike_featureide_redundancies4.xml");
+        FMParserFactory factory = FMParserFactory.getInstance();
+        FeatureModelParser parser = factory.getParser(FMFormat.FEATUREIDE);
+        FeatureModel featureModel = parser.parse(fileFM);
+
+        FMAnalyzer analyzer = new FMAnalyzer();
+        analyzer.performFullAnalysis(featureModel);
+
+        // TODO add assertions
+    }
 }
