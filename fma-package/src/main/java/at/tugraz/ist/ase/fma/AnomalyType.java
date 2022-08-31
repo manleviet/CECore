@@ -20,7 +20,8 @@ public enum AnomalyType {
     DEAD(1),
     FULLMANDATORY(1 << 1),
     CONDITIONALLYDEAD(1 << 2),
-    FALSEOPTIONAL(1 << 3);
+    FALSEOPTIONAL(1 << 3),
+    REDUNDANT(1 << 4);
 
     private final int bitValue;
 

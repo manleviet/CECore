@@ -43,11 +43,6 @@ public class RedundancyAnalysis extends AbstractFMAnalysis<Boolean> {
 
         List<Constraint> CF = new LinkedList<>(model.getPossiblyFaultyConstraints());
 
-        System.out.println("=========================================");
-        System.out.println("Constraints translated from the text file:");
-        System.out.println(convertToString(model.getPossiblyFaultyConstraints()));
-        System.out.println("=========================================");
-
         WipeOutR_FM wipeOutR_FM = new WipeOutR_FM(checker);
 
 //        reset();

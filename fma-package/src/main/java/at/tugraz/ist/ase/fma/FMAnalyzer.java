@@ -8,11 +8,13 @@
 
 package at.tugraz.ist.ase.fma;
 
+import at.tugraz.ist.ase.cdrmodel.fm.FMCdrModel;
 import at.tugraz.ist.ase.cdrmodel.fm.FMDebuggingModel;
 import at.tugraz.ist.ase.cdrmodel.test.ITestCase;
 import at.tugraz.ist.ase.cdrmodel.test.TestSuite;
 import at.tugraz.ist.ase.cdrmodel.test.translator.fm.FMTestCaseTranslator;
 import at.tugraz.ist.ase.common.ConsoleColors;
+import at.tugraz.ist.ase.common.ConstraintUtils;
 import at.tugraz.ist.ase.fm.core.Feature;
 import at.tugraz.ist.ase.fm.core.FeatureModel;
 import at.tugraz.ist.ase.fm.core.FeatureModelException;
@@ -90,14 +92,20 @@ public class FMAnalyzer {
         List<ITestCase> testCases = voidFMAssumption.createAssumptions(afm);
         TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
 
+        // create the models
         FMDebuggingModel debuggingModel = new FMDebuggingModel(afm, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
+        FMCdrModel redundancyModel = new FMCdrModel(fm, true, false, true);
+        redundancyModel.initialize();
 
         // create the specified analysis and the corresponding explanator
         VoidFMAnalysis analysis = new VoidFMAnalysis(debuggingModel, testCases.get(0));
         VoidFMExplanator explanator = new VoidFMExplanator(debuggingModel, testCases.get(0));
 
+        RedundancyAnalysis redundancyAnalysis = new RedundancyAnalysis(redundancyModel);
+
         analyzer.addAnalysis(analysis, explanator); // add the analysis to the analyzer
+        analyzer.addAnalysis(redundancyAnalysis, null); // add the analysis to the analyzer
         analyzer.run(); // run the analyzer
 
         // print the result
@@ -109,6 +117,16 @@ public class FMAnalyzer {
             System.out.println(ExplanationUtils.convertToDescriptiveExplanation(explanator.get(), "void feature model"));
             return;
         }
+
+        if (redundancyAnalysis.get()) {
+            System.out.println(ExplanationColors.OK + "\u2713 No redundant constraints");
+        }
+        else {
+            System.out.println(ExplanationColors.ANOMALY + "X Redundant constraints:");
+            System.out.println(ExplanationColors.EXPLANATION + ConstraintUtils.convertToString(redundancyAnalysis.getRedundantConstraints(), "\n", "\t", false));
+        }
+
+        System.out.println();
 
         FMDebuggingModel debuggingModelClone = null;
 

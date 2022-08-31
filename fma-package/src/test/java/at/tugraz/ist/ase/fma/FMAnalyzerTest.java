@@ -754,7 +754,7 @@ class FMAnalyzerTest {
     }
 
     @Test
-    void testRedundancy1() throws FeatureModelParserException, ExecutionException, InterruptedException {
+    void testRedundancy_1() throws FeatureModelParserException, ExecutionException, InterruptedException {
         // load the feature model
         File fileFM = new File("src/test/resources/bamboobike_featureide_deadfeature2.xml");
         FMParserFactory factory = FMParserFactory.getInstance();
@@ -788,7 +788,7 @@ class FMAnalyzerTest {
     }
 
     @Test
-    void testRedundancy2() throws ExecutionException, InterruptedException, FeatureModelException {
+    void testRedundancy_2() throws ExecutionException, InterruptedException, FeatureModelException {
         // load the feature model
         FeatureModel fm = new FeatureModel();
         fm.addFeature("survey", "survey");
