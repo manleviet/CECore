@@ -225,4 +225,8 @@ public class FMAnalyzer {
     public void performAnalysis(FeatureModel fm, int anomalyTypeBits) {
         // TODO implement single analysis
     }
+
+    // TODO separate test case generation and analysis
+    // TODO package application -> lazy checking
+    // TODO JSON for test cases
 }

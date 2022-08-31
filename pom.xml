@@ -23,6 +23,7 @@
         <module>ce-package</module>
         <module>core-package</module>
         <module>fma-package</module>
+        <module>app</module>
     </modules>
 
     <properties>
