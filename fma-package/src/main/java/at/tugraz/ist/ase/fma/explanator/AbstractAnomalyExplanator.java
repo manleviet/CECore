@@ -9,11 +9,15 @@
 package at.tugraz.ist.ase.fma.explanator;
 
 import at.tugraz.ist.ase.cdrmodel.fm.FMDebuggingModel;
-import at.tugraz.ist.ase.test.ITestCase;
+import at.tugraz.ist.ase.cdrmodel.test.ITestCase;
 import lombok.NonNull;
 
 import java.util.concurrent.RecursiveTask;
 
+/**
+ * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+ * @author: Tamim Burgstaller (tamim.burgstaller@student.tugraz.at)
+ */
 public abstract class AbstractAnomalyExplanator<T> extends RecursiveTask<T> {
     protected FMDebuggingModel debuggingModel;
 

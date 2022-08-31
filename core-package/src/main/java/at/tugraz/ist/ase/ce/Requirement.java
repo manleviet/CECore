@@ -8,7 +8,7 @@
 
 package at.tugraz.ist.ase.ce;
 
-import at.tugraz.ist.ase.test.Assignment;
+import at.tugraz.ist.ase.kb.core.Assignment;
 import lombok.Builder;
 import lombok.NonNull;
 
@@ -18,12 +18,5 @@ public class Requirement extends Solution {
     @Builder(builderMethodName = "requirementBuilder")
     public Requirement(@NonNull List<Assignment> assignments) {
         super(assignments);
-    }
-
-    @Override
-    public String toString() {
-        return "Requirement{" +
-                "assignments=" + assignments +
-                '}';
     }
 }

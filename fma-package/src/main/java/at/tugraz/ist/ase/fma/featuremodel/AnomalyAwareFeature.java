@@ -13,6 +13,9 @@ import at.tugraz.ist.ase.fma.AnomalyType;
 import lombok.NonNull;
 import lombok.Setter;
 
+/**
+ * @author: Tamim Burgstaller (tamim.burgstaller@student.tugraz.at)
+ */
 public class AnomalyAwareFeature extends Feature {
     @Setter
     private AnomalyType anomalyType;

@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author: Tamim Burgstaller (tamim.burgstaller@student.tugraz.at)
+ */
 public class AnomalyAwareFeatureModel extends FeatureModel {
     @Getter
     private List<AnomalyAwareFeature> features;

@@ -9,20 +9,21 @@
 package at.tugraz.ist.ase.fma;
 
 import at.tugraz.ist.ase.cdrmodel.fm.FMDebuggingModel;
+import at.tugraz.ist.ase.cdrmodel.test.ITestCase;
+import at.tugraz.ist.ase.cdrmodel.test.TestSuite;
+import at.tugraz.ist.ase.cdrmodel.test.translator.fm.FMTestCaseTranslator;
 import at.tugraz.ist.ase.common.ConsoleColors;
 import at.tugraz.ist.ase.fm.core.Feature;
 import at.tugraz.ist.ase.fm.core.FeatureModel;
 import at.tugraz.ist.ase.fm.core.FeatureModelException;
 import at.tugraz.ist.ase.fma.analysis.*;
-import at.tugraz.ist.ase.fma.assumption.*;
+import at.tugraz.ist.ase.fma.assumption.DeadFeatureAssumptions;
+import at.tugraz.ist.ase.fma.assumption.FalseOptionalAssumptions;
+import at.tugraz.ist.ase.fma.assumption.FullMandatoryAssumptions;
+import at.tugraz.ist.ase.fma.assumption.VoidFMAssumption;
 import at.tugraz.ist.ase.fma.explanator.*;
-import at.tugraz.ist.ase.fma.featuremodel.AnomalyAwareFeature;
 import at.tugraz.ist.ase.fma.featuremodel.AnomalyAwareFeatureModel;
 import at.tugraz.ist.ase.fma.monitor.IMonitor;
-import at.tugraz.ist.ase.kb.core.Constraint;
-import at.tugraz.ist.ase.test.ITestCase;
-import at.tugraz.ist.ase.test.TestSuite;
-import at.tugraz.ist.ase.test.translator.fm.FMTestCaseTranslator;
 import lombok.NonNull;
 import lombok.Setter;
 
@@ -30,44 +31,54 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+/**
+ * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+ * @author: Tamim Burgstaller (tamim.burgstaller@student.tugraz.at)
+ */
 public class FMAnalyzer {
     @Setter
     private IMonitor progressMonitor = null;
 
-    private final Map<AbstractFMAnalysis<Boolean>, AbstractAnomalyExplanator> analyses = new LinkedHashMap<>();
+    private final Map<AbstractFMAnalysis<?>, AbstractAnomalyExplanator<?>> analyses = new LinkedHashMap<>();
 
     public FMAnalyzer() {
     }
 
-    public void addAnalysis(AbstractFMAnalysis<Boolean> analysis, AbstractAnomalyExplanator explanator) {
+    public void addAnalysis(AbstractFMAnalysis<?> analysis, AbstractAnomalyExplanator<?> explanator) {
         analyses.put(analysis, explanator);
     }
 
     public void run() throws ExecutionException, InterruptedException {
         ForkJoinPool pool = ForkJoinPool.commonPool();
-        for (AbstractFMAnalysis<Boolean> analysis : analyses.keySet()) {
+        for (AbstractFMAnalysis<?> analysis : analyses.keySet()) {
             pool.execute(analysis);
         }
 
-        List<AbstractAnomalyExplanator> runningTasks = new LinkedList<>();
-        for (AbstractFMAnalysis<Boolean> analysis : analyses.keySet()) {
+        List<AbstractAnomalyExplanator<?>> runningTasks = new LinkedList<>();
+        for (AbstractFMAnalysis<?> analysis : analyses.keySet()) {
             if (!analysis.get()) {
-                AbstractAnomalyExplanator explanator = analyses.get(analysis);
-                pool.execute(explanator);
+                AbstractAnomalyExplanator<?> explanator = analyses.get(analysis);
 
-                runningTasks.add(explanator);
+                if (explanator != null) {
+                    pool.execute(explanator);
+
+                    runningTasks.add(explanator);
+                }
             }
         }
 
-        for (AbstractAnomalyExplanator tasks : runningTasks) {
+        for (AbstractAnomalyExplanator<?> tasks : runningTasks) {
             tasks.join();
         }
 
         pool.shutdown();
     }
 
+    /**
+     * TODO - migrate this function to a new class called ...Builder (e.g. AnalysesBuilder)
+     * FMAnalyzer should be simple - focus on the execution of the analyses and explanators
+     * The generation of the analyses and explanators should be done in a separate class
+     */
     public void performFullAnalysis(@NonNull FeatureModel fm) throws ExecutionException, InterruptedException, CloneNotSupportedException, FeatureModelException {
         FMAnalyzer analyzer = this;
         AnomalyAwareFeatureModel afm = new AnomalyAwareFeatureModel(fm);
@@ -79,7 +90,7 @@ public class FMAnalyzer {
         List<ITestCase> testCases = voidFMAssumption.createAssumptions(afm);
         TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
 
-        FMDebuggingModel debuggingModel = new FMDebuggingModel(afm, testSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel debuggingModel = new FMDebuggingModel(afm, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -111,7 +122,7 @@ public class FMAnalyzer {
         List<ITestCase> deadFeatureTestCases = deadFeatureAssumptions.createAssumptions(afm);
         TestSuite deadFeatureTestSuite = TestSuite.builder().testCases(deadFeatureTestCases).build();
 
-        FMDebuggingModel deadFeatureDebuggingModel = new FMDebuggingModel(afm, deadFeatureTestSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel deadFeatureDebuggingModel = new FMDebuggingModel(afm, deadFeatureTestSuite, new FMTestCaseTranslator(), false, false, false);
         deadFeatureDebuggingModel.initialize();
 
         for (int f = 1; f < afm.getNumOfFeatures(); f++) {
@@ -141,7 +152,7 @@ public class FMAnalyzer {
         List<ITestCase> fullMandatoryTestCases = fullMandatoryAssumptions.createAssumptions(afm);
         TestSuite fullMandatoryTestSuite = TestSuite.builder().testCases(fullMandatoryTestCases).build();
 
-        FMDebuggingModel fullMandatoryDebuggingModel = new FMDebuggingModel(afm, fullMandatoryTestSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel fullMandatoryDebuggingModel = new FMDebuggingModel(afm, fullMandatoryTestSuite, new FMTestCaseTranslator(), false, false, false);
         fullMandatoryDebuggingModel.initialize();
 
         /// FALSE OPTIONAL
@@ -151,7 +162,7 @@ public class FMAnalyzer {
         List<ITestCase> falseOptionalTestCases = falseOptionalAssumptions.createAssumptions(afm);
         TestSuite falseOptionalTestSuite = TestSuite.builder().testCases(falseOptionalTestCases).build();
 
-        FMDebuggingModel falseOptionalDebuggingModel = new FMDebuggingModel(afm, falseOptionalTestSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel falseOptionalDebuggingModel = new FMDebuggingModel(afm, falseOptionalTestSuite, new FMTestCaseTranslator(), false, false, false);
         falseOptionalDebuggingModel.initialize();
 
         // CONDITIONALLY DEAD

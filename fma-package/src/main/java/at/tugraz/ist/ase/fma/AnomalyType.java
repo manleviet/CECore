@@ -4,7 +4,6 @@
  * Copyright (c) 2022
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
- * @author: Tamim Burgstaller (tamim.burgstaller@ist.tugraz.at)
  */
 
 package at.tugraz.ist.ase.fma;
@@ -12,6 +11,9 @@ package at.tugraz.ist.ase.fma;
 /**
  * Describes a feature's anomaly.
  * Has some additional functions, such as mapping its values to bit-values.
+ *
+ * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+ * @author: Tamim Burgstaller (tamim.burgstaller@student.tugraz.at)
  */
 public enum AnomalyType {
     NONE(0),

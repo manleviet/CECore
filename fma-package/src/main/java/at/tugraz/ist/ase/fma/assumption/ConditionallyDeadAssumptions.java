@@ -8,19 +8,23 @@
 
 package at.tugraz.ist.ase.fma.assumption;
 
+import at.tugraz.ist.ase.cdrmodel.test.ITestCase;
+import at.tugraz.ist.ase.cdrmodel.test.TestCase;
 import at.tugraz.ist.ase.fm.core.Feature;
 import at.tugraz.ist.ase.fm.core.FeatureModel;
 import at.tugraz.ist.ase.fma.AnomalyType;
 import at.tugraz.ist.ase.fma.featuremodel.AnomalyAwareFeature;
 import at.tugraz.ist.ase.fma.featuremodel.AnomalyAwareFeatureModel;
-import at.tugraz.ist.ase.test.Assignment;
-import at.tugraz.ist.ase.test.ITestCase;
-import at.tugraz.ist.ase.test.TestCase;
+import at.tugraz.ist.ase.kb.core.Assignment;
 import lombok.NonNull;
 
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+ * @author: Tamim Burgstaller (tamim.burgstaller@student.tugraz.at)
+ */
 public class ConditionallyDeadAssumptions implements IFMAnalysisAssumptionCreatable{
     @Override
     public List<ITestCase> createAssumptions(@NonNull FeatureModel featureModel) {

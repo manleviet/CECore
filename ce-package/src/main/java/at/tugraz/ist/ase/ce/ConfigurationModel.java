@@ -8,21 +8,21 @@
 
 package at.tugraz.ist.ase.ce;
 
-import at.tugraz.ist.ase.cdrmodel.CDRModel;
+import at.tugraz.ist.ase.cdrmodel.AbstractCDRModel;
 import at.tugraz.ist.ase.cdrmodel.IChocoModel;
 import at.tugraz.ist.ase.common.LoggerUtils;
 import at.tugraz.ist.ase.kb.core.Constraint;
 import at.tugraz.ist.ase.kb.core.KB;
+import at.tugraz.ist.ase.kb.fm.FMKB;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.chocosolver.solver.Model;
-import org.chocosolver.solver.variables.BoolVar;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static at.tugraz.ist.ase.common.ChocoSolverUtils.getVariable;
+import static com.google.common.base.Preconditions.checkArgument;
 
 /**
  * rootConstraint - support the root constraint of feature models
@@ -30,7 +30,7 @@ import static at.tugraz.ist.ase.common.ChocoSolverUtils.getVariable;
  * B = all constraints
  */
 @Slf4j
-public class ConfigurationModel extends CDRModel implements IChocoModel {
+public class ConfigurationModel extends AbstractCDRModel implements IChocoModel {
     @Getter
     private final Model model;
     private final KB kb;
@@ -46,6 +46,10 @@ public class ConfigurationModel extends CDRModel implements IChocoModel {
      */
     public ConfigurationModel(@NonNull KB kb, boolean rootConstraints) {
         super(kb.getName());
+
+        if (rootConstraints) {
+            checkArgument(kb instanceof FMKB, "Only feature models can have root constraints");
+        }
 
         this.kb = kb;
         this.model = kb.getModelKB();
@@ -71,13 +75,15 @@ public class ConfigurationModel extends CDRModel implements IChocoModel {
         List<Constraint> B = new LinkedList<>(kb.getConstraintList());
         if (isRootConstraints()) { // feature models -> create the root constraint
             // {f0 = true}
-            int startIdx = model.getNbCstrs();
-            String f0 = kb.getVariable(0).getName();
-            BoolVar f0Var = (BoolVar) getVariable(model, f0);
-            model.addClauseTrue(f0Var);
+//            int startIdx = model.getNbCstrs();
+//            String f0 = kb.getVariable(0).getName();
+//            BoolVar f0Var = (BoolVar) getVariable(model, f0);
+//            model.addClauseTrue(f0Var);
+//
+//            Constraint constraint = new Constraint(f0 + " = true");
+//            constraint.addChocoConstraints(model, startIdx, model.getNbCstrs() - 1, false);
 
-            Constraint constraint = new Constraint(f0 + " = true");
-            constraint.addChocoConstraints(model, startIdx, model.getNbCstrs() - 1, false);
+            Constraint constraint = ((FMKB)kb).getRootConstraint();
 
             B.add(0, constraint);
         }

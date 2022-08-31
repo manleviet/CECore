@@ -12,10 +12,9 @@ import at.tugraz.ist.ase.cacdr.algorithms.hs.HSDAG;
 import at.tugraz.ist.ase.cacdr.algorithms.hs.labeler.DirectDebugLabeler;
 import at.tugraz.ist.ase.cacdr.algorithms.hs.parameters.DirectDebugParameters;
 import at.tugraz.ist.ase.cacdr.checker.ChocoConsistencyChecker;
-import at.tugraz.ist.ase.cacdr.eval.CAEvaluator;
 import at.tugraz.ist.ase.cdrmodel.fm.FMDebuggingModel;
+import at.tugraz.ist.ase.cdrmodel.test.ITestCase;
 import at.tugraz.ist.ase.kb.core.Constraint;
-import at.tugraz.ist.ase.test.ITestCase;
 import lombok.NonNull;
 
 import java.util.Collections;
@@ -23,6 +22,10 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+ * @author: Tamim Burgstaller (tamim.burgstaller@student.tugraz.at)
+ */
 public class VoidFMExplanator extends AbstractAnomalyExplanator<List<Set<Constraint>>> {
 
     public VoidFMExplanator(@NonNull FMDebuggingModel debuggingModel, ITestCase assumption) {

@@ -8,11 +8,17 @@
 
 package at.tugraz.ist.ase.fma;
 
+import at.tugraz.ist.ase.cdrmodel.fm.FMCdrModel;
 import at.tugraz.ist.ase.cdrmodel.fm.FMDebuggingModel;
+import at.tugraz.ist.ase.cdrmodel.test.ITestCase;
+import at.tugraz.ist.ase.cdrmodel.test.TestSuite;
+import at.tugraz.ist.ase.cdrmodel.test.translator.fm.FMTestCaseTranslator;
 import at.tugraz.ist.ase.common.ConsoleColors;
+import at.tugraz.ist.ase.common.ConstraintUtils;
 import at.tugraz.ist.ase.fm.core.Feature;
 import at.tugraz.ist.ase.fm.core.FeatureModel;
 import at.tugraz.ist.ase.fm.core.FeatureModelException;
+import at.tugraz.ist.ase.fm.core.RelationshipType;
 import at.tugraz.ist.ase.fm.parser.FMFormat;
 import at.tugraz.ist.ase.fm.parser.FeatureModelParser;
 import at.tugraz.ist.ase.fm.parser.FeatureModelParserException;
@@ -22,9 +28,6 @@ import at.tugraz.ist.ase.fma.assumption.*;
 import at.tugraz.ist.ase.fma.explanator.*;
 import at.tugraz.ist.ase.fma.featuremodel.AnomalyAwareFeatureModel;
 import at.tugraz.ist.ase.kb.core.Constraint;
-import at.tugraz.ist.ase.test.ITestCase;
-import at.tugraz.ist.ase.test.TestSuite;
-import at.tugraz.ist.ase.test.translator.fm.FMTestCaseTranslator;
 import com.google.common.collect.Iterators;
 import org.junit.jupiter.api.Test;
 
@@ -50,7 +53,7 @@ class FMAnalyzerTest {
         List<ITestCase> testCases = voidFMAssumption.createAssumptions(featureModel);
         TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
 
-        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -103,7 +106,7 @@ class FMAnalyzerTest {
         List<ITestCase> testCases = voidFMAssumption.createAssumptions(featureModel);
         TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
 
-        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -116,7 +119,7 @@ class FMAnalyzerTest {
         testCases = deadFeatureAssumptions.createAssumptions(featureModel);
         testSuite = TestSuite.builder().testCases(testCases).build();
 
-        debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -171,7 +174,7 @@ class FMAnalyzerTest {
         List<ITestCase> testCases = voidFMAssumption.createAssumptions(featureModel);
         TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
 
-        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -184,7 +187,7 @@ class FMAnalyzerTest {
         testCases = deadFeatureAssumptions.createAssumptions(featureModel);
         testSuite = TestSuite.builder().testCases(testCases).build();
 
-        debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -262,7 +265,7 @@ class FMAnalyzerTest {
         List<ITestCase> testCases = voidFMAssumption.createAssumptions(featureModel);
         TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
 
-        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -275,7 +278,7 @@ class FMAnalyzerTest {
         testCases = deadFeatureAssumptions.createAssumptions(featureModel);
         testSuite = TestSuite.builder().testCases(testCases).build();
 
-        debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -335,7 +338,7 @@ class FMAnalyzerTest {
         List<ITestCase> testCases = fullMandatoryAssumptions.createAssumptions(featureModel);
         TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
 
-        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -383,7 +386,7 @@ class FMAnalyzerTest {
         List<ITestCase> testCases = falseOptionalAssumptions.createAssumptions(featureModel);
         TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
 
-        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -430,7 +433,7 @@ class FMAnalyzerTest {
         List<ITestCase> testCases = conditionallyDeadAssumptions.createAssumptions(featureModel);
         TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
 
-        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -509,7 +512,7 @@ class FMAnalyzerTest {
         List<ITestCase> testCases = voidFMAssumption.createAssumptions(featureModel);
         TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
 
-        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel debuggingModel = new FMDebuggingModel(featureModel, testSuite, new FMTestCaseTranslator(), false, false, false);
         debuggingModel.initialize();
 
         // create the specified analysis and the corresponding explanator
@@ -532,7 +535,7 @@ class FMAnalyzerTest {
         assertTrue(analysis.get());
 
         // Store all analyses in here to access them later
-        List<List<AbstractFMAnalysis<Boolean>>> allAnalyses = new ArrayList<>(Collections.emptyList());
+        List<List<AbstractFMAnalysis<?>>> allAnalyses = new ArrayList<>(Collections.emptyList());
         List<List<AbstractAnomalyExplanator<List<Set<Constraint>>>>> allExplanators = new ArrayList<>(Collections.emptyList());
         List<List<AnomalyType>> anomalyTypes = new ArrayList<>(Collections.emptyList());
 
@@ -547,7 +550,7 @@ class FMAnalyzerTest {
         List<ITestCase> deadFeatureTestCases = deadFeatureAssumptions.createAssumptions(featureModel);
         TestSuite deadFeatureTestSuite = TestSuite.builder().testCases(deadFeatureTestCases).build();
 
-        FMDebuggingModel deadFeatureDebuggingModel = new FMDebuggingModel(featureModel, deadFeatureTestSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel deadFeatureDebuggingModel = new FMDebuggingModel(featureModel, deadFeatureTestSuite, new FMTestCaseTranslator(), false, false, false);
         deadFeatureDebuggingModel.initialize();
 
         for (int f = 1; f < featureModel.getNumOfFeatures(); f++) {
@@ -585,7 +588,7 @@ class FMAnalyzerTest {
         List<ITestCase> fullMandatoryTestCases = fullMandatoryAssumptions.createAssumptions(featureModel);
         TestSuite fullMandatoryTestSuite = TestSuite.builder().testCases(fullMandatoryTestCases).build();
 
-        FMDebuggingModel fullMandatoryDebuggingModel = new FMDebuggingModel(featureModel, fullMandatoryTestSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel fullMandatoryDebuggingModel = new FMDebuggingModel(featureModel, fullMandatoryTestSuite, new FMTestCaseTranslator(), false, false, false);
         fullMandatoryDebuggingModel.initialize();
 
         /// FALSE OPTIONAL
@@ -595,7 +598,7 @@ class FMAnalyzerTest {
         List<ITestCase> falseOptionalTestCases = falseOptionalAssumptions.createAssumptions(featureModel);
         TestSuite falseOptionalTestSuite = TestSuite.builder().testCases(falseOptionalTestCases).build();
 
-        FMDebuggingModel falseOptionalDebuggingModel = new FMDebuggingModel(featureModel, falseOptionalTestSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel falseOptionalDebuggingModel = new FMDebuggingModel(featureModel, falseOptionalTestSuite, new FMTestCaseTranslator(), false, false, false);
         falseOptionalDebuggingModel.initialize();
 
         // CONDITIONALLY DEAD
@@ -605,7 +608,7 @@ class FMAnalyzerTest {
         List<ITestCase> conditionallyDeadTestCases = conditionallyDeadAssumptions.createAssumptions(featureModel);
         TestSuite conditionallyDeadTestSuite = TestSuite.builder().testCases(conditionallyDeadTestCases).build();
 
-        FMDebuggingModel conditionallyDeadDebuggingModel = new FMDebuggingModel(featureModel, conditionallyDeadTestSuite, new FMTestCaseTranslator(), false, false);
+        FMDebuggingModel conditionallyDeadDebuggingModel = new FMDebuggingModel(featureModel, conditionallyDeadTestSuite, new FMTestCaseTranslator(), false, false, false);
         conditionallyDeadDebuggingModel.initialize();
 
         // counting variables for indexes
@@ -748,5 +751,91 @@ class FMAnalyzerTest {
 
         FMAnalyzer analyzer = new FMAnalyzer();
         analyzer.performFullAnalysis(featureModel);
+    }
+
+    @Test
+    void testRedundancy1() throws FeatureModelParserException, ExecutionException, InterruptedException {
+        // load the feature model
+        File fileFM = new File("src/test/resources/bamboobike_featureide_deadfeature2.xml");
+        FMParserFactory factory = FMParserFactory.getInstance();
+        FeatureModelParser parser = factory.getParser(FMFormat.FEATUREIDE);
+        FeatureModel featureModel = parser.parse(fileFM);
+
+        FMCdrModel model = new FMCdrModel(featureModel, true, false, true);
+        model.initialize();
+
+        // create the redundancy analysis
+        RedundancyAnalysis analysis = new RedundancyAnalysis(model);
+
+        FMAnalyzer analyzer = new FMAnalyzer();
+        analyzer.addAnalysis(analysis, null); // add the analysis to the analyzer
+        analyzer.run(); // run the analyzer
+
+        // print the result
+        ExplanationColors.EXPLANATION = ConsoleColors.WHITE;
+        if (!analysis.get()) {
+            System.out.println(ExplanationColors.ANOMALY + "X Redundant constraint:");
+            System.out.println(ExplanationColors.EXPLANATION + ConstraintUtils.convertToString(analysis.getRedundantConstraints(), "\n", "\t", false));
+        }
+
+        assertFalse(analysis.get());
+
+        Set<Constraint> constraints = new LinkedHashSet<>();
+        constraints.add(Iterators.get(model.getPossiblyFaultyConstraints().iterator(), 2));
+
+        assertEquals(1, analysis.getRedundantConstraints().size());
+        assertEquals(constraints, analysis.getRedundantConstraints());
+    }
+
+    @Test
+    void testRedundancy2() throws ExecutionException, InterruptedException, FeatureModelException {
+        // load the feature model
+        FeatureModel fm = new FeatureModel();
+        fm.addFeature("survey", "survey");
+        fm.addFeature("pay", "pay");
+        fm.addFeature("ABtesting", "ABtesting");
+        fm.addFeature("statistics", "statistics");
+        fm.addFeature("qa", "qa");
+        fm.addFeature("license", "license");
+        fm.addFeature("nonlicense", "nonlicense");
+        fm.addFeature("multiplechoice", "multiplechoice");
+        fm.addFeature("singlechoice", "singlechoice");
+        fm.addRelationship(RelationshipType.MANDATORY, fm.getFeature("survey"), Collections.singletonList(fm.getFeature("pay")));
+        fm.addRelationship(RelationshipType.OPTIONAL, fm.getFeature("ABtesting"), Collections.singletonList(fm.getFeature("survey")));
+        fm.addRelationship(RelationshipType.MANDATORY, fm.getFeature("survey"), Collections.singletonList(fm.getFeature("statistics")));
+        fm.addRelationship(RelationshipType.MANDATORY, fm.getFeature("survey"), Collections.singletonList(fm.getFeature("qa")));
+        fm.addRelationship(RelationshipType.ALTERNATIVE, fm.getFeature("pay"), List.of(fm.getFeature("license"), fm.getFeature("nonlicense")));
+        fm.addRelationship(RelationshipType.OR, fm.getFeature("qa"), List.of(fm.getFeature("multiplechoice"), fm.getFeature("singlechoice")));
+        fm.addRelationship(RelationshipType.OPTIONAL, fm.getFeature("ABtesting"), Collections.singletonList(fm.getFeature("statistics")));
+        fm.addConstraint(RelationshipType.REQUIRES, fm.getFeature("ABtesting"), Collections.singletonList(fm.getFeature("statistics")));
+        fm.addConstraint(RelationshipType.EXCLUDES, fm.getFeature("ABtesting"), Collections.singletonList(fm.getFeature("nonlicense")));
+        fm.addConstraint(RelationshipType.REQUIRES, fm.getFeature("ABtesting"), Collections.singletonList(fm.getFeature("survey")));
+
+        FMCdrModel model = new FMCdrModel(fm, true, false, true);
+        model.initialize();
+
+        // create the redundancy analysis
+        RedundancyAnalysis analysis = new RedundancyAnalysis(model);
+
+        FMAnalyzer analyzer = new FMAnalyzer();
+        analyzer.addAnalysis(analysis, null); // add the analysis to the analyzer
+        analyzer.run(); // run the analyzer
+
+        // print the result
+        ExplanationColors.EXPLANATION = ConsoleColors.WHITE;
+        if (!analysis.get()) {
+            System.out.println(ExplanationColors.ANOMALY + "X Redundant constraints:");
+            System.out.println(ExplanationColors.EXPLANATION + ConstraintUtils.convertToString(analysis.getRedundantConstraints(), "\n", "\t", false));
+        }
+
+        assertFalse(analysis.get());
+
+        Set<Constraint> constraints = new LinkedHashSet<>();
+        constraints.add(Iterators.get(model.getPossiblyFaultyConstraints().iterator(), 0));
+        constraints.add(Iterators.get(model.getPossiblyFaultyConstraints().iterator(), 2));
+        constraints.add(Iterators.get(model.getPossiblyFaultyConstraints().iterator(), 3));
+
+        assertEquals(3, analysis.getRedundantConstraints().size());
+        assertEquals(constraints, analysis.getRedundantConstraints());
     }
 }
