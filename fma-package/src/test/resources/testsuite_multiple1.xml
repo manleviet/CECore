@@ -1,12 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--
-  ~ Consistency-based Algorithms for Conflict Detection and Resolution
-  ~
-  ~ Copyright (c) 2022
-  ~
-  ~ @author: Viet-Man Le (vietman.le@ist.tugraz.at)
-  -->
-
 <testcases>
     <testcase anomaly="VOID">
         <assumption id="Root" name="Root"/>
@@ -51,6 +43,12 @@
         <assumption id="A3" name="A3"/>
         <clause value="true" variable="Root"/>
         <clause value="true" variable="A3"/>
+    </testcase>
+    <testcase anomaly="FALSEOPTIONAL">
+        <assumption id="A" name="A"/>
+        <clause value="true" variable="Root"/>
+        <clause value="true" variable="B"/>
+        <clause value="false" variable="A"/>
     </testcase>
     <testcase anomaly="FALSEOPTIONAL">
         <assumption id="A3" name="A3"/>

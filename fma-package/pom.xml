@@ -13,7 +13,7 @@
     <parent>
         <artifactId>ce-core-root</artifactId>
         <groupId>at.tugraz.ist.ase</groupId>
-        <version>1.1.0-alpha.2</version>
+        <version>1.1.0-alpha-3</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -23,9 +23,35 @@
         <dependency>
             <groupId>at.tugraz.ist.ase</groupId>
             <artifactId>ce</artifactId>
-            <version>1.1.0-alpha.2</version>
+            <version>1.1.0-alpha-3</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <!--Build jar file for Tamim-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>fma</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>fma</finalName>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
