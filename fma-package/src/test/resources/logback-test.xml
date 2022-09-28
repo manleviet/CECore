@@ -1,5 +1,5 @@
 <!--
-  ~ CECore - Core components of a Configuration Environment
+  ~ Consistency-based Algorithms for Conflict Detection and Resolution
   ~
   ~ Copyright (c) 2021-2022
   ~
@@ -34,6 +34,8 @@
             <pattern>${FILE_LOG_PATTERN}</pattern>
         </encoder>
     </appender>
+
+<!--    <logger name="at.tugraz.ist.ase.fma" level="TRACE"/>-->
 
     <root level="info">
         <appender-ref ref="CONSOLE"/>

@@ -1,5 +1,5 @@
 /*
- * CECore - Core components of a Configuration Environment
+ * Consistency-based Algorithms for Conflict Detection and Resolution
  *
  * Copyright (c) 2022
  *
@@ -19,4 +19,5 @@ public class ExplanationColors {
     public String OK = ConsoleColors.BLUE;
     public String ANOMALY = ConsoleColors.RED;
     public String EXPLANATION = ConsoleColors.BLACK;
+    public String ASSUMPTION = ConsoleColors.GREEN;
 }

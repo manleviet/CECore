@@ -1,5 +1,5 @@
 /*
- * CECore - Core components of a Configuration Environment
+ * Consistency-based Algorithms for Conflict Detection and Resolution
  *
  * Copyright (c) 2022
  *
@@ -8,29 +8,23 @@
 
 package at.tugraz.ist.ase.fma;
 
-import at.tugraz.ist.ase.cdrmodel.fm.FMCdrModel;
-import at.tugraz.ist.ase.cdrmodel.fm.FMDebuggingModel;
-import at.tugraz.ist.ase.cdrmodel.test.ITestCase;
-import at.tugraz.ist.ase.cdrmodel.test.TestSuite;
-import at.tugraz.ist.ase.cdrmodel.test.translator.fm.FMTestCaseTranslator;
-import at.tugraz.ist.ase.common.ConsoleColors;
-import at.tugraz.ist.ase.common.ConstraintUtils;
-import at.tugraz.ist.ase.fm.core.Feature;
+import at.tugraz.ist.ase.fm.core.AbstractRelationship;
+import at.tugraz.ist.ase.fm.core.CTConstraint;
 import at.tugraz.ist.ase.fm.core.FeatureModel;
-import at.tugraz.ist.ase.fm.core.FeatureModelException;
-import at.tugraz.ist.ase.fma.analysis.*;
-import at.tugraz.ist.ase.fma.assumption.DeadFeatureAssumptions;
-import at.tugraz.ist.ase.fma.assumption.FalseOptionalAssumptions;
-import at.tugraz.ist.ase.fma.assumption.FullMandatoryAssumptions;
-import at.tugraz.ist.ase.fma.assumption.VoidFMAssumption;
-import at.tugraz.ist.ase.fma.explanator.*;
-import at.tugraz.ist.ase.fma.featuremodel.AnomalyAwareFeatureModel;
-import at.tugraz.ist.ase.fma.monitor.IMonitor;
+import at.tugraz.ist.ase.fma.analysis.AbstractFMAnalysis;
+import at.tugraz.ist.ase.fma.analysis.AnalysisUtils;
+import at.tugraz.ist.ase.fma.analysis.VoidFMAnalysis;
+import at.tugraz.ist.ase.fma.anomaly.AnomalyAwareFeature;
+import at.tugraz.ist.ase.fma.anomaly.AnomalyType;
+import at.tugraz.ist.ase.fma.builder.IAnalysisBuildable;
+import at.tugraz.ist.ase.fma.monitor.IAnalysisMonitor;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
-import java.util.*;
-import java.util.concurrent.ExecutionException;
+import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
 /**
@@ -38,224 +32,128 @@ import java.util.concurrent.ForkJoinPool;
  * @author: Tamim Burgstaller (tamim.burgstaller@student.tugraz.at)
  */
 public class FMAnalyzer {
+    @Getter
+    protected final FeatureModel<AnomalyAwareFeature, AbstractRelationship<AnomalyAwareFeature>, CTConstraint> fm;
+
+    @Getter
+    protected final List<AbstractFMAnalysis<?>> analyses = new LinkedList<>();
+
     @Setter
-    private IMonitor progressMonitor = null;
+    protected IAnalysisMonitor monitor = null;
 
-    private final Map<AbstractFMAnalysis<?>, AbstractAnomalyExplanator<?>> analyses = new LinkedHashMap<>();
-
-    public FMAnalyzer() {
+    public FMAnalyzer(@NonNull FeatureModel<AnomalyAwareFeature, AbstractRelationship<AnomalyAwareFeature>, CTConstraint> fm) {
+        this.fm = fm;
     }
 
-    public void addAnalysis(AbstractFMAnalysis<?> analysis, AbstractAnomalyExplanator<?> explanator) {
-        analyses.put(analysis, explanator);
+    public void addAnalysis(@NonNull AbstractFMAnalysis<?> analysis) {
+        analyses.add(analysis);
     }
 
-    public void run() throws ExecutionException, InterruptedException {
-        ForkJoinPool pool = ForkJoinPool.commonPool();
-        for (AbstractFMAnalysis<?> analysis : analyses.keySet()) {
-            pool.execute(analysis);
+    /**
+     * Generates analyses and runs them
+     */
+    public void generateAndRun(@NonNull EnumSet<AnomalyType> anomalyTypes, boolean withDiagnosis) throws CloneNotSupportedException {
+        IAnalysisBuildable builder;
+
+        // generate VoidFMAnalysis and execute it
+        builder = AnomalyType.VOID.getBuilder();
+        builder.build(fm, this);
+
+        execute(withDiagnosis);
+
+        // if VoidFMAnalysis is violated, then no need to run other analyses
+        AbstractFMAnalysis<?> voidFMAnalysis = getVoidFMAnalysis();
+        if (voidFMAnalysis != null && !voidFMAnalysis.isNon_violated()) {
+            return;
         }
 
-        List<AbstractAnomalyExplanator<?>> runningTasks = new LinkedList<>();
-        for (AbstractFMAnalysis<?> analysis : analyses.keySet()) {
-            if (!analysis.get()) {
-                AbstractAnomalyExplanator<?> explanator = analyses.get(analysis);
+        // generate DeadFeatureAnalysis and execute them
+        builder = AnomalyType.DEAD.getBuilder();
+        builder.build(fm, this);
 
-                if (explanator != null) {
-                    pool.execute(explanator);
+        execute(withDiagnosis);
 
-                    runningTasks.add(explanator);
-                }
+        // generate other analyses and execute them
+        for (AnomalyType anomalyType : anomalyTypes) {
+            if (anomalyType != AnomalyType.VOID && anomalyType != AnomalyType.DEAD) {
+                builder = anomalyType.getBuilder();
+                builder.build(fm, this);
             }
         }
 
-        for (AbstractAnomalyExplanator<?> tasks : runningTasks) {
-            tasks.join();
+        execute(withDiagnosis);
+    }
+
+    private void execute(boolean withDiagnosis) {
+        ForkJoinPool pool = ForkJoinPool.commonPool();
+
+        if (monitor != null) {
+            monitor.setNumberOfTasks(analyses.size());
+        }
+
+        List<AbstractFMAnalysis<?>> notExecutedAnalyses = AnalysisUtils.getNotExecutedAnalyses(analyses);
+
+        for (AbstractFMAnalysis<?> analysis : notExecutedAnalyses) {
+            analysis.setWithDiagnosis(withDiagnosis);
+            pool.execute(analysis);
+        }
+
+        for (AbstractFMAnalysis<?> analysis : notExecutedAnalyses) {
+            analysis.join();
+
+            if (monitor != null) {
+                monitor.done();
+            }
         }
 
         pool.shutdown();
     }
 
     /**
-     * TODO - migrate this function to a new class called ...Builder (e.g. AnalysesBuilder)
-     * FMAnalyzer should be simple - focus on the execution of the analyses and explanators
-     * The generation of the analyses and explanators should be done in a separate class
+     * Runs the added analyses
+     * Uses this functions to execute analyses read from a file
+     * @param withDiagnosis if true, the diagnosis is identified
      */
-    public void performFullAnalysis(@NonNull FeatureModel fm) throws ExecutionException, InterruptedException, CloneNotSupportedException, FeatureModelException {
-        FMAnalyzer analyzer = this;
-        AnomalyAwareFeatureModel afm = new AnomalyAwareFeatureModel(fm);
+    public void run(boolean withDiagnosis) {
+        // run the VoidFMAnalysis first
+        boolean isNotVoid = true;
+        AbstractFMAnalysis<?> voidFMAnalysis = getVoidFMAnalysis();
+        if (voidFMAnalysis != null) {
+            ForkJoinPool pool = ForkJoinPool.commonPool();
 
-        /// VOID FEATURE MODEL
-        // create a test case/assumption
-        // check void feature model - inconsistent( CF ∪ { c0 })
-        VoidFMAssumption voidFMAssumption = new VoidFMAssumption();
-        List<ITestCase> testCases = voidFMAssumption.createAssumptions(afm);
-        TestSuite testSuite = TestSuite.builder().testCases(testCases).build();
-
-        // create the models
-        FMDebuggingModel debuggingModel = new FMDebuggingModel(afm, testSuite, new FMTestCaseTranslator(), false, false, false);
-        debuggingModel.initialize();
-        FMCdrModel redundancyModel = new FMCdrModel(fm, true, false, true);
-        redundancyModel.initialize();
-
-        // create the specified analysis and the corresponding explanator
-        VoidFMAnalysis analysis = new VoidFMAnalysis(debuggingModel, testCases.get(0));
-        VoidFMExplanator explanator = new VoidFMExplanator(debuggingModel, testCases.get(0));
-
-        RedundancyAnalysis redundancyAnalysis = new RedundancyAnalysis(redundancyModel);
-
-        analyzer.addAnalysis(analysis, explanator); // add the analysis to the analyzer
-        analyzer.addAnalysis(redundancyAnalysis, null); // add the analysis to the analyzer
-        analyzer.run(); // run the analyzer
-
-        // print the result
-        ExplanationColors.EXPLANATION = ConsoleColors.WHITE;
-        if (analysis.get()) {
-            System.out.println(ExplanationColors.OK + "\u2713 Consistency: ok");
-        } else {
-            System.out.println(ExplanationColors.ANOMALY + "X Void feature model");
-            System.out.println(ExplanationUtils.convertToDescriptiveExplanation(explanator.get(), "void feature model"));
-            return;
-        }
-
-        if (redundancyAnalysis.get()) {
-            System.out.println(ExplanationColors.OK + "\u2713 No redundant constraints");
-        }
-        else {
-            System.out.println(ExplanationColors.ANOMALY + "X Redundant constraints:");
-            System.out.println(ExplanationColors.EXPLANATION + ConstraintUtils.convertToString(redundancyAnalysis.getRedundantConstraints(), "\n", "\t", false));
-        }
-
-        System.out.println();
-
-        FMDebuggingModel debuggingModelClone = null;
-
-        // Store all analyses in here to access them later
-        List<AnalysisDetails> details = new ArrayList<>(Collections.emptyList());
-
-        /// DEAD FEATURES
-        // create a test case/assumption
-        // check dead features - inconsistent( CF ∪ { c0 } U { fi = true })
-        DeadFeatureAssumptions deadFeatureAssumptions = new DeadFeatureAssumptions();
-        List<ITestCase> deadFeatureTestCases = deadFeatureAssumptions.createAssumptions(afm);
-        TestSuite deadFeatureTestSuite = TestSuite.builder().testCases(deadFeatureTestCases).build();
-
-        FMDebuggingModel deadFeatureDebuggingModel = new FMDebuggingModel(afm, deadFeatureTestSuite, new FMTestCaseTranslator(), false, false, false);
-        deadFeatureDebuggingModel.initialize();
-
-        for (int f = 1; f < afm.getNumOfFeatures(); f++) {
-            details.add(new AnalysisDetails(afm.getFeature(f)));
-
-            // create the specified analyses and the corresponding explanators
-            debuggingModelClone = (FMDebuggingModel) deadFeatureDebuggingModel.clone();
-            debuggingModelClone.initialize();
-            DeadFeatureAnalysis deadFeatureAnalysis = new DeadFeatureAnalysis(debuggingModelClone, deadFeatureTestCases.get(f - 1));
-            DeadFeatureExplanator deadFeatureExplanator = new DeadFeatureExplanator(debuggingModelClone, deadFeatureTestCases.get(f - 1));
-            analyzer.addAnalysis(deadFeatureAnalysis, deadFeatureExplanator); // add the analysis to the analyzer
-
-            details.get(f - 1).addAnalysis(deadFeatureAnalysis, deadFeatureExplanator, AnomalyType.DEAD);
-        }
-
-        analyzer.run(); // run the analyzer
-
-        // Check the results and set dead features - printing will happen later // TODO does this really work?
-        for (AnalysisDetails analysisDetails : details) {
-            analysisDetails.checkResults();
-        }
-
-        /// FULL MANDATORY
-        // create a test case/assumption
-        // check full mandatory features - inconsistent( CF ∪ { c0 } U { fi = false })
-        FullMandatoryAssumptions fullMandatoryAssumptions = new FullMandatoryAssumptions();
-        List<ITestCase> fullMandatoryTestCases = fullMandatoryAssumptions.createAssumptions(afm);
-        TestSuite fullMandatoryTestSuite = TestSuite.builder().testCases(fullMandatoryTestCases).build();
-
-        FMDebuggingModel fullMandatoryDebuggingModel = new FMDebuggingModel(afm, fullMandatoryTestSuite, new FMTestCaseTranslator(), false, false, false);
-        fullMandatoryDebuggingModel.initialize();
-
-        /// FALSE OPTIONAL
-        // create a test case/assumption
-        // check false optional features  - inconsistent( CF ∪ { c0 } U { fpar = true ^ fopt = false } )
-        FalseOptionalAssumptions falseOptionalAssumptions = new FalseOptionalAssumptions();
-        List<ITestCase> falseOptionalTestCases = falseOptionalAssumptions.createAssumptions(afm);
-        TestSuite falseOptionalTestSuite = TestSuite.builder().testCases(falseOptionalTestCases).build();
-
-        FMDebuggingModel falseOptionalDebuggingModel = new FMDebuggingModel(afm, falseOptionalTestSuite, new FMTestCaseTranslator(), false, false, false);
-        falseOptionalDebuggingModel.initialize();
-
-        // CONDITIONALLY DEAD
-        // create a test case/assumption
-        // check conditionally dead features - inconsistent( CF ∪ { c0 } U { fj = true } U { fi = true } ) for any fj
-//        ConditionallyDeadAssumptions conditionallyDeadAssumptions = new ConditionallyDeadAssumptions();
-//        List<ITestCase> conditionallyDeadTestCases = conditionallyDeadAssumptions.createAssumptions(afm);
-//        TestSuite conditionallyDeadTestSuite = TestSuite.builder().testCases(conditionallyDeadTestCases).build();
-//
-//        FMDebuggingModel conditionallyDeadDebuggingModel = new FMDebuggingModel(afm, conditionallyDeadTestSuite, new FMTestCaseTranslator(), false, false);
-//        conditionallyDeadDebuggingModel.initialize();
-
-        // counting variables for indexes
-//        int condDead = 0;
-        int optWithParent = 0;
-        for (int f = 1; f < afm.getNumOfFeatures(); f++) {
-            if (afm.getAnomalyAwareFeature(f).isAnomalyType(AnomalyType.DEAD)) {
-                continue;
+            if (monitor != null) {
+                monitor.setNumberOfTasks(analyses.size());
             }
 
-            Feature feature = afm.getFeature(f);
+            voidFMAnalysis.setWithDiagnosis(withDiagnosis);
+            pool.execute(voidFMAnalysis);
 
-            // create the specified analyses and the corresponding explanators
-            debuggingModelClone = (FMDebuggingModel) fullMandatoryDebuggingModel.clone();
-            debuggingModelClone.initialize();
-            FullMandatoryAnalysis fullMandatoryAnalysis = new FullMandatoryAnalysis(debuggingModelClone, fullMandatoryTestCases.get(f - 1));
-            FullMandatoryExplanator fullMandatoryExplanator = new FullMandatoryExplanator(debuggingModelClone, fullMandatoryTestCases.get(f - 1));
-            analyzer.addAnalysis(fullMandatoryAnalysis, fullMandatoryExplanator); // add the analysis to the analyzjavaer
+            voidFMAnalysis.join();
 
-            details.get(f - 1).addAnalysis(fullMandatoryAnalysis, fullMandatoryExplanator, AnomalyType.FULLMANDATORY);
-
-            if (afm.isOptionalFeature(feature)) {
-                for (int j = 1; j < afm.getNumOfFeatures(); j++) {
-                    if (f == j || !afm.isOptionalFeature(afm.getFeature(j)) || afm.getAnomalyAwareFeature(j).isAnomalyType(AnomalyType.DEAD)) {
-                        continue;
-                    }
-
-                    // create the specified analyses and the corresponding explanators
-//                    debuggingModelClone = (FMDebuggingModel) conditionallyDeadDebuggingModel.clone();
-//                    debuggingModelClone.initialize();
-//                    ConditionallyDeadAnalysis conditionallyDeadAnalysis = new ConditionallyDeadAnalysis(debuggingModelClone, conditionallyDeadTestCases.get(condDead));
-//                    ConditionallyDeadExplanator conditionallyDeadExplanator = new ConditionallyDeadExplanator(debuggingModelClone, conditionallyDeadTestCases.get(condDead));
-//                    analyzer.addAnalysis(conditionallyDeadAnalysis, conditionallyDeadExplanator); // add the analysis to the analyzer
-//
-//                    details.get(f - 1).addAnalysis(conditionallyDeadAnalysis, conditionallyDeadExplanator, AnomalyType.CONDITIONALLYDEAD);
-//                    condDead++;
-                }
-
-                for (Feature parent : afm.getMandatoryParents(feature)) {
-                    // create the specified analyses and the corresponding explanators
-                    debuggingModelClone = (FMDebuggingModel) falseOptionalDebuggingModel.clone();
-                    debuggingModelClone.initialize();
-                    FalseOptionalAnalysis falseOptionalAnalysis = new FalseOptionalAnalysis(debuggingModelClone, falseOptionalTestCases.get(optWithParent));
-                    FalseOptionalExplanator falseOptionalExplanator = new FalseOptionalExplanator(debuggingModelClone, falseOptionalTestCases.get(optWithParent));
-                    analyzer.addAnalysis(falseOptionalAnalysis, falseOptionalExplanator); // add the analysis to the analyzer
-
-                    details.get(f - 1).addAnalysis(falseOptionalAnalysis, falseOptionalExplanator, AnomalyType.FALSEOPTIONAL);
-                    optWithParent++;
-                }
+            if (monitor != null) {
+                monitor.done(); // done with VoidFMAnalysis
             }
+
+            isNotVoid = voidFMAnalysis.isNon_violated();
+            pool.shutdown();
         }
 
-        analyzer.run(); // run the analyzer
-
-        // Fetch the results
-        for (AnalysisDetails analysisDetails : details) {
-            analysisDetails.printResults();
+        if (isNotVoid) {
+            execute(withDiagnosis);
         }
     }
 
-    public void performAnalysis(FeatureModel fm, int anomalyTypeBits) {
-        // TODO implement single analysis
+    public void reset() {
+        analyses.clear();
     }
 
-    // TODO separate test case generation and analysis
-    // TODO package application -> lazy checking
-    // TODO JSON for test cases
+    private AbstractFMAnalysis<?> getVoidFMAnalysis() {
+        List<AbstractFMAnalysis<?>> voidFMAnalysis = AnalysisUtils.getAnalyses(analyses, VoidFMAnalysis.class);
+
+        if (voidFMAnalysis.isEmpty()) {
+            return null;
+        }
+
+        return voidFMAnalysis.get(0);
+    }
 }
