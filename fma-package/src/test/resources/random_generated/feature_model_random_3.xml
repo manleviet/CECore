@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<featureModel>
+  <properties>
+    <graphics key="autolayoutconstraints" value="false"/>
+    <graphics key="legendautolayout" value="true"/>
+    <graphics key="showshortnames" value="false"/>
+    <graphics key="layout" value="horizontal"/>
+    <graphics key="showcollapsedconstraints" value="true"/>
+    <graphics key="legendhidden" value="false"/>
+    <graphics key="layoutalgorithm" value="1"/>
+  </properties>
+  <struct>
+    <and mandatory="true" name="Root">
+      <and name="A1">
+        <and name="B1">
+          <and name="C1">
+            <and name="D1">
+              <and name="E1" mandatory="true">
+                <and name="F1">
+                  <and name="G1">
+                    <and name="H1">
+                      <and name="I1">
+                        <and name="J1">
+                          <and name="K1">
+                            <feature name="L1"/>
+                            <feature name="L6"/>
+                            <feature name="L11"/>
+                          </and>
+                          <feature name="K7"/>
+                        </and>
+                        <and name="J7">
+                          <or name="K5">
+                            <feature name="L5"/>
+                            <feature name="L10"/>
+                          </or>
+                        </and>
+                      </and>
+                      <or name="I4" mandatory="true">
+                        <feature name="J4"/>
+                      </or>
+                      <feature name="I7"/>
+                    </and>
+                    <feature name="H8"/>
+                  </and>
+                  <or name="G5">
+                    <feature name="H4"/>
+                  </or>
+                </and>
+                <and name="F5">
+                  <feature name="G3"/>
+                  <or name="G7">
+                    <alt name="H6">
+                      <or name="I2">
+                        <and name="J2">
+                          <or name="K2">
+                            <feature name="L2"/>
+                            <feature name="L7"/>
+                            <feature name="L12"/>
+                          </or>
+                          <feature name="K8"/>
+                        </and>
+                        <and name="J8" mandatory="true">
+                          <feature name="K6" mandatory="true"/>
+                        </and>
+                      </or>
+                      <and name="I5">
+                        <feature name="J5"/>
+                      </and>
+                      <alt name="I8">
+                        <and name="J6">
+                          <and name="K4">
+                            <feature name="L4"/>
+                            <feature name="L9"/>
+                          </and>
+                        </and>
+                      </alt>
+                    </alt>
+                  </or>
+                </and>
+              </and>
+              <feature name="E7"/>
+            </and>
+            <feature name="D5"/>
+          </and>
+          <and name="C6">
+            <and name="D3">
+              <or name="E3" mandatory="true">
+                <feature name="F3"/>
+                <feature name="F7" mandatory="true"/>
+              </or>
+            </and>
+            <feature name="D7" mandatory="true"/>
+          </and>
+        </and>
+        <feature name="B6" mandatory="true"/>
+      </and>
+      <and name="A2" mandatory="true">
+        <and name="B2">
+          <feature name="C2"/>
+          <feature name="C7"/>
+        </and>
+        <feature name="B7" mandatory="true"/>
+      </and>
+      <alt name="A3">
+        <and name="B3">
+          <or name="C3">
+            <and name="D2">
+              <or name="E2">
+                <and name="F2">
+                  <or name="G2">
+                    <feature name="H2" mandatory="true"/>
+                  </or>
+                  <or name="G6">
+                    <feature name="H5"/>
+                  </or>
+                </and>
+                <feature name="F6"/>
+              </or>
+              <or name="E8">
+                <feature name="F4"/>
+                <and name="F8">
+                  <and name="G4" mandatory="true">
+                    <feature name="H3"/>
+                  </and>
+                  <and name="G8">
+                    <alt name="H7">
+                      <or name="I3">
+                        <and name="J3" mandatory="true">
+                          <alt name="K3">
+                            <feature name="L3"/>
+                            <feature name="L8"/>
+                          </alt>
+                        </and>
+                      </or>
+                      <feature name="I6"/>
+                    </alt>
+                  </and>
+                </and>
+              </or>
+            </and>
+            <and name="D6">
+              <feature name="E5"/>
+            </and>
+          </or>
+          <or name="C8">
+            <and name="D4">
+              <feature name="E4"/>
+            </and>
+            <and name="D8">
+              <feature name="E6" mandatory="true"/>
+            </and>
+          </or>
+        </and>
+        <feature name="B8"/>
+      </alt>
+      <feature name="A4"/>
+      <or name="A5" mandatory="true">
+        <and name="B4">
+          <feature name="C4"/>
+        </and>
+      </or>
+      <feature name="A6"/>
+      <feature name="A7"/>
+      <and name="A8" mandatory="true">
+        <or name="B5" mandatory="true">
+          <feature name="C5" mandatory="true"/>
+        </or>
+      </and>
+    </and>
+  </struct>
+</featureModel>

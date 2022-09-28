@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<featureModel>
+  <properties>
+    <graphics key="autolayoutconstraints" value="false"/>
+    <graphics key="legendautolayout" value="true"/>
+    <graphics key="showshortnames" value="false"/>
+    <graphics key="layout" value="horizontal"/>
+    <graphics key="showcollapsedconstraints" value="true"/>
+    <graphics key="legendhidden" value="false"/>
+    <graphics key="layoutalgorithm" value="1"/>
+  </properties>
+  <struct>
+    <and mandatory="true" name="Root">
+      <and name="A1">
+        <and name="B1">
+          <and name="C1">
+            <and name="D1">
+              <and name="E1">
+                <and name="F1">
+                  <and name="G1">
+                    <and name="H1">
+                      <and name="I1">
+                        <and name="J1">
+                          <and name="K1">
+                            <feature name="L1"/>
+                            <feature name="L2"/>
+                            <feature name="L3"/>
+                            <feature name="L4"/>
+                            <feature name="L5"/>
+                            <feature name="L6"/>
+                            <feature name="L7"/>
+                            <feature name="L8"/>
+                            <feature name="L9"/>
+                            <feature name="L10"/>
+                            <feature name="L11"/>
+                            <feature name="L12"/>
+                          </and>
+                          <feature name="K2"/>
+                          <feature name="K3"/>
+                          <feature name="K4"/>
+                          <feature name="K5"/>
+                          <feature name="K6"/>
+                          <feature name="K7"/>
+                          <feature name="K8"/>
+                        </and>
+                        <feature name="J2"/>
+                        <feature name="J3"/>
+                        <feature name="J4"/>
+                        <feature name="J5"/>
+                        <feature name="J6"/>
+                        <feature name="J7"/>
+                        <feature name="J8"/>
+                      </and>
+                      <feature name="I2"/>
+                      <feature name="I3"/>
+                      <feature name="I4"/>
+                      <feature name="I5"/>
+                      <feature name="I6"/>
+                      <feature name="I7"/>
+                      <feature name="I8"/>
+                    </and>
+                    <feature name="H2"/>
+                    <feature name="H3"/>
+                    <feature name="H4"/>
+                    <feature name="H5"/>
+                    <feature name="H6"/>
+                    <feature name="H7"/>
+                    <feature name="H8"/>
+                  </and>
+                  <feature name="G2"/>
+                  <feature name="G3"/>
+                  <feature name="G4"/>
+                  <feature name="G5"/>
+                  <feature name="G6"/>
+                  <feature name="G7"/>
+                  <feature name="G8"/>
+                </and>
+                <feature name="F2"/>
+                <feature name="F3"/>
+                <feature name="F4"/>
+                <feature name="F5"/>
+                <feature name="F6"/>
+                <feature name="F7"/>
+                <feature name="F8"/>
+              </and>
+              <feature name="E2"/>
+              <feature name="E3"/>
+              <feature name="E4"/>
+              <feature name="E5"/>
+              <feature name="E6"/>
+              <feature name="E7"/>
+              <feature name="E8"/>
+            </and>
+            <feature name="D2"/>
+            <feature name="D3"/>
+            <feature name="D4"/>
+            <feature name="D5"/>
+            <feature name="D6"/>
+            <feature name="D7"/>
+            <feature name="D8"/>
+          </and>
+          <feature name="C2"/>
+          <feature name="C3"/>
+          <feature name="C4"/>
+          <feature name="C5"/>
+          <feature name="C6"/>
+          <feature name="C7"/>
+          <feature name="C8"/>
+        </and>
+        <feature name="B2"/>
+        <feature name="B3"/>
+        <feature name="B4"/>
+        <feature name="B5"/>
+        <feature name="B6"/>
+        <feature name="B7"/>
+        <feature name="B8"/>
+      </and>
+      <feature name="A2"/>
+      <feature name="A3"/>
+      <feature name="A4"/>
+      <feature name="A5"/>
+      <feature name="A6"/>
+      <feature name="A7"/>
+      <feature name="A8"/>
+    </and>
+  </struct>
+</featureModel>
