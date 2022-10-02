@@ -10,8 +10,6 @@ package at.tugraz.ist.ase.fma;
 
 import at.tugraz.ist.ase.cdrmodel.AbstractCDRModel;
 import at.tugraz.ist.ase.cdrmodel.test.TestSuite;
-import at.tugraz.ist.ase.cdrmodel.test.builder.fm.XMLTestCaseBuilder;
-import at.tugraz.ist.ase.cdrmodel.test.reader.XMLTestSuiteReader;
 import at.tugraz.ist.ase.fm.builder.*;
 import at.tugraz.ist.ase.fm.core.AbstractRelationship;
 import at.tugraz.ist.ase.fm.core.CTConstraint;
@@ -29,6 +27,7 @@ import at.tugraz.ist.ase.fma.explanation.AutomatedAnalysisExplanation;
 import at.tugraz.ist.ase.fma.explanation.CompactExplanation;
 import at.tugraz.ist.ase.fma.explanation.RedundancyAnalysisExplanation;
 import at.tugraz.ist.ase.fma.explanation.VoidFMExplanation;
+import at.tugraz.ist.ase.fma.explanation.RawExplanation;
 import at.tugraz.ist.ase.fma.monitor.ProgressMonitor;
 import at.tugraz.ist.ase.fma.test.AssumptionAwareTestCase;
 import at.tugraz.ist.ase.fma.test.builder.XMLAssumptionAwareTestCaseBuilder;
@@ -36,6 +35,7 @@ import at.tugraz.ist.ase.fma.test.reader.XMLAssumptionAwareTestSuiteReader;
 import at.tugraz.ist.ase.kb.core.Constraint;
 import com.google.common.collect.Iterators;
 import lombok.Cleanup;
+import org.javatuples.Pair;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -2131,5 +2131,63 @@ class FMAnalyzerTest {
         // print the result
         AutomatedAnalysisExplanation explanation = new AutomatedAnalysisExplanation();
         System.out.println(explanation.getDescriptiveExplanation(analyzer.getAnalyses(), options));
+    }
+
+    @Test
+    public void testRawExplanations() throws CloneNotSupportedException, FeatureModelParserException {
+        File fileFM = new File("src/test/resources/basic_featureide_multiple1.xml");
+
+        // create the factory for anomaly feature models
+        IFeatureBuildable featureBuilder = new AnomalyAwareFeatureBuilder();
+        FMParserFactory<AnomalyAwareFeature, AbstractRelationship<AnomalyAwareFeature>, CTConstraint>
+                factory = FMParserFactory.getInstance(featureBuilder);
+
+        @Cleanup("dispose")
+        FeatureModelParser<AnomalyAwareFeature, AbstractRelationship<AnomalyAwareFeature>, CTConstraint>
+                parser = factory.getParser(fileFM.getName());
+        FeatureModel<AnomalyAwareFeature, AbstractRelationship<AnomalyAwareFeature>, CTConstraint>
+                featureModel = parser.parse(fileFM);
+
+        // create an analyzer
+        FMAnalyzer analyzer = new FMAnalyzer(featureModel);
+
+        EnumSet<AnomalyType> options = EnumSet.allOf(AnomalyType.class);
+        // generate analyses and run the analyzer
+        analyzer.generateAndRun(options, true);
+
+        // print the result
+        RawExplanation explanation = new RawExplanation();
+        for (AnomalyType option : options) {
+            Class<? extends AbstractFMAnalysis<?>> analysisClass =
+            switch(option) {
+                case VOID -> VoidFMAnalysis.class;
+                case DEAD -> DeadFeatureAnalysis.class;
+                case FULLMANDATORY -> FullMandatoryAnalysis.class;
+                case FALSEOPTIONAL -> FalseOptionalAnalysis.class;
+                case CONDITIONALLYDEAD -> ConditionallyDeadAnalysis.class;
+                case REDUNDANT -> RedundancyAnalysis.class;
+            };
+
+            Pair<String, List<Pair<String, String>>> explanations = explanation.getDescriptiveExplanation(analyzer.getAnalyses(), analysisClass, option);
+            StringBuilder explain = new StringBuilder()
+                    .append("* ")
+                    .append(explanations.getValue0())
+                    .append("\n");
+            if (explanations.getValue1() == null) {
+                explain.append("[null]\n");
+            }
+            else {
+                for (Pair<String, String> pair : explanations.getValue1()) {
+                    explain.append(pair.getValue0())
+                            .append("\n")
+                            .append(pair.getValue1())
+                            .append("\n");
+                }
+            }
+
+            System.out.println(explain);
+
+        }
+
     }
 }
