@@ -126,6 +126,18 @@ public class Configurator {
         find(0, timeout, C, null);
     }
 
+    public void findAllSolutions(long timeout, @NonNull SolutionWriter writer) {
+        this.writer = writer;
+
+        findAllSolutions(timeout);
+    }
+
+    public void findAllSolutions(@NonNull SolutionWriter writer) {
+        this.writer = writer;
+
+        findAllSolutions(0);
+    }
+
     public void findSolutions(int maxNumConf) {
         // get the set of constraints
         Set<Constraint> C = configurationModel.getCorrectConstraints();
