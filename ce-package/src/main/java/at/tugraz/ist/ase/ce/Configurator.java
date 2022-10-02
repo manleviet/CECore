@@ -47,11 +47,11 @@ public class Configurator {
     @Getter
     protected final List<Solution> solutions;
 
-    public Configurator(@NonNull KB kb, ISolutionTranslatable translator) {
+    public Configurator(@NonNull KB kb, boolean rootConstraints, ISolutionTranslatable translator) {
         this.kb = kb;
         this.translator = translator;
 
-        this.configurationModel = new ConfigurationModel(kb,false);
+        this.configurationModel = new ConfigurationModel(kb,rootConstraints);
         this.configurationModel.initialize(); // unpost all Choco constraints from the Choco model
         this.checker = new ChocoConsistencyChecker(configurationModel);
 
