@@ -16,8 +16,8 @@ import java.io.IOException;
 
 public abstract class SolutionWriter {
 
-    private final String folder;
-    private static int counter = 0;
+    protected final String folder;
+    protected static int counter = 0;
 
     protected FileWriter fileWriter;
 
