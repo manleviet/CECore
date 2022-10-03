@@ -45,4 +45,12 @@ public enum AnomalyType implements IAnomalyType {
     private final String violatedDescription; // when the assumption is violated
     private final String nonViolatedDescription; // when the assumption is not violated
     private final IAnalysisBuildable builder;
+
+    public String getRawViolatedDescription() {
+        return getViolatedDescription().substring(2);
+    }
+
+    public String getRawNonViolatedDescription() {
+        return getNonViolatedDescription().substring(2);
+    }
 }

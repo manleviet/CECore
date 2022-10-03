@@ -42,11 +42,11 @@ public class RawExplanation {
         List<Pair<String, String>> explanationList = null;
 
         if (violatedAnalyses.isEmpty()) {
-            title.append(anomalyType.getNonViolatedDescription());
+            title.append(anomalyType.getRawNonViolatedDescription());
         } else {
             List<AnomalyAwareFeature> anomalyFeatures = AnalysisUtils.getAnomalyFeatures(violatedAnalyses);
 
-            title.append(anomalyType.getViolatedDescription())
+            title.append(anomalyType.getRawViolatedDescription())
                     .append((anomalyFeatures.size() > 1) ? "s" : "")
                     .append(" (").append(anomalyFeatures.size()).append(")")
                     .append(": ")
