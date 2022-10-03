@@ -2133,6 +2133,36 @@ class FMAnalyzerTest {
         System.out.println(explanation.getDescriptiveExplanation(analyzer.getAnalyses(), options));
     }
 
+    // Damn... ran into Java heap space exception :(
+    @Disabled("Forget it, that was a hopeless try... Apologies to the battery again.")
+    @Test
+    public void testVoidAnalysisPerformance() throws CloneNotSupportedException, FeatureModelParserException {
+        File fileFM = new File("src/test/resources/linux-2.6.33.3.xml");
+
+        // create the factory for anomaly feature models
+        IFeatureBuildable featureBuilder = new AnomalyAwareFeatureBuilder();
+        FMParserFactory<AnomalyAwareFeature, AbstractRelationship<AnomalyAwareFeature>, CTConstraint>
+                factory = FMParserFactory.getInstance(featureBuilder);
+
+        @Cleanup("dispose")
+        FeatureModelParser<AnomalyAwareFeature, AbstractRelationship<AnomalyAwareFeature>, CTConstraint>
+                parser = factory.getParser(fileFM.getName());
+        FeatureModel<AnomalyAwareFeature, AbstractRelationship<AnomalyAwareFeature>, CTConstraint>
+                featureModel = parser.parse(fileFM);
+
+        // create an analyzer
+        FMAnalyzer analyzer = new FMAnalyzer(featureModel);
+
+        EnumSet<AnomalyType> options = EnumSet.of(AnomalyType.VOID);
+
+        // run the analyzer
+        analyzer.generateAndRun(options, true);
+
+        // print the result
+        AutomatedAnalysisExplanation explanation = new AutomatedAnalysisExplanation();
+        System.out.println(explanation.getDescriptiveExplanation(analyzer.getAnalyses(), options));
+    }
+
     @Test
     public void testRawExplanations() throws CloneNotSupportedException, FeatureModelParserException {
         File fileFM = new File("src/test/resources/basic_featureide_multiple1.xml");
@@ -2188,6 +2218,5 @@ class FMAnalyzerTest {
             System.out.println(explain);
 
         }
-
     }
 }
