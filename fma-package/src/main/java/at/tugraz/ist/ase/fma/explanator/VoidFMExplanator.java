@@ -1,5 +1,5 @@
 /*
- * CECore - Core components of a Configuration Environment
+ * Consistency-based Algorithms for Conflict Detection and Resolution
  *
  * Copyright (c) 2022
  *
@@ -12,24 +12,29 @@ import at.tugraz.ist.ase.cacdr.algorithms.hs.HSDAG;
 import at.tugraz.ist.ase.cacdr.algorithms.hs.labeler.DirectDebugLabeler;
 import at.tugraz.ist.ase.cacdr.algorithms.hs.parameters.DirectDebugParameters;
 import at.tugraz.ist.ase.cacdr.checker.ChocoConsistencyChecker;
-import at.tugraz.ist.ase.cacdr.eval.CAEvaluator;
 import at.tugraz.ist.ase.cdrmodel.fm.FMDebuggingModel;
-import at.tugraz.ist.ase.kb.core.Constraint;
-import at.tugraz.ist.ase.test.ITestCase;
+import at.tugraz.ist.ase.cdrmodel.test.ITestCase;
+import at.tugraz.ist.ase.fm.core.AbstractRelationship;
+import at.tugraz.ist.ase.fm.core.CTConstraint;
+import at.tugraz.ist.ase.fma.anomaly.AnomalyAwareFeature;
 import lombok.NonNull;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
-public class VoidFMExplanator extends AbstractAnomalyExplanator<List<Set<Constraint>>> {
+/**
+ * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+ * @author: Tamim Burgstaller (tamim.burgstaller@student.tugraz.at)
+ */
+public class VoidFMExplanator extends AbstractAnomalyExplanator {
 
-    public VoidFMExplanator(@NonNull FMDebuggingModel debuggingModel, ITestCase assumption) {
+    public VoidFMExplanator(@NonNull FMDebuggingModel<AnomalyAwareFeature, AbstractRelationship<AnomalyAwareFeature>, CTConstraint> debuggingModel,
+                            ITestCase assumption) {
         super(debuggingModel, assumption);
     }
 
-    public List<Set<Constraint>> identify() {
+    public void identify() {
         ChocoConsistencyChecker checker = new ChocoConsistencyChecker(debuggingModel);
 
         Set<ITestCase> TC = new LinkedHashSet<>(Collections.singletonList(assumption));
@@ -44,9 +49,8 @@ public class VoidFMExplanator extends AbstractAnomalyExplanator<List<Set<Constra
 
         HSDAG hsdag = new HSDAG(directDebug);
 
-        CAEvaluator.reset();
         hsdag.construct();
 
-        return hsdag.getDiagnoses();
+        diagnoses = hsdag.getDiagnoses();
     }
 }

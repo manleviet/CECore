@@ -1,14 +1,17 @@
 /*
- * CECore - Core components of a Configuration Environment
+ * Consistency-based Algorithms for Conflict Detection and Resolution
  *
  * Copyright (c) 2022
  *
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
+
 package at.tugraz.ist.ase.fma.analysis;
 
-import at.tugraz.ist.ase.cdrmodel.fm.FMDebuggingModel;
-import at.tugraz.ist.ase.test.ITestCase;
+import at.tugraz.ist.ase.cdrmodel.AbstractCDRModel;
+import at.tugraz.ist.ase.fma.anomaly.IAnomalyType;
+import at.tugraz.ist.ase.fma.explanator.AbstractAnomalyExplanator;
+import at.tugraz.ist.ase.fma.test.AssumptionAwareTestCase;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -17,36 +20,43 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.RecursiveTask;
 
 /**
- * Base class for an analysis using a ChocoSolver.
+ * Base class for a feature model analysis.
  *
- * @param <T> Type of the analysis result.
+ * @param <T> ITestCase/Constraint
  *
  * @author Sebastian Krieter
- * @author Viet-Man Le
+ * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
+ * @author: Tamim Burgstaller (tamim.burgstaller@student.tugraz.at)
  */
 @Slf4j
-public abstract class AbstractFMAnalysis<T> extends RecursiveTask<T> {
+@Getter
+public abstract class AbstractFMAnalysis<T> extends RecursiveTask<Boolean> {
 
-	protected FMDebuggingModel debuggingModel;
+	protected AbstractCDRModel model;
 
-	@Getter
-	protected ITestCase assumption;
+	protected T assumption; // could be ITestCase or Constraint
+	@Setter
+	protected boolean withDiagnosis = true;
 
-	@Getter
-	private boolean timeoutOccurred = false;
-	@Getter @Setter
-	private long timeout = 1000;
+	protected boolean non_violated;
+
+	protected AbstractAnomalyExplanator explanator = null;
+
+//	@Getter
+//	private boolean timeoutOccurred = false;
+//	@Getter @Setter
+//	private long timeout = 1000;
 
 //	@Setter
-//	protected IMonitor monitor;
+//	protected IAnalysisMonitor monitor = null;
 
-	public AbstractFMAnalysis(@NonNull FMDebuggingModel debuggingModel, @NonNull ITestCase assumption) {
-		this.debuggingModel = debuggingModel;
+	public AbstractFMAnalysis(@NonNull AbstractCDRModel model, T assumption) {
+		this.model = model;
 		this.assumption = assumption;
 	}
 
 	@Override
-	protected T compute() {
+	protected Boolean compute() {
 //		solver.setTimeout(timeout); // TODO - support timeout
 //		if (assumption != null) {
 //			solver.assignmentPushAll(assumptions.getLiterals());
@@ -59,5 +69,16 @@ public abstract class AbstractFMAnalysis<T> extends RecursiveTask<T> {
 		return analyze();
 	}
 
-	protected abstract T analyze();
+	protected abstract Boolean analyze();
+
+	protected void setAnomalyType(IAnomalyType anomalyType) {
+		if (assumption instanceof AssumptionAwareTestCase) {
+			((AssumptionAwareTestCase)assumption).getAssumptions().forEach(feature -> feature.setAnomalyType(anomalyType));
+		}
+	}
+
+	@Override
+	public String toString() {
+		return assumption.toString();
+	}
 }

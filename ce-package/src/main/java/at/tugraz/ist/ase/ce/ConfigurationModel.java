@@ -8,7 +8,7 @@
 
 package at.tugraz.ist.ase.ce;
 
-import at.tugraz.ist.ase.cdrmodel.CDRModel;
+import at.tugraz.ist.ase.cdrmodel.AbstractCDRModel;
 import at.tugraz.ist.ase.cdrmodel.IChocoModel;
 import at.tugraz.ist.ase.common.LoggerUtils;
 import at.tugraz.ist.ase.kb.core.Constraint;
@@ -30,7 +30,7 @@ import static com.google.common.base.Preconditions.checkArgument;
  * B = all constraints
  */
 @Slf4j
-public class ConfigurationModel extends CDRModel implements IChocoModel {
+public class ConfigurationModel extends AbstractCDRModel implements IChocoModel {
     @Getter
     private final Model model;
     private final KB kb;

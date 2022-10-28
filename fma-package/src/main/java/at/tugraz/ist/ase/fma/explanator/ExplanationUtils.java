@@ -1,5 +1,5 @@
 /*
- * CECore - Core components of a Configuration Environment
+ * Consistency-based Algorithms for Conflict Detection and Resolution
  *
  * Copyright (c) 2022
  *

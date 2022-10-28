@@ -47,11 +47,11 @@ public class Configurator {
     @Getter
     protected final List<Solution> solutions;
 
-    public Configurator(@NonNull KB kb, ISolutionTranslatable translator) {
+    public Configurator(@NonNull KB kb, boolean rootConstraints, ISolutionTranslatable translator) {
         this.kb = kb;
         this.translator = translator;
 
-        this.configurationModel = new ConfigurationModel(kb,false);
+        this.configurationModel = new ConfigurationModel(kb,rootConstraints);
         this.configurationModel.initialize(); // unpost all Choco constraints from the Choco model
         this.checker = new ChocoConsistencyChecker(configurationModel);
 
@@ -124,6 +124,18 @@ public class Configurator {
         Set<Constraint> C = configurationModel.getCorrectConstraints();
 
         find(0, timeout, C, null);
+    }
+
+    public void findAllSolutions(long timeout, @NonNull SolutionWriter writer) {
+        this.writer = writer;
+
+        findAllSolutions(timeout);
+    }
+
+    public void findAllSolutions(@NonNull SolutionWriter writer) {
+        this.writer = writer;
+
+        findAllSolutions(0);
     }
 
     public void findSolutions(int maxNumConf) {
