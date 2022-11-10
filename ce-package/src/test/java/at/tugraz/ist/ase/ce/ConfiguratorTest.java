@@ -35,10 +35,10 @@ class ConfiguratorTest {
 
         Configurator configurator = new Configurator(cameraKB, false, new CameraSolutionTranslator());
 
-        // identify 5 first solutions without the given VVO
+        // identify first 5 solutions without the given VVO
         configurator.findSolutions(5, new TxtSolutionWriter("./conf/withoutVVO/"));
 
-        // identify 5 first solutions with the given VVO
+        // identify first 5 solutions with the given VVO
         configurator.findSolutions(5, vvo, new TxtSolutionWriter("./conf/withVVO/"));
     }
 }
