@@ -52,6 +52,7 @@ public class MFVVOValueSelector implements IntValueSelector {
 //        log.trace("{}lastIndex: {}", LoggerUtils.tab(), vo.getVariable().getDomain().getValue(value));
 //        LoggerUtils.outdent();
 
+        LoggerUtils.outdent();
         return vo.getOrdering().get(lastIndex);
     }
 

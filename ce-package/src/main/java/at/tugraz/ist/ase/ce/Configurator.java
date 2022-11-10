@@ -10,7 +10,7 @@ package at.tugraz.ist.ase.ce;
 
 import at.tugraz.ist.ase.cacdr.checker.ChocoConsistencyChecker;
 import at.tugraz.ist.ase.cacdr.eval.CAEvaluator;
-import at.tugraz.ist.ase.ce.io.SolutionWriter;
+import at.tugraz.ist.ase.ce.writer.SolutionWriter;
 import at.tugraz.ist.ase.ce.translator.ISolutionTranslatable;
 import at.tugraz.ist.ase.common.LoggerUtils;
 import at.tugraz.ist.ase.heuristics.ValueVariableOrdering;
@@ -51,7 +51,7 @@ public class Configurator {
         this.kb = kb;
         this.translator = translator;
 
-        this.configurationModel = new ConfigurationModel(kb,rootConstraints);
+        this.configurationModel = new ConfigurationModel(kb, rootConstraints);
         this.configurationModel.initialize(); // unpost all Choco constraints from the Choco model
         this.checker = new ChocoConsistencyChecker(configurationModel);
 
@@ -84,7 +84,7 @@ public class Configurator {
 
         //Add a plugin to print solutions
         AtomicInteger configurationCounter = new AtomicInteger();
-//        solver.unplugAllSearchMonitors();
+        solver.unplugAllSearchMonitors();
         solver.plugMonitor((IMonitorSolution) () -> {
             configurationCounter.getAndIncrement();
 

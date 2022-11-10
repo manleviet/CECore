@@ -83,7 +83,7 @@ public class ConfigurationModel extends AbstractCDRModel implements IChocoModel 
 //            Constraint constraint = new Constraint(f0 + " = true");
 //            constraint.addChocoConstraints(model, startIdx, model.getNbCstrs() - 1, false);
 
-            Constraint constraint = ((FMKB)kb).getRootConstraint();
+            Constraint constraint = ((FMKB<?, ?, ?>)kb).getRootConstraint();
 
             B.add(0, constraint);
         }
