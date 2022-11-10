@@ -10,6 +10,8 @@ package at.tugraz.ist.ase.heuristics;
 
 import at.tugraz.ist.ase.ce.Requirement;
 import at.tugraz.ist.ase.ce.Solution;
+import at.tugraz.ist.ase.heuristics.common.VariableUtils;
+import at.tugraz.ist.ase.kb.core.IntVariable;
 import at.tugraz.ist.ase.mf.MatrixFactorization;
 import lombok.Getter;
 import lombok.NonNull;
@@ -27,6 +29,7 @@ import org.apache.mahout.cf.taste.model.PreferenceArray;
 import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood;
 import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 import org.apache.mahout.math.Vector;
+import org.chocosolver.solver.variables.IntVar;
 
 import java.util.*;
 
@@ -162,8 +165,10 @@ public class MFVVOHeuristic {
 //        System.out.println("SPLIT SOLUTION");
         for (int i = 0; i < splitSolution.size(); i++) {
             String varName = mfvvoModel.getVariables().get(i).getName();
+            IntVar intVar = ((IntVariable)mfvvoModel.getVariables().get(i)).getChocoVar();
 
             ValueOrdering vo = new ValueOrdering(varName);
+            vo.setIntVar(intVar); // TODO
 
             Map<Double, Integer> orderedValues = splitSolution.get(i);
 //            System.out.println(orderedValues);
@@ -182,6 +187,10 @@ public class MFVVOHeuristic {
 //        System.out.println(varOrdering);
 
         vvo.setVarOrdering(varOrdering.values().stream().toList());
+
+        // TODO - need to check
+        List<IntVar> intVars = VariableUtils.getIntVarOrdering(varOrdering.values().stream().toList(), mfvvoModel.getVariables());
+        vvo.setIntVarOrdering(intVars);
 
         return vvo;
     }
