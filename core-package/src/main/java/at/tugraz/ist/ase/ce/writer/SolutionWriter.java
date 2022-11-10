@@ -6,7 +6,7 @@
  * @author: Viet-Man Le (vietman.le@ist.tugraz.at)
  */
 
-package at.tugraz.ist.ase.ce.io;
+package at.tugraz.ist.ase.ce.writer;
 
 import at.tugraz.ist.ase.ce.Solution;
 import lombok.NonNull;

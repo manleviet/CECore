@@ -28,9 +28,9 @@ import java.util.*;
 
 /**
  * Manages the structure of a data model for the matrix factorization.
- *
+ * <p>
  * This class supports to customize the order of the variables in the matrix factorization model.
- *
+ * <p>
  * Provides:
  * 1. getModelData() - returns the data model, in which data items are matched to the variable order in the list of variables.
  * 2. getGenericPreferences() - returns the list of preferences, in which preferences are matched to the variable order in the list of variables.
