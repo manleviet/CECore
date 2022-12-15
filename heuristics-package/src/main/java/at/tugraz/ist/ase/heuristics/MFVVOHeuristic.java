@@ -10,7 +10,7 @@ package at.tugraz.ist.ase.heuristics;
 
 import at.tugraz.ist.ase.ce.Requirement;
 import at.tugraz.ist.ase.ce.Solution;
-import at.tugraz.ist.ase.heuristics.common.VariableUtils;
+import at.tugraz.ist.ase.common.VariableUtils;
 import at.tugraz.ist.ase.kb.core.IntVariable;
 import at.tugraz.ist.ase.mf.MatrixFactorization;
 import lombok.Getter;
