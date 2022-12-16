@@ -14,16 +14,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.chocosolver.solver.search.strategy.selectors.values.IntValueSelector;
 import org.chocosolver.solver.variables.IntVar;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Slf4j
 public class MFVVOValueSelector implements IntValueSelector {
 
     private final List<ValueOrdering> voList;
-    int lastIndex = -1;
+    private final List<Integer> lastIndexList = new LinkedList<>();
 
     public MFVVOValueSelector(List<ValueOrdering> voList){
         this.voList = voList;
+        IntStream.range(0, voList.size()).forEach(i -> lastIndexList.add(-1));
     }
 
     @Override
@@ -39,8 +42,11 @@ public class MFVVOValueSelector implements IntValueSelector {
             return var.getLB();
         }
 
+        int vo_index = voList.indexOf(vo);
+        int lastIndex = lastIndexList.get(vo_index); // get the last index of the variable
         if (++lastIndex >= vo.getOrdering().size())
             lastIndex = 0;
+        lastIndexList.set(vo_index, lastIndex); // update the last index of the variable
 
 //        log.trace("{}valueOrdering found - {}, {}", LoggerUtils.tab(), vo.getVariable().getName(), vo.getOrdering());
 //        int lastIndex = vo.getLastSelectedIndex();
