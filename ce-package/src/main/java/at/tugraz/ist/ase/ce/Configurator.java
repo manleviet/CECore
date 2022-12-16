@@ -10,16 +10,13 @@ package at.tugraz.ist.ase.ce;
 
 import at.tugraz.ist.ase.cacdr.checker.ChocoConsistencyChecker;
 import at.tugraz.ist.ase.cacdr.eval.CAEvaluator;
-import at.tugraz.ist.ase.ce.writer.SolutionWriter;
 import at.tugraz.ist.ase.ce.translator.ISolutionTranslatable;
+import at.tugraz.ist.ase.ce.writer.SolutionWriter;
 import at.tugraz.ist.ase.common.LoggerUtils;
 import at.tugraz.ist.ase.heuristics.ValueVariableOrdering;
 import at.tugraz.ist.ase.heuristics.selector.MFVVOValueSelector;
 import at.tugraz.ist.ase.heuristics.selector.MFVVOVariableSelector;
-import at.tugraz.ist.ase.kb.core.Assignment;
-import at.tugraz.ist.ase.kb.core.Constraint;
-import at.tugraz.ist.ase.kb.core.IIntVarKB;
-import at.tugraz.ist.ase.kb.core.KB;
+import at.tugraz.ist.ase.kb.core.*;
 import com.google.common.collect.Sets;
 import lombok.Getter;
 import lombok.NonNull;
@@ -27,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.search.loop.monitors.IMonitorSolution;
+import org.chocosolver.solver.variables.IntVar;
 
 import java.io.IOException;
 import java.util.*;
@@ -103,11 +101,14 @@ public class Configurator {
 
         if (vvo != null) {
             log.trace("{}Add value variable heuristic", LoggerUtils.tab());
+            IntVar[] vars = kb.getVariableList().stream().map(v -> v instanceof IntVariable ? ((IntVariable) v).getChocoVar() : ((BoolVariable) v).getChocoVar()).toArray(IntVar[]::new);
+
             solver.setSearch(intVarSearch(
                     new MFVVOVariableSelector(vvo.getIntVarOrdering()),
                     new MFVVOValueSelector(vvo.getValueOrdering()),
                     // variables to branch on
-                    ((IIntVarKB)kb).getIntVars()
+                    vars
+//                    ((IIntVarKB)kb).getIntVars()
             ));
         }
 

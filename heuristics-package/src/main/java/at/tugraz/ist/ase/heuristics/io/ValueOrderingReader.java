@@ -10,6 +10,7 @@ package at.tugraz.ist.ase.heuristics.io;
 
 import at.tugraz.ist.ase.common.LoggerUtils;
 import at.tugraz.ist.ase.heuristics.ValueOrdering;
+import at.tugraz.ist.ase.kb.core.BoolVariable;
 import at.tugraz.ist.ase.kb.core.Domain;
 import at.tugraz.ist.ase.kb.core.IntVariable;
 import at.tugraz.ist.ase.kb.core.Variable;
@@ -61,7 +62,13 @@ public class ValueOrderingReader implements IValueOrderingReadable {
         for (Integer key : orderedValues.keySet()) {
             vo.setOrderedValue(orderedValues.get(key));
         }
-        vo.setIntVar(((IntVariable) variable).getChocoVar());
+
+        if (variable instanceof IntVariable) {
+            vo.setIntVar(((IntVariable)variable).getChocoVar());
+        } else if (variable instanceof BoolVariable) {
+            vo.setIntVar(((BoolVariable)variable).getChocoVar());
+        }
+
         return vo;
     }
 }

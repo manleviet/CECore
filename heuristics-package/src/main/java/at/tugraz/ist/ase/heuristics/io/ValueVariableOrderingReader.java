@@ -11,7 +11,7 @@ package at.tugraz.ist.ase.heuristics.io;
 import at.tugraz.ist.ase.common.LoggerUtils;
 import at.tugraz.ist.ase.heuristics.ValueOrdering;
 import at.tugraz.ist.ase.heuristics.ValueVariableOrdering;
-import at.tugraz.ist.ase.kb.core.IIntVarKB;
+import at.tugraz.ist.ase.kb.core.BoolVariable;
 import at.tugraz.ist.ase.kb.core.IntVariable;
 import at.tugraz.ist.ase.kb.core.KB;
 import at.tugraz.ist.ase.kb.core.Variable;
@@ -33,7 +33,7 @@ public class ValueVariableOrderingReader implements IValueVariableOrderingReadab
 
     protected ValueOrderingReader valueOrderingReader = new ValueOrderingReader();
 
-    public <K extends KB & IIntVarKB> ValueVariableOrdering read(@NonNull InputStream inputStream, @NonNull K kb) throws CsvValidationException, IOException {
+    public <K extends KB> ValueVariableOrdering read(@NonNull InputStream inputStream, @NonNull K kb) throws CsvValidationException, IOException {
         ValueVariableOrdering vvo = new ValueVariableOrdering();
 
         CSVReader reader = getCSVReader(inputStream);
@@ -47,7 +47,13 @@ public class ValueVariableOrderingReader implements IValueVariableOrderingReadab
             String variableName = items[0];
             // get the variable
             Variable variable = kb.getVariable(variableName);
-            IntVar intVar = ((IntVariable) variable).getChocoVar();
+            IntVar intVar = null;
+            if (variable instanceof IntVariable) {
+                intVar = ((IntVariable)variable).getChocoVar();
+            } else if (variable instanceof BoolVariable) {
+                intVar = ((BoolVariable)variable).getChocoVar();
+            }
+
             log.trace("{}{}", LoggerUtils.tab(), variable);
 
             // add the variable to the variable ordering
