@@ -11,7 +11,9 @@ package at.tugraz.ist.ase.heuristics;
 import at.tugraz.ist.ase.ce.Requirement;
 import at.tugraz.ist.ase.ce.Solution;
 import at.tugraz.ist.ase.common.VariableUtils;
+import at.tugraz.ist.ase.kb.core.BoolVariable;
 import at.tugraz.ist.ase.kb.core.IntVariable;
+import at.tugraz.ist.ase.kb.core.Variable;
 import at.tugraz.ist.ase.mf.MatrixFactorization;
 import lombok.Getter;
 import lombok.NonNull;
@@ -165,7 +167,14 @@ public class MFVVOHeuristic {
 //        System.out.println("SPLIT SOLUTION");
         for (int i = 0; i < splitSolution.size(); i++) {
             String varName = mfvvoModel.getVariables().get(i).getName();
-            IntVar intVar = ((IntVariable)mfvvoModel.getVariables().get(i)).getChocoVar();
+
+            Variable var = mfvvoModel.getVariables().get(i);
+            IntVar intVar = null;
+            if (var instanceof IntVariable) {
+                intVar = ((IntVariable) var).getChocoVar();
+            } else if (var instanceof BoolVariable) {
+                intVar = ((BoolVariable) var).getChocoVar();
+            }
 
             ValueOrdering vo = new ValueOrdering(varName);
             vo.setIntVar(intVar); // TODO
