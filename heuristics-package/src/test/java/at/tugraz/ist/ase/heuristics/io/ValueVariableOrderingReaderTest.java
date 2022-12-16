@@ -97,19 +97,19 @@ class ValueVariableOrderingReaderTest {
 
         assertNotNull(vvo);
         assertAll(
-                () -> assertEquals(2, vvo.getVarOrdering().size()),
-                () -> assertEquals(2, vvo.getIntVarOrdering().size()),
-                () -> assertEquals(2, vvo.getValueOrdering().size()),
-                () -> assertEquals("Dough", vvo.getVarOrdering().get(0)),
-                () -> assertEquals("Size", vvo.getVarOrdering().get(1)),
-                () -> assertEquals("Dough", vvo.getIntVarOrdering().get(0).getName()),
-                () -> assertEquals("Size", vvo.getIntVarOrdering().get(1).getName()),
-                () -> assertEquals("Dough", vvo.getValueOrdering().get(0).getVarName()),
-                () -> assertEquals("Size", vvo.getValueOrdering().get(1).getVarName()),
+                () -> assertEquals(3, vvo.getVarOrdering().size()),
+                () -> assertEquals(3, vvo.getIntVarOrdering().size()),
+                () -> assertEquals(3, vvo.getValueOrdering().size()),
+                () -> assertEquals("CheesyCrust", vvo.getVarOrdering().get(0)),
+                () -> assertEquals("Neapolitan", vvo.getVarOrdering().get(1)),
+                () -> assertEquals("CheesyCrust", vvo.getIntVarOrdering().get(0).getName()),
+                () -> assertEquals("Neapolitan", vvo.getIntVarOrdering().get(1).getName()),
+                () -> assertEquals("CheesyCrust", vvo.getValueOrdering().get(0).getVarName()),
+                () -> assertEquals("Neapolitan", vvo.getValueOrdering().get(1).getVarName()),
                 () -> assertEquals(1, vvo.getValueOrdering().get(0).getOrdering().get(0)),
                 () -> assertEquals(0, vvo.getValueOrdering().get(0).getOrdering().get(1)),
-                () -> assertEquals(1, vvo.getValueOrdering().get(1).getOrdering().get(0)),
-                () -> assertEquals(0, vvo.getValueOrdering().get(1).getOrdering().get(1))
+                () -> assertEquals(0, vvo.getValueOrdering().get(1).getOrdering().get(0)),
+                () -> assertEquals(1, vvo.getValueOrdering().get(1).getOrdering().get(1))
         );
     }
 }
