@@ -9,11 +9,21 @@
 package at.tugraz.ist.ase.heuristics.io;
 
 import at.tugraz.ist.ase.common.IOUtils;
+import at.tugraz.ist.ase.fm.core.AbstractRelationship;
+import at.tugraz.ist.ase.fm.core.CTConstraint;
+import at.tugraz.ist.ase.fm.core.Feature;
+import at.tugraz.ist.ase.fm.core.FeatureModel;
+import at.tugraz.ist.ase.fm.parser.FMParserFactory;
+import at.tugraz.ist.ase.fm.parser.FeatureModelParser;
+import at.tugraz.ist.ase.fm.parser.FeatureModelParserException;
 import at.tugraz.ist.ase.heuristics.ValueVariableOrdering;
 import at.tugraz.ist.ase.kb.camera.CameraKB;
+import at.tugraz.ist.ase.kb.fm.FMKB;
 import com.opencsv.exceptions.CsvValidationException;
+import lombok.Cleanup;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -23,9 +33,12 @@ class ValueVariableOrderingReaderTest {
 
     private final static CameraKB cameraKB = new CameraKB(false);
 
+    private static FMKB<Feature, AbstractRelationship<Feature>, CTConstraint> kb;
+    private static FeatureModel<Feature, AbstractRelationship<Feature>, CTConstraint> featureModel;
+
     @Test
-    void test() throws IOException, CsvValidationException {
-        InputStream is = IOUtils.getInputStream(this.getClass().getClassLoader(), "ValueVariableOrdering.csv");
+    void testCameraKB() throws IOException, CsvValidationException {
+        InputStream is = IOUtils.getInputStream(this.getClass().getClassLoader(), "vvo_camera.csv");
 
         ValueVariableOrderingReader reader = new ValueVariableOrderingReader();
         ValueVariableOrdering vvo = reader.read(is, cameraKB);
@@ -62,4 +75,41 @@ class ValueVariableOrderingReaderTest {
         );
     }
 
+    @Test
+    void testFMKB() throws FeatureModelParserException, IOException, CsvValidationException {
+        // read the feature model
+        File fileFM = new File("src/test/resources/pizzas.xml");
+
+        @Cleanup("dispose")
+        FeatureModelParser<Feature, AbstractRelationship<Feature>, CTConstraint> parser = FMParserFactory.getInstance().getParser(fileFM.getName());
+        featureModel = parser.parse(fileFM);
+
+        // convert the feature model into FMKB
+        kb = new FMKB<>(featureModel, true);
+
+        // read the value variable ordering
+        InputStream is = IOUtils.getInputStream(ValueVariableOrderingReaderTest.class.getClassLoader(), "vvo_pizzas.csv");
+
+        ValueVariableOrderingReader reader = new ValueVariableOrderingReader();
+        ValueVariableOrdering vvo = reader.read(is, kb);
+
+        System.out.println(vvo);
+
+        assertNotNull(vvo);
+        assertAll(
+                () -> assertEquals(2, vvo.getVarOrdering().size()),
+                () -> assertEquals(2, vvo.getIntVarOrdering().size()),
+                () -> assertEquals(2, vvo.getValueOrdering().size()),
+                () -> assertEquals("Dough", vvo.getVarOrdering().get(0)),
+                () -> assertEquals("Size", vvo.getVarOrdering().get(1)),
+                () -> assertEquals("Dough", vvo.getIntVarOrdering().get(0).getName()),
+                () -> assertEquals("Size", vvo.getIntVarOrdering().get(1).getName()),
+                () -> assertEquals("Dough", vvo.getValueOrdering().get(0).getVarName()),
+                () -> assertEquals("Size", vvo.getValueOrdering().get(1).getVarName()),
+                () -> assertEquals(1, vvo.getValueOrdering().get(0).getOrdering().get(0)),
+                () -> assertEquals(0, vvo.getValueOrdering().get(0).getOrdering().get(1)),
+                () -> assertEquals(1, vvo.getValueOrdering().get(1).getOrdering().get(0)),
+                () -> assertEquals(0, vvo.getValueOrdering().get(1).getOrdering().get(1))
+        );
+    }
 }
