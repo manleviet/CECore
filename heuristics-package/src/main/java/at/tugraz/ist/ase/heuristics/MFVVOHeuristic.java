@@ -166,9 +166,9 @@ public class MFVVOHeuristic {
 
 //        System.out.println("SPLIT SOLUTION");
         for (int i = 0; i < splitSolution.size(); i++) {
-            String varName = mfvvoModel.getVariables().get(i).getName();
-
             Variable var = mfvvoModel.getVariables().get(i);
+
+            String varName = var.getName();
             IntVar intVar = null;
             if (var instanceof IntVariable) {
                 intVar = ((IntVariable) var).getChocoVar();

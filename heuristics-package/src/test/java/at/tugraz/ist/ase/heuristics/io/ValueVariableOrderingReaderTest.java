@@ -88,7 +88,7 @@ class ValueVariableOrderingReaderTest {
         kb = new FMKB<>(featureModel, true);
 
         // read the value variable ordering
-        InputStream is = IOUtils.getInputStream(ValueVariableOrderingReaderTest.class.getClassLoader(), "vvo_pizzas.csv");
+        InputStream is = IOUtils.getInputStream(this.getClass().getClassLoader(), "vvo_pizzas.csv");
 
         ValueVariableOrderingReader reader = new ValueVariableOrderingReader();
         ValueVariableOrdering vvo = reader.read(is, kb);
