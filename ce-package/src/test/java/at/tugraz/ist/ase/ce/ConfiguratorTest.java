@@ -76,7 +76,7 @@ class ConfiguratorTest {
 
         System.out.println(vvo);
 
-        Configurator configurator = new Configurator(kb, false, new FMSolutionTranslator());
+        Configurator configurator = new Configurator(kb, true, new FMSolutionTranslator());
 
         // identify first 5 solutions without the given VVO
         configurator.findSolutions(5, new TxtSolutionWriter("./conf/pizzas_withoutVVO/"));
