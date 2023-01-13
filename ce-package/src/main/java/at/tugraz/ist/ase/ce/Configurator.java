@@ -68,8 +68,8 @@ public class Configurator {
 
     private SolutionWriter writer = null;
     protected void find(int maxNumConf, long timeout, Set<Constraint> C, ValueVariableOrdering vvo) {
-        // re-add Constraint to the model
-        prepareSolver(C);
+//        // re-add Constraint to the model
+//        prepareSolver(C);
 
         // get the solver
         Solver solver = kb.getModelKB().getSolver();
@@ -108,23 +108,29 @@ public class Configurator {
                     new MFVVOValueSelector(vvo.getValueOrdering()),
                     // variables to branch on
                     vars
-//                    ((IIntVarKB)kb).getIntVars()
             ));
         }
 
         // solver
-        solutions.clear();
+//        solutions.clear();
         solver.findAllSolutions();
 
-        // remove all constraints
-        resetSolver();
+//        // remove all constraints
+//        resetSolver();
     }
 
     public void findAllSolutions(long timeout) {
         // get the set of constraints
         Set<Constraint> C = configurationModel.getCorrectConstraints();
 
+        // re-add Constraint to the model
+        prepareSolver(C);
+        solutions.clear();
+
         find(0, timeout, C, null);
+
+        // remove all constraints
+        resetSolver();
     }
 
     public void findAllSolutions(long timeout, @NonNull SolutionWriter writer) {
@@ -143,7 +149,14 @@ public class Configurator {
         // get the set of constraints
         Set<Constraint> C = configurationModel.getCorrectConstraints();
 
+        // re-add Constraint to the model
+        prepareSolver(C);
+        solutions.clear();
+
         find(maxNumConf, 0, C, null);
+
+        // remove all constraints
+        resetSolver();
     }
 
     public void findSolutions(int maxNumConf, @NonNull SolutionWriter writer) {
@@ -161,7 +174,14 @@ public class Configurator {
         Set<Constraint> C = Sets.union(configurationModel.getCorrectConstraints(), Collections.singleton(constraint));
 
         // re-add Constraint to the model
+        prepareSolver(C);
+        solutions.clear();
+
+        // re-add Constraint to the model
         find(maxNumConf, 0, C, null);
+
+        // remove all constraints
+        resetSolver();
     }
 
     public void findSolutions(int maxNumConf, @NonNull Requirement requirement, @NonNull SolutionWriter writer) {
@@ -179,7 +199,14 @@ public class Configurator {
         Set<Constraint> C = Sets.union(configurationModel.getCorrectConstraints(), Collections.singleton(constraint));
 
         // re-add Constraint to the model
+        prepareSolver(C);
+        solutions.clear();
+
+        // re-add Constraint to the model
         find(maxNumConf, 0, C, vvo);
+
+        // remove all constraints
+        resetSolver();
     }
 
     public void findSolutions(int maxNumConf, @NonNull Requirement requirement, @NonNull ValueVariableOrdering vvo, @NonNull SolutionWriter writer) {
@@ -193,7 +220,14 @@ public class Configurator {
         Set<Constraint> C = configurationModel.getCorrectConstraints();
 
         // re-add Constraint to the model
+        prepareSolver(C);
+        solutions.clear();
+
+        // re-add Constraint to the model
         find(maxNumConf, 0, C, vvo);
+
+        // remove all constraints
+        resetSolver();
     }
 
     public void findSolutions(int maxNumConf, @NonNull ValueVariableOrdering vvo, @NonNull SolutionWriter writer) {
@@ -234,13 +268,20 @@ public class Configurator {
         log.trace("{}Posted constraints", LoggerUtils.tab());
     }
 
+    protected void prepareSolver() {
+        // get the set of constraints
+        Set<Constraint> C = configurationModel.getCorrectConstraints();
+
+        prepareSolver(C);
+    }
+
     /**
      * Remove constraints from the Choco model after solving the model.
      */
     protected void resetSolver() {
         Model model = kb.getModelKB();
 
-        model.getSolver().reset();
+        model.getSolver().hardReset();
         model.unpost(model.getCstrs()); // unpost all constraints
 
         log.trace("{}Reset model and unpost all constraints", LoggerUtils.tab());
