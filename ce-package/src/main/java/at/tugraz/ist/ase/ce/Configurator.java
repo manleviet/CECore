@@ -67,10 +67,7 @@ public class Configurator {
     }
 
     private SolutionWriter writer = null;
-    protected void find(int maxNumConf, long timeout, Set<Constraint> C, ValueVariableOrdering vvo) {
-//        // re-add Constraint to the model
-//        prepareSolver(C);
-
+    protected void find(int maxNumConf, long timeout, ValueVariableOrdering vvo) {
         // get the solver
         Solver solver = kb.getModelKB().getSolver();
         if (maxNumConf > 0) {
@@ -112,11 +109,7 @@ public class Configurator {
         }
 
         // solver
-//        solutions.clear();
         solver.findAllSolutions();
-
-//        // remove all constraints
-//        resetSolver();
     }
 
     public void findAllSolutions(long timeout) {
@@ -127,7 +120,7 @@ public class Configurator {
         prepareSolver(C);
         solutions.clear();
 
-        find(0, timeout, C, null);
+        find(0, timeout, null);
 
         // remove all constraints
         resetSolver();
@@ -153,7 +146,7 @@ public class Configurator {
         prepareSolver(C);
         solutions.clear();
 
-        find(maxNumConf, 0, C, null);
+        find(maxNumConf, 0, null);
 
         // remove all constraints
         resetSolver();
@@ -178,7 +171,7 @@ public class Configurator {
         solutions.clear();
 
         // re-add Constraint to the model
-        find(maxNumConf, 0, C, null);
+        find(maxNumConf, 0, null);
 
         // remove all constraints
         resetSolver();
@@ -203,7 +196,7 @@ public class Configurator {
         solutions.clear();
 
         // re-add Constraint to the model
-        find(maxNumConf, 0, C, vvo);
+        find(maxNumConf, 0, vvo);
 
         // remove all constraints
         resetSolver();
@@ -224,7 +217,7 @@ public class Configurator {
         solutions.clear();
 
         // re-add Constraint to the model
-        find(maxNumConf, 0, C, vvo);
+        find(maxNumConf, 0, vvo);
 
         // remove all constraints
         resetSolver();
@@ -268,7 +261,7 @@ public class Configurator {
         log.trace("{}Posted constraints", LoggerUtils.tab());
     }
 
-    protected void prepareSolver() {
+    protected void prepareSolverWithCurrentConstraints() {
         // get the set of constraints
         Set<Constraint> C = configurationModel.getCorrectConstraints();
 
