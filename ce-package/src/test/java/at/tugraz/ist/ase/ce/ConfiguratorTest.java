@@ -30,6 +30,9 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class ConfiguratorTest {
 
@@ -83,5 +86,76 @@ class ConfiguratorTest {
 
         // identify first 5 solutions with the given VVO
         configurator.findSolutions(5, vvo, new TxtSolutionWriter("./conf/pizzas_withVVO/"));
+    }
+
+    @Test
+    void testFindSolutions() throws FeatureModelParserException {
+        // read the feature model
+        File fileFM = new File("src/test/resources/pizzas.xml");
+
+        @Cleanup("dispose")
+        FeatureModelParser<Feature, AbstractRelationship<Feature>, CTConstraint> parser = FMParserFactory.getInstance().getParser(fileFM.getName());
+        featureModel = parser.parse(fileFM);
+
+        // convert the feature model into FMKB
+        kb = new FMKB<>(featureModel, true);
+
+        Configurator configurator = new Configurator(kb, true, new FMSolutionTranslator());
+
+        int counter = 0;
+        for (int i = 0; i < 100; i++) {
+            configurator.findSolutions(1);
+            System.out.println(++counter + " " + configurator.getLastSolution());
+        }
+
+        // check uniqueness of configurations
+        List<Solution> solutions = configurator.getSolutions();
+        for (int i = 0; i < solutions.size() - 1; i++) {
+            for (int j = i + 1; j < solutions.size(); j++) {
+                assertNotEquals(solutions.get(i), solutions.get(j));
+                if (solutions.get(i).equals(solutions.get(j))) {
+                    System.out.println("Solution " + i + " and " + j + " are the same");
+                }
+            }
+        }
+    }
+
+    @Test
+    void testFind() throws FeatureModelParserException {
+        // read the feature model
+        File fileFM = new File("src/test/resources/pizzas.xml");
+
+        @Cleanup("dispose")
+        FeatureModelParser<Feature, AbstractRelationship<Feature>, CTConstraint> parser = FMParserFactory.getInstance().getParser(fileFM.getName());
+        featureModel = parser.parse(fileFM);
+
+        // convert the feature model into FMKB
+        kb = new FMKB<>(featureModel, true);
+
+        Configurator configurator = new Configurator(kb, true, new FMSolutionTranslator());
+        configurator.prepareSolverWithCurrentConstraints();
+
+        for (int i = 0; i < 100; i++) {
+            configurator.find(1, 0, null);
+        }
+
+        configurator.resetSolver();
+        assert configurator.getNumberSolutions() == 21;
+
+        int counter = 0;
+        for (Solution s : configurator.getSolutions()) {
+            System.out.println(++counter + " " + s);
+        }
+
+        // check uniqueness of configurations
+        List<Solution> solutions = configurator.getSolutions();
+        for (int i = 0; i < solutions.size() - 1; i++) {
+            for (int j = i + 1; j < solutions.size(); j++) {
+                assertNotEquals(solutions.get(i), solutions.get(j));
+                if (solutions.get(i).equals(solutions.get(j))) {
+                    System.out.println("Solution " + i + " and " + j + " are the same");
+                }
+            }
+        }
     }
 }
