@@ -49,7 +49,7 @@ public class CameraSolutionTranslator implements ISolutionTranslatable {
 
         // remove the translated constraints from the Choco model
         // TODO - should move out to the configurator class
-        cameraKB.getModelKB().unpost(cameraKB.getModelKB().getCstrs());
+//        cameraKB.getModelKB().unpost(cameraKB.getModelKB().getCstrs());
 
         log.debug("{}Translated solution [solution={}] >>>", LoggerUtils.tab(), solution);
         return constraint;
@@ -82,7 +82,7 @@ public class CameraSolutionTranslator implements ISolutionTranslatable {
 
         // remove the translated constraints from the Choco model
         // TODO - should move out to the configurator class
-        cameraKB.getModelKB().unpost(cameraKB.getModelKB().getCstrs());
+//        cameraKB.getModelKB().unpost(cameraKB.getModelKB().getCstrs());
 
         log.debug("{}Translated solution [solution={}] >>>", LoggerUtils.tab(), solution);
         return constraints;
