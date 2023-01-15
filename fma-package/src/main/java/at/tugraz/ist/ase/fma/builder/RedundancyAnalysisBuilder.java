@@ -45,7 +45,7 @@ public class RedundancyAnalysisBuilder implements IAnalysisBuildable {
                       @NonNull TestSuite testSuite,
                       @NonNull FMAnalyzer analyzer) {
         FMCdrModel<AnomalyAwareFeature, AbstractRelationship<AnomalyAwareFeature>, CTConstraint>
-                model = new FMCdrModel<>(featureModel, true, false, true);
+                model = new FMCdrModel<>(featureModel, true, false, true, true);
         model.initialize();
 
         // create the redundancy analysis

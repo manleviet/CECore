@@ -43,7 +43,7 @@ public class FMSolutionTranslator implements ISolutionTranslatable {
 
         // remove the translated constraints from the Choco model
         // TODO - should move out to the configurator class
-        kb.getModelKB().unpost(kb.getModelKB().getCstrs());
+//        kb.getModelKB().unpost(kb.getModelKB().getCstrs());
 
         log.debug("{}Translated solution [solution={}] >>>", LoggerUtils.tab(), solution);
         return constraint;
@@ -72,7 +72,7 @@ public class FMSolutionTranslator implements ISolutionTranslatable {
 
         // remove the translated constraints from the Choco model
         // TODO - should move out to the configurator class
-        kb.getModelKB().unpost(kb.getModelKB().getCstrs());
+//        kb.getModelKB().unpost(kb.getModelKB().getCstrs());
 
         log.debug("{}Translated solution [solution={}] >>>", LoggerUtils.tab(), solution);
         return constraints;

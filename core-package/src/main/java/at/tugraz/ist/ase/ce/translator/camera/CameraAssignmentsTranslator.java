@@ -40,14 +40,22 @@ public class CameraAssignmentsTranslator implements IAssignmentsTranslatable {
         int startIdx = cameraKB.getNumChocoConstraints();
         createAndPost(assignments, cameraKB);
 
-        Model model = cameraKB.getModelKB();
-        chocoCstrs.addAll(ChocoSolverUtils.getConstraints(model, startIdx, model.getNbCstrs() - 1));
+        afterPostingAndUnpost(chocoCstrs, cameraKB, startIdx);
 
         // TODO - negation
         // Negation of the translated constraints
 //        if (negChocoCstrs != null) {
 //            translateToNegation(logOp, model, negChocoCstrs);
 //        }
+    }
+
+    private static void afterPostingAndUnpost(List<Constraint> chocoCstrs, CameraKB cameraKB, int startIdx) {
+        Model model = cameraKB.getModelKB();
+        List<Constraint> postedCstrs = ChocoSolverUtils.getConstraints(model, startIdx, model.getNbCstrs() - 1);
+        chocoCstrs.addAll(postedCstrs);
+
+        // remove the posted constraints from the Choco model
+        postedCstrs.forEach(model::unpost);
     }
 
     /**
@@ -65,8 +73,7 @@ public class CameraAssignmentsTranslator implements IAssignmentsTranslatable {
         int startIdx = cameraKB.getNumChocoConstraints();
         createAndPost(assignment, cameraKB); // add the translated constraints to the Choco model
 
-        Model model = cameraKB.getModelKB();
-        chocoCstrs.addAll(ChocoSolverUtils.getConstraints(model, startIdx, model.getNbCstrs() - 1));
+        afterPostingAndUnpost(chocoCstrs, cameraKB, startIdx);
 
         // TODO - negation
         // Negation of the translated constraints
