@@ -23,7 +23,7 @@
         <!--suppress VulnerableLibrariesLocal -->
         <dependency>
             <groupId>at.tugraz.ist.ase</groupId>
-            <artifactId>cdrmodel-v2</artifactId>
+            <artifactId>ca-cdr-v2</artifactId>
             <version>${cacdr.version}</version>
             <scope>compile</scope>
         </dependency>
