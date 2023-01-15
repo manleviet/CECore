@@ -20,9 +20,10 @@
     <artifactId>ce-core</artifactId>
 
     <dependencies>
+        <!--suppress VulnerableLibrariesLocal -->
         <dependency>
             <groupId>at.tugraz.ist.ase</groupId>
-            <artifactId>choco-kb-v2</artifactId>
+            <artifactId>cdrmodel-v2</artifactId>
             <version>${cacdr.version}</version>
             <scope>compile</scope>
         </dependency>

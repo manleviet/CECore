@@ -20,12 +20,14 @@
     <artifactId>ce</artifactId>
 
     <dependencies>
+        <!--suppress VulnerableLibrariesLocal -->
         <dependency>
             <groupId>at.tugraz.ist.ase</groupId>
             <artifactId>ca-cdr-v2</artifactId>
             <version>${cacdr.version}</version>
         </dependency>
 
+        <!--suppress VulnerableLibrariesLocal -->
         <dependency>
             <groupId>at.tugraz.ist.ase</groupId>
             <artifactId>heuristics</artifactId>

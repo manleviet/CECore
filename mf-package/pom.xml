@@ -20,6 +20,7 @@
     <artifactId>mf</artifactId>
 
     <dependencies>
+        <!--suppress VulnerableLibrariesLocal -->
         <dependency>
             <groupId>at.tugraz.ist.ase</groupId>
             <artifactId>eval-v2</artifactId>
@@ -27,6 +28,7 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.mahout/mahout-core -->
+        <!--suppress VulnerableLibrariesLocal -->
         <dependency>
             <groupId>org.apache.mahout</groupId>
             <artifactId>mahout-core</artifactId>
