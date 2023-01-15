@@ -20,15 +20,16 @@ import at.tugraz.ist.ase.kb.core.*;
 import com.google.common.collect.Sets;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
-import org.chocosolver.solver.search.loop.monitors.IMonitorSolution;
+import org.chocosolver.solver.search.strategy.Search;
+import org.chocosolver.solver.search.strategy.strategy.AbstractStrategy;
 import org.chocosolver.solver.variables.IntVar;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -37,203 +38,290 @@ import static org.chocosolver.solver.search.strategy.Search.intVarSearch;
 @Slf4j
 public class Configurator {
     protected final KB kb;
-    protected final ISolutionTranslatable translator;
 
     protected final ConfigurationModel configurationModel;
     protected final ChocoConsistencyChecker checker;
 
-    @Getter
-    protected final List<Solution> solutions;
+    protected final boolean rootConstraints;
 
-    public Configurator(@NonNull KB kb, boolean rootConstraints, ISolutionTranslatable translator) {
+    @Setter
+    protected ISolutionTranslatable translator = null;
+
+    @Getter
+    protected final List<Solution> solutions = new LinkedList<>();
+
+    @Setter
+    protected SolutionWriter writer = null;
+
+    @Getter
+    protected Constraint requirement = null;
+
+    protected AbstractStrategy<?> defaultSearch;
+    protected Model model;
+    protected Solver solver;
+
+    public Configurator(@NonNull KB kb, boolean rootConstraints) {
         this.kb = kb;
-        this.translator = translator;
+        this.rootConstraints = rootConstraints;
 
         this.configurationModel = new ConfigurationModel(kb, rootConstraints);
         this.configurationModel.initialize(); // unpost all Choco constraints from the Choco model
         this.checker = new ChocoConsistencyChecker(configurationModel);
 
-        solutions = new LinkedList<>();
+        this.defaultSearch = Search.defaultSearch(kb.getModelKB());
+        this.model = kb.getModelKB();
+        this.solver = this.model.getSolver();
+    }
+
+    public Configurator(@NonNull KB kb, boolean rootConstraints, ISolutionTranslatable translator) {
+        this(kb, rootConstraints);
+
+        this.translator = translator;
+    }
+
+    public Configurator(@NonNull KB kb, boolean rootConstraints, ISolutionTranslatable translator, SolutionWriter writer) {
+        this(kb, rootConstraints, translator);
+
+        this.writer = writer;
     }
 
     public int getNumberSolutions() {
         return solutions.size();
     }
 
-    public Solution getLastSolution() {
+    public Solution getLastestSolution() {
         if (solutions.isEmpty())
             return null;
         return solutions.get(getNumberSolutions() - 1);
     }
 
-    private SolutionWriter writer = null;
-    protected void find(int maxNumConf, long timeout, ValueVariableOrdering vvo) {
-        // get the solver
-        Solver solver = kb.getModelKB().getSolver();
-        if (maxNumConf > 0) {
-            solver.limitSolution(maxNumConf);
+    public void emptySolutions() {
+        solutions.clear();
+    }
+
+    /* Control mode */
+
+    public void initializeWithKB() {
+        // get the set of constraints
+        Set<Constraint> C = configurationModel.getCorrectConstraints();
+
+        prepareSolver(C);
+    }
+
+    public void initializeWithNotKB() {
+        model.post(kb.getNotKB().getChocoConstraints().toArray(new org.chocosolver.solver.constraints.Constraint[0]));
+        log.trace("{}Posted constraints", LoggerUtils.tab());
+    }
+
+    /**
+     * Add constraints to the Choco model before activating the solve() method.
+     * @param C the constraints to add to the model.
+     */
+    protected void prepareSolver(Collection<Constraint> C) {
+        C.forEach(c -> c.getChocoConstraints().forEach(model::post));
+        log.trace("{}Posted constraints", LoggerUtils.tab());
+    }
+
+    public void setRequirement(@NonNull Requirement req) {
+        checkArgument(translator != null, "Translator for the requirement is not set.");
+
+        // translate requirement to Constraint
+        requirement = translator.translate(req, kb);
+
+        requirement.getChocoConstraints().forEach(model::post);
+        log.trace("{}Posted requirement", LoggerUtils.tab());
+    }
+
+    public void removeRequirement() {
+        if (requirement != null) {
+            model.unpost(requirement.getChocoConstraints().toArray(new org.chocosolver.solver.constraints.Constraint[0]));
+            log.trace("{}Unposted requirement", LoggerUtils.tab());
         }
+    }
+
+    public void setVVO(@NonNull ValueVariableOrdering vvo) {
+        log.trace("{}Add value variable heuristic", LoggerUtils.tab());
+        IntVar[] vars = kb.getVariableList().stream().map(v -> v instanceof IntVariable ? ((IntVariable) v).getChocoVar() : ((BoolVariable) v).getChocoVar()).toArray(IntVar[]::new);
+
+        solver.setSearch(intVarSearch(
+                new MFVVOVariableSelector(vvo.getIntVarOrdering()),
+                new MFVVOValueSelector(vvo.getValueOrdering()),
+                // variables to branch on
+                vars
+        ));
+    }
+
+    public void clearVVO() {
+        log.trace("{}Clear value variable heuristic", LoggerUtils.tab());
+
+        solver.setSearch(defaultSearch);
+    }
+
+    public boolean find(int maxNumConf, long timeout) {
+        // get the solver
         if (timeout > 0) {
             solver.limitTime(timeout);
-        }
-
-        //Add a plugin to print solutions
-        AtomicInteger configurationCounter = new AtomicInteger();
-        solver.unplugAllSearchMonitors();
-        solver.plugMonitor((IMonitorSolution) () -> {
-            configurationCounter.getAndIncrement();
-
-            Solution solution = getCurrentSolution();
-            log.trace("{}Found conf {}", LoggerUtils.tab(), configurationCounter.get());
-            solutions.add(solution);
-
-            if (writer != null) {
-                try {
-                    writer.write(solution);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-
-        if (vvo != null) {
-            log.trace("{}Add value variable heuristic", LoggerUtils.tab());
-            IntVar[] vars = kb.getVariableList().stream().map(v -> v instanceof IntVariable ? ((IntVariable) v).getChocoVar() : ((BoolVariable) v).getChocoVar()).toArray(IntVar[]::new);
-
-            solver.setSearch(intVarSearch(
-                    new MFVVOVariableSelector(vvo.getIntVarOrdering()),
-                    new MFVVOValueSelector(vvo.getValueOrdering()),
-                    // variables to branch on
-                    vars
-            ));
+            log.trace("{}Set timeout: {} ms", LoggerUtils.tab(), timeout);
         }
 
         // solver
-        solver.findAllSolutions();
+        int numSolve = 0; // number of solve calls
+        int numSolutions = 0;
+        int numSimilar = 0;
+        boolean could_more_solution = true;
+        do {
+
+            if (!solver.solve()) {
+                could_more_solution = false;
+            } else {
+                numSolve++;
+                Solution solution = getCurrentSolution();
+
+                if (contains(solution)) {
+                    numSimilar++;
+                } else {
+                    numSolutions++;
+                    log.trace("{}{}. {}", LoggerUtils.tab(), numSolutions, solution);
+                    solutions.add(solution);
+
+                    if (writer != null) {
+                        try {
+                            writer.write(solution);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+            }
+        } while (could_more_solution && (maxNumConf == 0 || numSolutions < maxNumConf));
+        log.trace("{}Solve executed {} times", LoggerUtils.tab(), numSolve);
+        log.trace("{}Found {} similar solutions", LoggerUtils.tab(), numSimilar);
+
+        return could_more_solution;
     }
 
-    public void findAllSolutions(long timeout) {
-        // get the set of constraints
-        Set<Constraint> C = configurationModel.getCorrectConstraints();
+    /**
+     * Remove constraints from the Choco model after solving the model.
+     */
+    public void reset() {
+        solver.hardReset();
+        model.unpost(model.getCstrs()); // unpost all constraints
 
-        // re-add Constraint to the model
-        prepareSolver(C);
-        solutions.clear();
+        log.trace("{}Reset model and unpost all constraints", LoggerUtils.tab());
+    }
 
-        find(0, timeout, null);
+    /* Compact mode */
+
+    public void findAllSolutions(boolean notKB, long timeout) {
+        prefindSolutions(notKB, null, null);
+
+        find(0, timeout);
 
         // remove all constraints
-        resetSolver();
+        reset();
     }
 
-    public void findAllSolutions(long timeout, @NonNull SolutionWriter writer) {
-        this.writer = writer;
+    private void prefindSolutions(boolean notKB, Requirement requirement, ValueVariableOrdering vvo) {
+        emptySolutions();
+        if (notKB) {
+            initializeWithNotKB();
+        } else {
+            initializeWithKB();
+        }
 
-        findAllSolutions(timeout);
+        if (requirement != null) {
+            setRequirement(requirement);
+        }
+        if (vvo != null) {
+            setVVO(vvo);
+        }
     }
 
-    public void findAllSolutions(@NonNull SolutionWriter writer) {
-        this.writer = writer;
+    public void findAllSolutions(boolean notKB, long timeout, @NonNull SolutionWriter writer) {
+        setWriter(writer);
 
-        findAllSolutions(0);
+        findAllSolutions(notKB, timeout);
     }
 
-    public void findSolutions(int maxNumConf) {
-        // get the set of constraints
-        Set<Constraint> C = configurationModel.getCorrectConstraints();
+    public void findAllSolutions(boolean notKB, @NonNull SolutionWriter writer) {
+        setWriter(writer);
 
-        // re-add Constraint to the model
-        prepareSolver(C);
-        solutions.clear();
+        findAllSolutions(notKB,0);
+    }
 
-        find(maxNumConf, 0, null);
+    public void findSolutions(boolean notKB, int maxNumConf) {
+        prefindSolutions(notKB, null, null);
+
+        find(maxNumConf, 0);
 
         // remove all constraints
-        resetSolver();
+        reset();
     }
 
-    public void findSolutions(int maxNumConf, @NonNull SolutionWriter writer) {
-        this.writer = writer;
+    public void findSolutions(boolean notKB, int maxNumConf, @NonNull SolutionWriter writer) {
+        setWriter(writer);
 
-        findSolutions(maxNumConf);
+        findSolutions(notKB, maxNumConf);
     }
 
-    public void findSolutions(int maxNumConf, @NonNull Requirement requirement) {
+    // TODO - generic method
+    public void findSolutions(boolean notKB, int maxNumConf, @NonNull Requirement requirement) {
         checkArgument(translator != null, "Translator for the requirement is not set.");
 
-        // translate requirement to Constraint
-        Constraint constraint = translator.translate(requirement, kb);
-        // get the set of constraints
-        Set<Constraint> C = Sets.union(configurationModel.getCorrectConstraints(), Collections.singleton(constraint));
+        prefindSolutions(notKB, requirement, null);
 
         // re-add Constraint to the model
-        prepareSolver(C);
-        solutions.clear();
-
-        // re-add Constraint to the model
-        find(maxNumConf, 0, null);
+        find(maxNumConf, 0);
 
         // remove all constraints
-        resetSolver();
+        reset();
     }
 
-    public void findSolutions(int maxNumConf, @NonNull Requirement requirement, @NonNull SolutionWriter writer) {
-        this.writer = writer;
+    // TODO - generic method
+    public void findSolutions(boolean notKB, int maxNumConf, @NonNull Requirement requirement, @NonNull SolutionWriter writer) {
+        setWriter(writer);
 
-        findSolutions(maxNumConf, requirement);
+        findSolutions(notKB, maxNumConf, requirement);
     }
 
-    public void findSolutions(int maxNumConf, @NonNull Requirement requirement, @NonNull ValueVariableOrdering vvo) {
+    // TODO - generic method
+    public void findSolutions(boolean notKB, int maxNumConf, @NonNull Requirement requirement, @NonNull ValueVariableOrdering vvo) {
         checkArgument(translator != null, "Translator for the requirement is not set.");
 
-        // translate requirement to Constraint
-        Constraint constraint = translator.translate(requirement, kb);
-        // get the set of constraints
-        Set<Constraint> C = Sets.union(configurationModel.getCorrectConstraints(), Collections.singleton(constraint));
+        prefindSolutions(notKB, requirement, vvo);
 
         // re-add Constraint to the model
-        prepareSolver(C);
-        solutions.clear();
+        find(maxNumConf, 0);
 
-        // re-add Constraint to the model
-        find(maxNumConf, 0, vvo);
+        clearVVO();
 
         // remove all constraints
-        resetSolver();
+        reset();
     }
 
-    public void findSolutions(int maxNumConf, @NonNull Requirement requirement, @NonNull ValueVariableOrdering vvo, @NonNull SolutionWriter writer) {
-        this.writer = writer;
-
-        findSolutions(maxNumConf, requirement, vvo);
-    }
-
-    public void findSolutions(int maxNumConf, @NonNull ValueVariableOrdering vvo) {
-        // get the set of constraints
-        Set<Constraint> C = configurationModel.getCorrectConstraints();
+    public void findSolutions(boolean notKB, int maxNumConf, @NonNull ValueVariableOrdering vvo) {
+        prefindSolutions(notKB, null, vvo);
 
         // re-add Constraint to the model
-        prepareSolver(C);
-        solutions.clear();
+        find(maxNumConf, 0);
 
-        // re-add Constraint to the model
-        find(maxNumConf, 0, vvo);
+        clearVVO();
 
         // remove all constraints
-        resetSolver();
+        reset();
     }
 
-    public void findSolutions(int maxNumConf, @NonNull ValueVariableOrdering vvo, @NonNull SolutionWriter writer) {
-        this.writer = writer;
+    public void findSolutions(boolean notKB, int maxNumConf, @NonNull ValueVariableOrdering vvo, @NonNull SolutionWriter writer) {
+        setWriter(writer);
 
-        findSolutions(maxNumConf, vvo);
+        findSolutions(notKB, maxNumConf, vvo);
     }
 
-    public boolean isConsistent(@NonNull Solution solution) {
+    public <T extends Solution> boolean isConsistent(@NonNull T t) {
         checkArgument(translator != null, "Translator for the solution is not set.");
 
         // translate solution to Constraint
-        Constraint constraint = translator.translate(solution, kb);
+        Constraint constraint = translator.translate(t, kb);
         Set<Constraint> C = Sets.union(configurationModel.getCorrectConstraints(), Collections.singleton(constraint));
 
         CAEvaluator.reset();
@@ -251,32 +339,8 @@ public class Configurator {
         return Solution.builder().assignments(assignments).build();
     }
 
-    /**
-     * Add constraints to the Choco model before activating the solve() method.
-     * @param C the constraints to add to the model.
-     */
-    protected void prepareSolver(Collection<Constraint> C) {
-        Model model = kb.getModelKB();
-        C.forEach(c -> c.getChocoConstraints().forEach(model::post));
-        log.trace("{}Posted constraints", LoggerUtils.tab());
-    }
-
-    protected void prepareSolverWithCurrentConstraints() {
-        // get the set of constraints
-        Set<Constraint> C = configurationModel.getCorrectConstraints();
-
-        prepareSolver(C);
-    }
-
-    /**
-     * Remove constraints from the Choco model after solving the model.
-     */
-    protected void resetSolver() {
-        Model model = kb.getModelKB();
-
-        model.getSolver().hardReset();
-        model.unpost(model.getCstrs()); // unpost all constraints
-
-        log.trace("{}Reset model and unpost all constraints", LoggerUtils.tab());
+    // TODO: migrate to common-package and generic method - T needs to have equals and hashCode methods
+    private boolean contains(Solution solution) {
+        return solutions.stream().anyMatch(s -> s.equals(solution));
     }
 }
