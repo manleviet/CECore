@@ -2,7 +2,7 @@
 <!--
   ~ CECore - Core components of a Configuration Environment
   ~
-  ~ Copyright (c) 2022
+  ~ Copyright (c) 2023
   ~
   ~ @author: Viet-Man Le (vietman.le@ist.tugraz.at)
   -->
@@ -10,22 +10,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>ce-core-root</artifactId>
         <groupId>at.tugraz.ist.ase</groupId>
+        <artifactId>ce-core-root</artifactId>
         <version>1.1.2-alpha-10</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ce</artifactId>
+    <artifactId>fma-eval-app</artifactId>
+    <version>1.3</version>
+    <packaging>jar</packaging>
 
-    <dependencies>
-        <!--suppress VulnerableLibrariesLocal -->
-        <dependency>
-            <groupId>at.tugraz.ist.ase</groupId>
-            <artifactId>heuristics</artifactId>
-            <version>1.1.2-alpha-10</version>
-        </dependency>
-    </dependencies>
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
 </project>
